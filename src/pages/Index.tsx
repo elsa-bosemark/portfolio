@@ -1,13 +1,12 @@
-import Hero from "@/components/Hero";
+import WaveHero from "@/components/WaveHero";
 import CaseStudies from "@/components/CaseStudies";
-import Footer from "@/components/Footer";
-
+import About from "@/components/About";
 const Index = () => {
   return (
     <main className="min-h-screen bg-background">
-      <Hero />
+      <WaveHero />
       <CaseStudies />
-      <Footer />
+      <About />
     </main>
   );
 };

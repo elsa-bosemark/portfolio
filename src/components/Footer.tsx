@@ -4,7 +4,7 @@ const Footer = () => {
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
         <div>
           <p className="text-2xl font-display text-foreground" style={{ fontFamily: 'var(--font-display)' }}>
-            Alex Morgan
+            Elsa Bosemark
           </p>
           <p className="text-sm text-muted-foreground mt-1">Designer & Creative Strategist</p>
         </div>
