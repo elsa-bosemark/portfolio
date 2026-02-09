@@ -213,11 +213,11 @@ const WaveHero = () => {
           }}
           className="text-xl md:text-2xl lg:text-3xl text-muted-foreground max-w-2xl mx-auto leading-relaxed font-light"
         >
-          Product designer turning ambiguity into{" "}
+          Crafting{" "}
           <span className="text-foreground font-medium">
-            clear product direction
+            human-centered experiences
           </span>{" "}
-          through research, systems thinking, and making.
+          at the intersection of design and code, bringing clarity in ambiguous situations.
         </motion.p>
 
         <motion.div
