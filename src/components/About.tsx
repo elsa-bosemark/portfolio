@@ -15,7 +15,7 @@ const About = () => {
           <div>
             <div className="relative w-52 h-64 md:w-60 md:h-72 mb-6">
               <img
-                src="/profilepicture.PNG"
+                src="profilepicture.PNG"
                 alt="Elsa Bosemark"
                 className="w-full h-full object-cover"
                 style={{

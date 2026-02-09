@@ -91,7 +91,7 @@ const CaseStudyCarta = () => (
           className="lg:w-1/2 flex items-center"
         >
           <img
-            src="/Carta/MacBook Pro 16-inch Space Black Front.png"
+            src="Carta/MacBook Pro 16-inch Space Black Front.png"
             alt="Carta degree tracker interface"
             className="w-full rounded-sm"
           />
@@ -213,7 +213,7 @@ const CaseStudyCarta = () => (
           exist.
         </p>
         <img
-          src="/Carta/Landscape.png"
+          src="Carta/Landscape.png"
           alt="Competitive landscape of degree planning tools"
           className="w-full rounded-sm"
           loading="lazy"
@@ -316,7 +316,7 @@ const CaseStudyCarta = () => (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <figure>
             <img
-              src="/Carta/Lowfi.png"
+              src="Carta/Lowfi.png"
               alt="Low-fidelity wireframes for Carta"
               className="w-full rounded-sm"
               loading="lazy"
@@ -327,7 +327,7 @@ const CaseStudyCarta = () => (
           </figure>
           <figure>
             <img
-              src="/Carta/Highfi.png"
+              src="Carta/Highfi.png"
               alt="High-fidelity designs for Carta"
               className="w-full rounded-sm"
               loading="lazy"
@@ -361,7 +361,7 @@ const CaseStudyCarta = () => (
             Select instead of Drag & Drop
           </h3>
           <img
-            src="/Carta/1_Select instead of Drag & Drop.png"
+            src="Carta/1_Select instead of Drag & Drop.png"
             alt="Select instead of drag and drop"
             className="w-full rounded-sm mb-6"
             loading="lazy"
@@ -382,7 +382,7 @@ const CaseStudyCarta = () => (
             Keeping it Simple
           </h3>
           <img
-            src="/Carta/1_Keeping it Simple .png"
+            src="Carta/1_Keeping it Simple .png"
             alt="Keeping it simple design change"
             className="w-full rounded-sm mb-6"
             loading="lazy"
@@ -402,7 +402,7 @@ const CaseStudyCarta = () => (
             Quick Access
           </h3>
           <img
-            src="/Carta/1_Quick Access.png"
+            src="Carta/1_Quick Access.png"
             alt="Quick access design change"
             className="w-full rounded-sm mb-6"
             loading="lazy"
@@ -443,7 +443,7 @@ const CaseStudyCarta = () => (
               automatically filled out. No more hunting across websites.
             </p>
             <img
-              src="/Carta/Automated.png"
+              src="Carta/Automated.png"
               alt="Automated degree requirement filling"
               className="w-full rounded-sm"
               loading="lazy"
@@ -459,7 +459,7 @@ const CaseStudyCarta = () => (
               needs. Track WAYS and unit count requirements in one place.
             </p>
             <img
-              src="/Carta/Personlized.png"
+              src="Carta/Personlized.png"
               alt="Personalized degree planning"
               className="w-full rounded-sm"
               loading="lazy"
@@ -475,7 +475,7 @@ const CaseStudyCarta = () => (
               the four-year planner contribute to a given degree.
             </p>
             <img
-              src="/Carta/Visulize.png"
+              src="Carta/Visulize.png"
               alt="Visualized degree progress"
               className="w-full rounded-sm"
               loading="lazy"
@@ -496,7 +496,7 @@ const CaseStudyCarta = () => (
         </h2>
         <div className="flex flex-col md:flex-row gap-8 items-start">
           <img
-            src="/Carta/Handoff.png"
+            src="Carta/Handoff.png"
             alt="Design handoff documentation"
             className="w-full md:w-1/2 rounded-sm"
             loading="lazy"

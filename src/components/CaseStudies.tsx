@@ -7,7 +7,7 @@ const caseStudies = [
     category: "Product Design & Launch",
     description:
       "Designed the degree tracker UI for Stanford's academic planner, helping 95% of undergrads track degree progress, explore majors, and plan courses, all in one place.",
-    image: "/Carta/MacBook Pro 16-inch Space Black Front.png",
+    image: "Carta/MacBook Pro 16-inch Space Black Front.png",
     slug: "/case-study/carta",
     skills: ["Interviewing", "UI Design", "Documenting", "Collaborating"],
     date: "10 weeks",
@@ -19,7 +19,7 @@ const caseStudies = [
     category: "UX Design & Research",
     description:
       "Conducted field research, user interviews, and journey mapping at an infrared heater startup to define the ideal heating experience and scope four high-impact UX improvement projects.",
-    image: "/Focal/Top Image and Thumbnail.png",
+    image: "Focal/Top Image and Thumbnail.png",
     slug: "/case-study/focal",
     skills: ["Experiments", "A/B Testing", "User Research", "Journey Mapping"],
     date: "8 weeks",
@@ -31,7 +31,7 @@ const caseStudies = [
     category: "Mobile App Development & Design",
     description:
       "Built a React Native app that lets customers review restaurants' compliance with CDC COVID-19 safety guidelines. Won 1st place at MIT App Inventor Hackathon and was featured by CNN.",
-    image: "/SafeBites/topthumbnailimage.png",
+    image: "SafeBites/topthumbnailimage.png",
     slug: "/case-study/safebites",
     skills: ["Mobile App Dev", "Presenting", "Team Management", "Beta Testing"],
     date: "2 months",

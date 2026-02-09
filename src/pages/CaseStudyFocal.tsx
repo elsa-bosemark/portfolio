@@ -91,7 +91,7 @@ const CaseStudyFocal = () => (
           className="lg:w-1/2 flex items-center"
         >
           <img
-            src="/Focal/Top Image and Thumbnail.png"
+            src="Focal/Top Image and Thumbnail.png"
             alt="Focal infrared heater project"
             className="w-full rounded-sm"
           />
@@ -135,7 +135,7 @@ const CaseStudyFocal = () => (
           contribute to market fit discussions with the Strategy Lead.
         </p>
         <img
-          src="/Focal/Final Customer Satisfaction Report.png"
+          src="Focal/Final Customer Satisfaction Report.png"
           alt="Snapshots from the final Customer Satisfaction Report"
           className="w-full rounded-sm mb-4"
           loading="lazy"
@@ -157,7 +157,7 @@ const CaseStudyFocal = () => (
         </h2>
         <div className="flex flex-col md:flex-row gap-8 items-center">
           <img
-            src="/Focal/Context.png"
+            src="Focal/Context.png"
             alt="Focal context, infrared heater installations"
             className="w-full md:w-1/2 rounded-sm"
             loading="lazy"
@@ -208,7 +208,7 @@ const CaseStudyFocal = () => (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-card border border-border rounded-sm overflow-hidden">
             <img
-              src="/Focal/Field Work.png"
+              src="Focal/Field Work.png"
               alt="Field work research"
               className="w-full"
               loading="lazy"
@@ -226,7 +226,7 @@ const CaseStudyFocal = () => (
           </div>
           <div className="bg-card border border-border rounded-sm overflow-hidden">
             <img
-              src="/Focal/Observations.png"
+              src="Focal/Observations.png"
               alt="Observations at restaurants"
               className="w-full"
               loading="lazy"
@@ -243,7 +243,7 @@ const CaseStudyFocal = () => (
           </div>
           <div className="bg-card border border-border rounded-sm overflow-hidden">
             <img
-              src="/Focal/Interviews.png"
+              src="Focal/Interviews.png"
               alt="Interview notes"
               className="w-full"
               loading="lazy"
@@ -276,7 +276,7 @@ const CaseStudyFocal = () => (
           convenient, flexible, and ambient for guests and staff.
         </p>
         <img
-          src="/Focal/How Might We.png"
+          src="Focal/How Might We.png"
           alt="How Might We synthesis"
           className="w-full rounded-sm"
           loading="lazy"
@@ -338,7 +338,7 @@ const CaseStudyFocal = () => (
           {/* Cole Valley Tavern */}
           <div className="border border-border rounded-sm overflow-hidden bg-background">
             <img
-              src="/Focal/Cole Valley Tavern.png"
+              src="Focal/Cole Valley Tavern.png"
               alt="Cole Valley Tavern"
               className="w-full"
               loading="lazy"
@@ -379,7 +379,7 @@ const CaseStudyFocal = () => (
           {/* Vega */}
           <div className="border border-border rounded-sm overflow-hidden bg-background">
             <img
-              src="/Focal/Vega.png"
+              src="Focal/Vega.png"
               alt="Vega restaurant"
               className="w-full"
               loading="lazy"
@@ -435,13 +435,13 @@ const CaseStudyFocal = () => (
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <img
-            src="/Focal/User Journeys Left.png"
+            src="Focal/User Journeys Left.png"
             alt="User journey map, left"
             className="w-full rounded-sm"
             loading="lazy"
           />
           <img
-            src="/Focal/User Journeys Right.png"
+            src="Focal/User Journeys Right.png"
             alt="User journey map, right"
             className="w-full rounded-sm"
             loading="lazy"
@@ -535,7 +535,7 @@ const CaseStudyFocal = () => (
             ))}
           </div>
           <img
-            src="/Focal/Research Informed Projects.png"
+            src="Focal/Research Informed Projects.png"
             alt="Four research-informed projects"
             className="w-full md:w-1/2 rounded-sm"
             loading="lazy"

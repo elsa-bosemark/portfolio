@@ -91,7 +91,7 @@ const CaseStudySafeBites = () => (
           className="lg:w-1/2 flex items-center justify-center"
         >
           <img
-            src="/SafeBites/topthumbnailimage.png"
+            src="SafeBites/topthumbnailimage.png"
             alt="SafeBites app"
             className="w-full max-w-sm rounded-sm"
           />
@@ -185,7 +185,7 @@ const CaseStudySafeBites = () => (
         </h2>
         <div className="flex flex-col md:flex-row gap-8 items-center">
           <img
-            src="/SafeBites/Context.png"
+            src="SafeBites/Context.png"
             alt="SafeBites team context"
             className="w-full md:w-1/2 rounded-sm"
             loading="lazy"
@@ -213,7 +213,7 @@ const CaseStudySafeBites = () => (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
             <img
-              src="/SafeBites/Brought Ideas to Life.png"
+              src="SafeBites/Brought Ideas to Life.png"
               alt="MIT Hackathon submission"
               className="w-full rounded-sm mb-5"
               loading="lazy"
@@ -229,7 +229,7 @@ const CaseStudySafeBites = () => (
 
           <div>
             <img
-              src="/SafeBites/Online Excitement .png"
+              src="SafeBites/Online Excitement .png"
               alt="CNN Digital coverage of SafeBites"
               className="w-full rounded-sm mb-5"
               loading="lazy"
@@ -256,7 +256,7 @@ const CaseStudySafeBites = () => (
         </h2>
 
         <img
-          src="/SafeBites/Revised Design.png"
+          src="SafeBites/Revised Design.png"
           alt="Revised SafeBites design"
           className="w-full rounded-sm mb-10"
           loading="lazy"
@@ -321,7 +321,7 @@ const CaseStudySafeBites = () => (
         </p>
 
         <img
-          src="/SafeBites/Coding.png"
+          src="SafeBites/Coding.png"
           alt="SafeBites code and GitHub repo"
           className="w-full rounded-sm mb-10"
           loading="lazy"
