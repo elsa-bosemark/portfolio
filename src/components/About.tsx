@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Languages, Swords, Cookie } from "lucide-react";
 
 const About = () => {
   return (
@@ -35,13 +36,13 @@ const About = () => {
             </p>
             <div className="flex flex-col gap-2">
               <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium tracking-wide uppercase bg-muted text-muted-foreground rounded-sm w-fit">
-                🦐 Raising Pet Shrimp
+                <Languages className="w-3.5 h-3.5" /> Speaks French
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium tracking-wide uppercase bg-muted text-muted-foreground rounded-sm w-fit">
-                🍋 Loves Preserved Lemons
+                <Swords className="w-3.5 h-3.5" /> Martial Arts Instructor
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium tracking-wide uppercase bg-muted text-muted-foreground rounded-sm w-fit">
-                🏉 Played Stanford Rugby
+                <Cookie className="w-3.5 h-3.5" /> Loves Cinnamon Rolls
               </span>
             </div>
           </div>

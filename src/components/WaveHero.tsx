@@ -145,6 +145,25 @@ const WaveHero = () => {
       }
     };
 
+    // Scroll interaction
+    let lastScrollY = window.scrollY;
+    const handleScroll = () => {
+      if (!wavePath) return;
+      const scrollDelta = window.scrollY - lastScrollY;
+      lastScrollY = window.scrollY;
+      if (Math.abs(scrollDelta) < 1) return;
+
+      const segments = wavePath.segments;
+      for (let i = 2; i < segments.length - 2; i++) {
+        const point = segments[i].point as SpringPoint;
+        if (!point.fixed) {
+          const wave = Math.sin((i / segments.length) * Math.PI * 2) * scrollDelta * 0.8;
+          point.y += wave;
+        }
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
     paper.view.onFrame = () => {
       if (wavePath) updateWave(wavePath);
     };
@@ -167,6 +186,7 @@ const WaveHero = () => {
 
     return () => {
       window.removeEventListener("resize", handleResize);
+      window.removeEventListener("scroll", handleScroll);
       paper.project.clear();
       tool.remove();
     };
