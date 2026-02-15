@@ -15,6 +15,10 @@ const WaveHero = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    // Disable wave animation on mobile
+    const isMobile = window.matchMedia("(max-width: 767px)").matches;
+    if (isMobile) return;
+
     paper.setup(canvas);
 
     const computedStyle = getComputedStyle(document.documentElement);
