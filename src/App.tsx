@@ -7,7 +7,7 @@ import Index from "./pages/Index";
 import CaseStudySafeBites from "./pages/CaseStudySafeBites";
 import CaseStudyFocal from "./pages/CaseStudyFocal";
 import CaseStudyCarta from "./pages/CaseStudyCarta";
-import IntuitDeck from "./pages/IntuitDeck";
+import Presentation from "./pages/Presentation";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
 import Navbar from "./components/Navbar";
@@ -16,7 +16,7 @@ const queryClient = new QueryClient();
 
 const Layout = () => {
   const { pathname } = useLocation();
-  const hideNav = pathname === "/intuit";
+  const hideNav = pathname === "/presentation";
   return (
     <>
       <ScrollToTop />
@@ -26,7 +26,7 @@ const Layout = () => {
         <Route path="/case-study/safebites" element={<CaseStudySafeBites />} />
         <Route path="/case-study/focal" element={<CaseStudyFocal />} />
         <Route path="/case-study/carta" element={<CaseStudyCarta />} />
-        <Route path="/intuit" element={<IntuitDeck />} />
+        <Route path="/presentation" element={<Presentation />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
