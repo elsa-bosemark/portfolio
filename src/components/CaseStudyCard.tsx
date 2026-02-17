@@ -12,6 +12,7 @@ interface CaseStudyCardProps {
   date: string;
   impact: string;
   index: number;
+  comingSoon?: boolean;
 }
 
 const CaseStudyCard = ({
@@ -25,6 +26,7 @@ const CaseStudyCard = ({
   date,
   impact,
   index,
+  comingSoon,
 }: CaseStudyCardProps) => {
   const isEven = index % 2 === 0;
 
@@ -45,14 +47,25 @@ const CaseStudyCard = ({
         }`}
       >
         {/* Image */}
-        <Link to={slug} className={`flex items-center justify-center rounded-sm ${isEven ? "" : "lg:order-2"}`}>
-          <img
-            src={image}
-            alt={title}
-            className="w-full max-h-[60vh] object-contain transition-transform duration-700 ease-out hover:scale-105"
-            loading="lazy"
-          />
-        </Link>
+        {comingSoon ? (
+          <div className={`relative flex items-center justify-center rounded-sm ${isEven ? "" : "lg:order-2"}`}>
+            <img
+              src={image}
+              alt={title}
+              className="w-full max-h-[60vh] object-contain"
+              loading="lazy"
+            />
+          </div>
+        ) : (
+          <Link to={slug} className={`flex items-center justify-center rounded-sm ${isEven ? "" : "lg:order-2"}`}>
+            <img
+              src={image}
+              alt={title}
+              className="w-full max-h-[60vh] object-contain transition-transform duration-700 ease-out hover:scale-105"
+              loading="lazy"
+            />
+          </Link>
+        )}
 
         {/* Content */}
         <div className={`flex flex-col justify-center ${isEven ? "" : "lg:order-1"}`}>
@@ -102,16 +115,22 @@ const CaseStudyCard = ({
             ))}
           </div>
 
-          {/* Read more */}
-          <Link
-            to={slug}
-            className="inline-flex items-center gap-3 text-sm font-medium tracking-widest uppercase text-primary hover:text-foreground transition-colors group"
-          >
-            Read More
-            <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">
-              &rarr;
+          {/* Read more / Coming soon */}
+          {comingSoon ? (
+            <span className="inline-flex items-center gap-2 text-sm font-medium tracking-widest uppercase text-muted-foreground">
+              Coming Soon
             </span>
-          </Link>
+          ) : (
+            <Link
+              to={slug}
+              className="inline-flex items-center gap-3 text-sm font-medium tracking-widest uppercase text-primary hover:text-foreground transition-colors group"
+            >
+              Read More
+              <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">
+                &rarr;
+              </span>
+            </Link>
+          )}
         </div>
       </div>
     </motion.article>

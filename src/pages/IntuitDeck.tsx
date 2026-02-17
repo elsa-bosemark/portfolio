@@ -51,18 +51,21 @@ const Bullet = ({ children }: { children: React.ReactNode }) => (
 );
 
 /* ------------------------------------------------------------------ */
-/*  Tabbed image carousel — image only, full width                     */
+/*  Tabbed image carousel,image only, full width                     */
 /* ------------------------------------------------------------------ */
 
 interface Tab {
   label: string;
   img: string;
   alt: string;
+  bullets?: string[];
+  collageImgs?: string[];
 }
 
-const TabbedCarousel = ({ tabs, sectionLabel, heading }: { tabs: Tab[]; sectionLabel: string; heading: string }) => {
+const TabbedCarousel = ({ tabs, sectionLabel, heading, layout = "row" }: { tabs: Tab[]; sectionLabel: string; heading: string; layout?: "row" | "column" }) => {
   const [idx, setIdx] = useState(0);
   const current = tabs[idx];
+  const hasText = current.bullets && current.bullets.length > 0;
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -78,34 +81,40 @@ const TabbedCarousel = ({ tabs, sectionLabel, heading }: { tabs: Tab[]; sectionL
     return () => window.removeEventListener("keydown", handler, true);
   }, [tabs.length]);
 
-  return (
-    <div className="flex flex-col justify-center h-full px-8 md:px-12 lg:px-16 max-w-7xl mx-auto">
-      <motion.p {...stagger(0)} className="text-sm font-semibold tracking-widest uppercase text-primary mb-3">
-        {sectionLabel}
-      </motion.p>
-      <motion.h2 {...stagger(1)} className="text-4xl md:text-5xl leading-tight text-foreground mb-6">
-        {heading}
-      </motion.h2>
+  const tabButtons = (vertical: boolean) => (
+    <div className={`flex ${vertical ? "flex-col" : "flex-row"} gap-2`}>
+      {tabs.map((tab, i) => (
+        <button
+          key={tab.label}
+          onClick={() => setIdx(i)}
+          className={`px-4 py-2 text-sm font-semibold tracking-wide uppercase rounded-sm transition-colors text-left ${
+            i === idx
+              ? "bg-primary text-white"
+              : "bg-muted text-muted-foreground hover:bg-muted/80"
+          }`}
+        >
+          {tab.label}
+        </button>
+      ))}
+    </div>
+  );
 
-      {/* Tab buttons */}
-      <motion.div {...stagger(2)} className="flex gap-2 mb-6">
-        {tabs.map((tab, i) => (
-          <button
-            key={tab.label}
-            onClick={() => setIdx(i)}
-            className={`px-5 py-2.5 text-sm font-semibold tracking-wide uppercase rounded-sm transition-colors ${
-              i === idx
-                ? "bg-primary text-white"
-                : "bg-muted text-muted-foreground hover:bg-muted/80"
-            }`}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </motion.div>
-
-      {/* Full-width image */}
-      <AnimatePresence mode="wait">
+  const imageContent = (
+    <AnimatePresence mode="wait">
+      {current.collageImgs && current.collageImgs.length >= 3 ? (
+        <motion.div
+          key={current.label}
+          initial={{ opacity: 0, x: 40 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -40 }}
+          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          className="w-full grid grid-cols-2 gap-2"
+        >
+          <img src={current.collageImgs[1]} alt={`${current.alt} 2`} className="w-full rounded-sm object-cover" />
+          <img src={current.collageImgs[0]} alt={`${current.alt} 1`} className="w-full rounded-sm object-cover row-span-2 h-full" />
+          <img src={current.collageImgs[2]} alt={`${current.alt} 3`} className="w-full rounded-sm object-cover" />
+        </motion.div>
+      ) : (
         <motion.img
           key={current.label}
           src={current.img}
@@ -114,13 +123,88 @@ const TabbedCarousel = ({ tabs, sectionLabel, heading }: { tabs: Tab[]; sectionL
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -40 }}
           transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          className="w-full rounded-sm object-contain max-h-[65vh]"
+          className="w-full rounded-sm object-contain max-h-[70vh]"
         />
-      </AnimatePresence>
+      )}
+    </AnimatePresence>
+  );
 
-      <p className="text-sm text-muted-foreground/50 mt-4">
-        Use <span className="font-medium">&larr; &rarr;</span> to switch tabs
-      </p>
+  /* Column layout: title → tabs row → image → text below */
+  if (layout === "column") {
+    return (
+      <div className="flex flex-col justify-center h-full px-8 md:px-12 lg:px-16 max-w-7xl mx-auto">
+        <motion.p {...stagger(0)} className="text-sm font-semibold tracking-widest uppercase text-primary mb-3">
+          {sectionLabel}
+        </motion.p>
+        <motion.h2 {...stagger(1)} className="text-3xl md:text-4xl leading-tight text-foreground mb-6">
+          {heading}
+        </motion.h2>
+        <motion.div {...stagger(2)} className="mb-6">{tabButtons(false)}</motion.div>
+        <div className="relative" style={{ height: "45vh" }}>
+          <AnimatePresence mode="wait">
+            <motion.img
+              key={current.label}
+              src={current.img}
+              alt={current.alt}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="absolute inset-0 w-full h-full rounded-sm object-contain"
+            />
+          </AnimatePresence>
+        </div>
+        {hasText && (
+          <AnimatePresence mode="wait">
+            <motion.ul
+              key={`text-${current.label}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="space-y-2 mt-4"
+            >
+              {current.bullets!.map((b, j) => <Bullet key={j}>{b}</Bullet>)}
+            </motion.ul>
+          </AnimatePresence>
+        )}
+      </div>
+    );
+  }
+
+  /* Row layout (default): title top → row of (tabs+text | image) */
+  return (
+    <div className="flex flex-col justify-center h-full px-8 md:px-12 lg:px-16 max-w-7xl mx-auto">
+      <motion.p {...stagger(0)} className="text-sm font-semibold tracking-widest uppercase text-primary mb-3">
+        {sectionLabel}
+      </motion.p>
+      <motion.h2 {...stagger(1)} className="text-3xl md:text-4xl leading-tight text-foreground mb-6">
+        {heading}
+      </motion.h2>
+
+      <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 flex-1 min-h-0 items-start">
+        <motion.div {...stagger(2)} className="lg:w-1/4 flex flex-col shrink-0">
+          <div className="mb-6">{tabButtons(true)}</div>
+          {hasText && (
+            <AnimatePresence mode="wait">
+              <motion.ul
+                key={`text-${current.label}`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.25 }}
+                className="space-y-2"
+              >
+                {current.bullets!.map((b, j) => <Bullet key={j}>{b}</Bullet>)}
+              </motion.ul>
+            </AnimatePresence>
+          )}
+        </motion.div>
+
+        <div className="lg:w-3/4 min-h-0">
+          {imageContent}
+        </div>
+      </div>
     </div>
   );
 };
@@ -135,12 +219,21 @@ const slides: Slide[] = [
     id: "cover",
     render: () => (
       <div className="flex flex-col items-center justify-center h-full text-center px-6">
-        <motion.img
-          {...stagger(0)}
-          src="profilepicture.PNG"
-          alt="Elsa Bosemark"
-          className="w-44 h-44 md:w-56 md:h-56 object-cover rounded-full mb-8 border-4 border-primary/20"
-        />
+        <motion.div {...stagger(0)} className="relative w-44 h-56 md:w-56 md:h-68 mb-8">
+          <img
+            src="profilepicture.PNG"
+            alt="Elsa Bosemark"
+            className="w-full h-full object-cover"
+            style={{ borderRadius: "60% 40% 30% 70% / 60% 30% 70% 40%" }}
+          />
+          <div
+            className="absolute -inset-3 border-2 border-primary/30 pointer-events-none"
+            style={{
+              borderRadius: "60% 40% 30% 70% / 60% 30% 70% 40%",
+              transform: "rotate(6deg)",
+            }}
+          />
+        </motion.div>
         <motion.h1 {...stagger(1)} className="text-5xl md:text-7xl font-light tracking-tight text-foreground mb-3">
           Elsa Bosemark
         </motion.h1>
@@ -154,61 +247,84 @@ const slides: Slide[] = [
     ),
   },
 
-  /* ---- 2. About — Career Journey ---- */
+  /* ---- 2. About Me ---- */
   {
-    id: "about-journey",
+    id: "about-me",
     render: () => (
-      <div className="flex flex-col justify-center h-full px-8 md:px-16 lg:px-24 max-w-5xl mx-auto">
-        <motion.p {...stagger(0)} className="text-sm font-semibold tracking-widest uppercase text-primary mb-4">About Me</motion.p>
-        <motion.h2 {...stagger(1)} className="text-4xl md:text-5xl leading-tight text-foreground mb-10">My Career Journey</motion.h2>
-        <motion.ul {...stagger(2)} className="space-y-4 max-w-3xl">
-          <Bullet>Born and raised in San Francisco — grew up tinkering with digital tools</Bullet>
-          <Bullet>Studying Product Design and Computer Science at Stanford</Bullet>
-          <Bullet>Mentor for Stanford GSE's AI Tinkery, peer advisor at the d.school</Bullet>
-          <Bullet>Researching new fabrication methods at ShapeLab</Bullet>
-          <Bullet><span className="italic text-foreground/60">[Replace with your full career story — go beyond your resume]</span></Bullet>
-        </motion.ul>
-      </div>
-    ),
-  },
-
-  /* ---- 3. About — Why Intuit + Personal ---- */
-  {
-    id: "about-why",
-    render: () => (
-      <div className="flex flex-col justify-center h-full px-8 md:px-16 lg:px-24 max-w-5xl mx-auto">
-        <motion.p {...stagger(0)} className="text-sm font-semibold tracking-widest uppercase text-primary mb-4">About Me</motion.p>
-        <motion.h2 {...stagger(1)} className="text-4xl md:text-5xl leading-tight text-foreground mb-10">Why Intuit?</motion.h2>
-        <motion.div {...stagger(2)} className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl">
-          <div>
-            <h3 className="text-2xl font-medium text-foreground mb-4">My "Why"</h3>
-            <ul className="space-y-3">
-              <Bullet><span className="italic text-foreground/60">[Why this role?]</span></Bullet>
-              <Bullet><span className="italic text-foreground/60">[Why Intuit?]</span></Bullet>
-              <Bullet><span className="italic text-foreground/60">[What motivates you?]</span></Bullet>
-            </ul>
-          </div>
-          <div>
-            <h3 className="text-2xl font-medium text-foreground mb-4">Outside of Work</h3>
-            <ul className="space-y-3">
-              <Bullet>Speaks French</Bullet>
-              <Bullet>Martial Arts Instructor</Bullet>
-              <Bullet>Loves Cinnamon Rolls</Bullet>
-              <Bullet><span className="italic text-foreground/60">[Add more personal details]</span></Bullet>
-            </ul>
-          </div>
+      <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-16 h-full px-8 md:px-16 lg:px-24 max-w-7xl mx-auto">
+        {/* Left: text */}
+        <motion.div {...stagger(0)} className="lg:w-1/2">
+          <p className="text-sm font-semibold tracking-widest uppercase text-primary mb-4">About Me</p>
+          <h2 className="text-4xl md:text-5xl leading-tight text-foreground mb-8">
+            Designer, thinker, <span className="italic text-primary">maker</span>.
+          </h2>
+          <ul className="space-y-4">
+            <Bullet>Born and raised in San Francisco, grew up tinkering with digital tools before I knew "design" was a discipline</Bullet>
+            <Bullet>Studying Product Design and Computer Science at Stanford (B.S. Design + M.S. CS, HCI,2027)</Bullet>
+            <Bullet>UX Design intern at Amazon (SPGX) and Focal; PM at Carta</Bullet>
+            <Bullet>Researcher at Stanford Graduate School of Education and peer advisor at the d.school </Bullet>
+            <Bullet>Speaks French, martial arts instructor, and a serious cinnamon roll enthusiast</Bullet>
+          </ul>
+        </motion.div>
+        {/* Right: fun photo grid */}
+        <motion.div {...stagger(1)} className="lg:w-1/2 grid grid-cols-2 gap-3">
+          <img src="Fun photos/Workshop.png" alt="Workshop" className="w-full rounded-sm object-cover aspect-square" />
+          <img src="Fun photos/Friends.png" alt="With friends" className="w-full rounded-sm object-cover aspect-square" />
+          <img src="Fun photos/Welding.JPG" alt="Welding" className="w-full rounded-sm object-cover aspect-square" />
+          <img src="Fun photos/Cooking.JPG" alt="Cooking" className="w-full rounded-sm object-cover aspect-square" />
         </motion.div>
       </div>
     ),
   },
 
-  /* ---- 4. Carta — Title ---- */
+  /* ---- 3. Why Intuit ---- */
+  {
+    id: "why-intuit",
+    render: () => (
+      <div className="flex flex-col justify-center h-full px-8 md:px-16 lg:px-24 max-w-5xl mx-auto">
+        <motion.p {...stagger(0)} className="text-sm font-semibold tracking-widest uppercase text-primary mb-4">Why Intuit</motion.p>
+        <motion.h2 {...stagger(1)} className="text-4xl md:text-5xl leading-tight text-foreground mb-10">
+          Why This Role, Why Intuit
+        </motion.h2>
+        <motion.ul {...stagger(2)} className="space-y-5 max-w-3xl">
+          <Bullet>Improving infrastructure people rely on daily,National Park Service, Stanford d.school</Bullet>
+          <Bullet>QuickBooks & Mailchimp: tools on autopilot where small design wins compound at scale</Bullet>
+          <Bullet>Bringing fresh ideas to settled spaces,reimagined Amazon seller tools that hadn't changed in years</Bullet>
+        </motion.ul>
+      </div>
+    ),
+  },
+
+  /* ---- 4. Amazon Overview (NDA) ---- */
+  {
+    id: "amazon-overview",
+    render: () => (
+      <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-20 h-full px-8 md:px-16 lg:px-24 max-w-7xl mx-auto">
+        <motion.div {...stagger(0)} className="lg:w-1/2">
+          <p className="text-sm font-semibold tracking-widest uppercase text-primary mb-4">Amazon SPGX · Summer 2025</p>
+          <h2 className="text-4xl md:text-5xl leading-tight text-foreground mb-6">
+            AI-Powered Concepts for <span className="text-primary">A+ Content Manager</span>
+          </h2>
+          <p className="text-sm text-muted-foreground/60 italic mb-6">Details under NDA</p>
+          <ul className="space-y-4">
+            <Bullet>Introduced AI-powered concepts into a tool used daily by 168K sellers to publish content to 20M+ products across 21 marketplaces</Bullet>
+            <Bullet>Delivered launch-ready designs, increasing seller confidence from 4/7 to 7/7</Bullet>
+            <Bullet>Ran 4 interviews and 5 usability tests, synthesized into a near-term roadmap and long-term vision</Bullet>
+            <Bullet>Scoped and prioritized projects to improve tool ROI, balancing business needs and seller workflows</Bullet>
+          </ul>
+        </motion.div>
+        <motion.img {...stagger(1)} src="Amazon/Amazon Thumbnail.png" alt="Amazon A+ Content Manager" className="lg:w-1/2 w-full rounded-sm object-contain" />
+      </div>
+    ),
+  },
+
+  /* ---- 5. Carta,Title ---- */
   {
     id: "carta-title",
     render: () => (
       <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-20 h-full px-8 md:px-16 lg:px-24">
         <div className="lg:w-1/2">
-          <motion.p {...stagger(0)} className="text-sm font-semibold tracking-widest uppercase text-primary mb-4">Project 1 &middot; Product Design & Launch</motion.p>
+          <motion.p {...stagger(0)} className="text-sm font-semibold tracking-widest uppercase text-primary mb-4">Product Design & Launch</motion.p>
           <motion.h2 {...stagger(1)} className="text-3xl md:text-4xl lg:text-5xl leading-[1.1] tracking-tight text-foreground mb-8">
             Designed Degree Tracker UI for{" "}<span className="text-primary">Stanford's Academic Planner</span>
           </motion.h2>
@@ -227,16 +343,20 @@ const slides: Slide[] = [
     ),
   },
 
-  /* ---- 5. Carta — Objective & Problem ---- */
+  /* ---- 5. Carta,Objective & Problem ---- */
   {
     id: "carta-problem",
     render: () => (
       <div className="flex flex-col justify-center h-full px-8 md:px-16 lg:px-24 max-w-5xl mx-auto">
         <motion.p {...stagger(0)} className="text-sm font-semibold tracking-widest uppercase text-primary mb-4">Objective</motion.p>
-        <motion.h2 {...stagger(1)} className="text-4xl md:text-5xl leading-tight text-foreground mb-10">
+        <motion.h2 {...stagger(1)} className="text-4xl md:text-5xl leading-tight text-foreground mb-6">
           95% of Stanford Undergrads Use Carta, But Degree Planning Was Still Broken
         </motion.h2>
-        <motion.div {...stagger(2)} className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <motion.blockquote {...stagger(2)} className="border-l-4 border-primary/40 pl-5 mb-10 italic text-lg text-muted-foreground leading-relaxed max-w-3xl">
+          "Why am I having to transfer information that's already on the website to another document, then to another document? So yeah, it's a little tedious."
+          <span className="block mt-2 text-sm not-italic font-medium text-primary/70">— Stanford Student</span>
+        </motion.blockquote>
+        <motion.div {...stagger(3)} className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
             { title: "Too Many Tabs", points: ["Constant tab-switching between university sites", "Copy-pasting requirements into personal spreadsheets"] },
             { title: "No Visual Planner", points: ["Students wanted color-coded systems", "No way to see how courses align with requirements"] },
@@ -254,24 +374,66 @@ const slides: Slide[] = [
     ),
   },
 
-  /* ---- 6. Carta — Design Decisions (TABBED, image only) ---- */
+  /* ---- 6. Carta,Process: Landscape + Wireframes ---- */
+  {
+    id: "carta-process-overview",
+    render: () => (
+      <div className="flex flex-col justify-center h-full px-8 md:px-12 lg:px-16 max-w-7xl mx-auto">
+        <motion.p {...stagger(0)} className="text-sm font-semibold tracking-widest uppercase text-primary mb-3">Process</motion.p>
+        <motion.h2 {...stagger(1)} className="text-3xl md:text-4xl leading-tight text-foreground mb-8">
+          Research & Iteration
+        </motion.h2>
+        <motion.div {...stagger(2)} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <p className="text-xs font-semibold tracking-widest uppercase text-primary mb-2">Looking at the Landscape</p>
+            <img src="Carta/Landscape.png" alt="Competitive landscape" className="w-full rounded-sm object-contain" />
+          </div>
+          <div className="flex flex-col gap-4">
+            <div>
+              <p className="text-xs font-semibold tracking-widest uppercase text-primary mb-2">Low Fidelity</p>
+              <img src="Carta/Lowfi.png" alt="Low-fidelity wireframes" className="w-full rounded-sm" />
+            </div>
+            <div>
+              <p className="text-xs font-semibold tracking-widest uppercase text-primary mb-2">High Fidelity</p>
+              <img src="Carta/Highfi.png" alt="High-fidelity prototypes" className="w-full rounded-sm" />
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    ),
+  },
+
+  /* ---- 7. Carta,Design Decisions (TABBED, image only) ---- */
   {
     id: "carta-process",
     hasTabs: true,
     render: () => (
       <TabbedCarousel
-        sectionLabel="My Role & Process"
+        sectionLabel="User Testing"
         heading="Three Design Decisions That Made the Difference"
+        layout="column"
         tabs={[
-          { label: "Select > Drag & Drop", img: "Carta/1_Select instead of Drag & Drop.png", alt: "Select instead of drag and drop" },
-          { label: "Keeping It Simple", img: "Carta/1_Keeping it Simple .png", alt: "Keeping it simple" },
-          { label: "Quick Access", img: "Carta/1_Quick Access.png", alt: "Quick access edit button" },
+          { label: "Select > Drag & Drop", img: "Carta/1_Select instead of Drag & Drop.png", alt: "Select instead of drag and drop", bullets: [
+            "Drag-and-drop is not ideal for keyboard users (per Stanford Office of Accessibility)",
+            "People prefer selecting from predefined options over creating their own",
+            "User testing confirmed: select-from-list outperformed drag-and-drop",
+          ] },
+          { label: "Keeping It Simple", img: "Carta/1_Keeping it Simple.png", alt: "Keeping it simple", bullets: [
+            "Tracking progress is helpful when it's actionable,show completed, planned, and unplanned",
+            "Old design had too much irrelevant info",
+            "Moved less critical details to the side, made main content more central",
+          ] },
+          { label: "Clairity", img: "Carta/1_Clairity.png", alt: "Clairity edit button", bullets: [
+            "Three-dot menu was clean but required extra clicks",
+            "Students edit frequently,made edit option more visible",
+            "Text \"Edit\" button tested more intuitive than an icon",
+          ] },
         ]}
       />
     ),
   },
 
-  /* ---- 7. Carta — Outcome (TABBED, image only) ---- */
+  /* ---- 7. Carta,Outcome (TABBED, image only) ---- */
   {
     id: "carta-outcome",
     hasTabs: true,
@@ -280,15 +442,24 @@ const slides: Slide[] = [
         sectionLabel="Outcome"
         heading="A Degree Tracker That Works the Way Students Think"
         tabs={[
-          { label: "Automated", img: "Carta/Automated.png", alt: "Automated degree requirement filling" },
-          { label: "Personalized", img: "Carta/Personlized.png", alt: "Personalized degree planning" },
-          { label: "Visualized", img: "Carta/Visulize.png", alt: "Visualized degree progress" },
+          { label: "Automated", img: "Carta/Carta Final 1.png", alt: "Automated degree requirement filling", bullets: [
+            "Choose a degree and have requirements + progress automatically filled",
+            "No more hunting across websites",
+          ] },
+          { label: "Personalized", img: "Carta/Carta Final 2.png", alt: "Personalized degree planning", bullets: [
+            "Edit requirements to fit individual needs",
+            "Track WAYS and unit count in one place",
+          ] },
+          { label: "Visualized", img: "Carta/Carta Final 3.png", alt: "Visualized degree progress", bullets: [
+            "See degree progress at a glance",
+            "Identify which classes in the four-year planner contribute to a given degree",
+          ] },
         ]}
       />
     ),
   },
 
-  /* ---- 8. Carta — Impact ---- */
+  /* ---- 8. Carta,Impact ---- */
   {
     id: "carta-impact",
     render: () => (
@@ -298,7 +469,7 @@ const slides: Slide[] = [
           Carta: Results & Impact
         </motion.h2>
         <motion.ul {...stagger(2)} className="space-y-4 max-w-3xl">
-          <Bullet>Now leading rollout as Product Manager — used by <span className="text-foreground font-medium">95% of Stanford students</span></Bullet>
+          <Bullet>Now leading rollout as Product Manager, used by <span className="text-foreground font-medium">95% of Stanford students</span></Bullet>
           <Bullet>Run weekly meetings to drive features, validated through testing with <span className="text-foreground font-medium">20+ students</span></Bullet>
           <Bullet>Partnered with design and engineering for high-quality handoff and smooth implementation</Bullet>
           <Bullet>Consulted Stanford's Office of Digital Accessibility to integrate accessibility standards</Bullet>
@@ -308,13 +479,13 @@ const slides: Slide[] = [
     ),
   },
 
-  /* ---- 9. Focal — Title ---- */
+  /* ---- 9. Focal,Title ---- */
   {
     id: "focal-title",
     render: () => (
       <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-20 h-full px-8 md:px-16 lg:px-24">
         <div className="lg:w-1/2">
-          <motion.p {...stagger(0)} className="text-sm font-semibold tracking-widest uppercase text-primary mb-4">Project 2 &middot; UX Design & Research</motion.p>
+          <motion.p {...stagger(0)} className="text-sm font-semibold tracking-widest uppercase text-primary mb-4">UX Design & Research</motion.p>
           <motion.h2 {...stagger(1)} className="text-3xl md:text-4xl lg:text-5xl leading-[1.1] tracking-tight text-foreground mb-8">
             Uncovered User Insights to Improve the UX of{" "}<span className="text-primary">Infrared Heaters</span>
           </motion.h2>
@@ -333,16 +504,55 @@ const slides: Slide[] = [
     ),
   },
 
-  /* ---- 10. Focal — Objective & Research ---- */
+  /* ---- 10. Focal,Context ---- */
+  {
+    id: "focal-context",
+    render: () => (
+      <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-20 h-full px-8 md:px-16 lg:px-24 max-w-7xl mx-auto">
+        <motion.div {...stagger(0)} className="lg:w-1/2">
+          <p className="text-sm font-semibold tracking-widest uppercase text-primary mb-4">Context</p>
+          <h2 className="text-4xl md:text-5xl leading-tight text-foreground mb-6">
+            What Is <span className="text-primary">Focal</span>?
+          </h2>
+          <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+            Focal is a startup revolutionizing how people are heated. I joined when they had five pilot installations.
+          </p>
+          <p className="text-xs font-semibold tracking-widest uppercase text-primary mb-3">The Challenge</p>
+          <ul className="space-y-3">
+            <Bullet>Limited understanding of how customers experience the heaters</Bullet>
+            <Bullet>Needed to define the ideal heating experience before official launch</Bullet>
+            <Bullet>Validate product desirability through real user insights</Bullet>
+          </ul>
+        </motion.div>
+        <motion.img {...stagger(1)} src="Focal/Context.png" alt="Focal heater in context" className="lg:w-1/2 w-full rounded-sm object-contain" />
+      </div>
+    ),
+  },
+
+  /* ---- 11. Focal,Objective & Research ---- */
   {
     id: "focal-research",
     render: () => (
       <div className="flex flex-col justify-center h-full px-8 md:px-12 lg:px-16 max-w-7xl mx-auto">
         <motion.p {...stagger(0)} className="text-sm font-semibold tracking-widest uppercase text-primary mb-4">Objective & Research</motion.p>
-        <motion.h2 {...stagger(1)} className="text-4xl md:text-5xl leading-tight text-foreground mb-8">
+        <motion.h2 {...stagger(1)} className="text-4xl md:text-5xl leading-tight text-foreground mb-4">
           Understanding How Customers Experience Heating
         </motion.h2>
-        <motion.div {...stagger(2)} className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <motion.div {...stagger(2)} className="space-y-4 mb-8">
+          <div className="flex gap-5 items-start">
+            <span className="text-3xl font-light text-primary leading-none mt-1">1</span>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              What is the ideal user journey for guests and staff when it comes to heating?
+            </p>
+          </div>
+          <div className="flex gap-5 items-start">
+            <span className="text-3xl font-light text-primary leading-none mt-1">2</span>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              What is the current guest and staff experience using Focal? What can be improved?
+            </p>
+          </div>
+        </motion.div>
+        <motion.div {...stagger(3)} className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {[
             { img: "Focal/Field Work.png", title: "Field Work", points: ["Spoke with 20+ guests in Hayes Valley", "Ran activities with 28 guests at Cole Valley Tavern", "Interviewed 8 staff members"] },
             { img: "Focal/Observations.png", title: "Observations", points: ["Conducted stakeouts at five restaurants", "Identified key moments from parklet cameras"] },
@@ -363,48 +573,45 @@ const slides: Slide[] = [
     ),
   },
 
-  /* ---- 11. Focal — Insights ---- */
+  /* ---- 11. Focal,Insights ---- */
   {
     id: "focal-insights",
     render: () => (
-      <div className="flex flex-col justify-center h-full px-8 md:px-12 lg:px-16 max-w-7xl mx-auto">
-        <motion.p {...stagger(0)} className="text-sm font-semibold tracking-widest uppercase text-primary mb-4">Key Insights</motion.p>
-        <motion.h2 {...stagger(1)} className="text-4xl md:text-5xl leading-tight text-foreground mb-8">Three Themes Emerged</motion.h2>
-        <motion.div {...stagger(2)} className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
-          {[
-            { theme: "Convenience", points: ["Guests feel guilty inconveniencing staff", "Heaters must be simpler than flicking a light switch", "Equipment frequently gets lost or broken"] },
-            { theme: "Ambiance", points: ["Restaurants want to maintain aesthetics", "Heaters attract guests to the parklet", "Guests enjoy the ambient glow"] },
-            { theme: "Flexibility", points: ["Guests dine outdoors for groups, strollers, dogs", "Guests rearrange tables to suit their needs", "Parklets feature various table arrangements"] },
-          ].map((item, i) => (
-            <div key={i} className="border border-border rounded-sm p-6">
-              <h3 className="text-xl font-medium text-foreground mb-4">{item.theme}</h3>
-              <ul className="space-y-2">
-                {item.points.map((p, j) => (<Bullet key={j}>{p}</Bullet>))}
-              </ul>
-            </div>
-          ))}
-        </motion.div>
-        <motion.div {...stagger(3)}>
-          <p className="text-sm font-semibold tracking-widest uppercase text-primary mb-4">Pain Points</p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-16 h-full px-8 md:px-12 lg:px-16 max-w-7xl mx-auto">
+        {/* Left: themes + pain points */}
+        <motion.div {...stagger(0)} className="lg:w-1/2">
+          <p className="text-sm font-semibold tracking-widest uppercase text-primary mb-3">Key Insights</p>
+          <h2 className="text-3xl md:text-4xl leading-tight text-foreground mb-6">Three Themes Emerged</h2>
+          <div className="space-y-4 mb-8">
             {[
-              "Forgetfulness around turning off heaters",
-              "Confusion if heater is on, off, or warming up",
-              "Equipment weathering & poor communication",
-              "Unclarity around what Focal is",
-            ].map((pain, i) => (
-              <div key={i} className="flex gap-3 items-start border border-border rounded-sm p-5">
-                <span className="text-2xl font-light text-primary leading-none">{i + 1}</span>
-                <p className="text-lg text-muted-foreground leading-relaxed">{pain}</p>
+              { theme: "Convenience", desc: "Heaters must be simpler than flicking a light switch" },
+              { theme: "Ambiance", desc: "Restaurants want to maintain aesthetics; guests enjoy the glow" },
+              { theme: "Flexibility", desc: "Guests rearrange tables to suit groups, strollers, dogs" },
+            ].map((item, i) => (
+              <div key={i} className="flex gap-4 items-start">
+                <span className="text-2xl font-light text-primary leading-none mt-0.5">{i + 1}</span>
+                <div>
+                  <h3 className="text-lg font-medium text-foreground">{item.theme}</h3>
+                  <p className="text-base text-muted-foreground leading-relaxed">{item.desc}</p>
+                </div>
               </div>
             ))}
           </div>
+          <p className="text-sm font-semibold tracking-widest uppercase text-primary mb-3">Pain Points</p>
+          <ul className="space-y-2">
+            <Bullet>Forgetfulness around turning off heaters</Bullet>
+            <Bullet>Confusion if heater is on, off, or warming up</Bullet>
+            <Bullet>Equipment weathering & poor communication</Bullet>
+            <Bullet>Unclarity around what Focal is</Bullet>
+          </ul>
         </motion.div>
+        {/* Right: How Might We image */}
+        <motion.img {...stagger(1)} src="Focal/How Might We.png" alt="How Might We synthesis" className="lg:w-1/2 w-full rounded-sm object-contain" />
       </div>
     ),
   },
 
-  /* ---- 12. Focal — Outcome ---- */
+  /* ---- 12. Focal,Outcome ---- */
   {
     id: "focal-outcome",
     render: () => (
@@ -430,13 +637,16 @@ const slides: Slide[] = [
               </div>
             ))}
           </div>
-          <img src="Focal/Final Customer Satisfaction Report.png" alt="Customer Satisfaction Report" className="md:w-1/2 w-full rounded-sm" />
+          <div className="md:w-1/2 flex flex-col gap-4">
+            <img src="Focal/Final Customer Satisfaction Report.png" alt="Customer Satisfaction Report" className="w-full rounded-sm" />
+            <img src="Focal/Research Informed Projects.png" alt="Research Informed Projects" className="w-full rounded-sm" />
+          </div>
         </motion.div>
       </div>
     ),
   },
 
-  /* ---- 13. Focal — Impact ---- */
+  /* ---- 13. Focal,Impact ---- */
   {
     id: "focal-impact",
     render: () => (
@@ -456,32 +666,28 @@ const slides: Slide[] = [
     ),
   },
 
-  /* ---- 14. Lessons Learned ---- */
+  /* ---- 14. Lessons Learned (TABBED) ---- */
   {
     id: "lessons",
+    hasTabs: true,
     render: () => (
-      <div className="flex flex-col justify-center h-full px-8 md:px-12 lg:px-16 max-w-7xl mx-auto">
-        <motion.p {...stagger(0)} className="text-sm font-semibold tracking-widest uppercase text-primary mb-4">Lessons Learned</motion.p>
-        <motion.h2 {...stagger(1)} className="text-4xl md:text-5xl leading-tight text-foreground mb-10">What These Projects Taught Me</motion.h2>
-        <motion.div {...stagger(2)} className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl">
-          <div className="border border-border rounded-sm p-8">
-            <h3 className="text-sm font-semibold tracking-widest uppercase text-primary mb-3">From Carta</h3>
-            <ul className="space-y-3">
-              <Bullet>Accessibility isn't an afterthought — consulting Stanford's Office of Accessibility early reshaped core interactions</Bullet>
-              <Bullet>Usability beats aesthetics — a visible "Edit" button outperformed a sleeker three-dot menu every time</Bullet>
-              <Bullet>Design for the whole system — keeping the degree tracker separate limited the experience; integration would have been stronger</Bullet>
-            </ul>
-          </div>
-          <div className="border border-border rounded-sm p-8">
-            <h3 className="text-sm font-semibold tracking-widest uppercase text-primary mb-3">From Focal</h3>
-            <ul className="space-y-3">
-              <Bullet>Build conviction with evidence — proposals need concrete data from interviews, prototypes, and experiments</Bullet>
-              <Bullet>Don't add complexity without proof — unless you can clearly articulate the need, maintain consistency</Bullet>
-              <Bullet>Field research reveals what surveys can't — stakeouts and in-person conversations surfaced insights no remote method could</Bullet>
-            </ul>
-          </div>
-        </motion.div>
-      </div>
+      <TabbedCarousel
+        sectionLabel="Lessons Learned"
+        heading="What These Projects Taught Me"
+        tabs={[
+          { label: "Carta", img: "Carta/MacBook Pro 16-inch Space Black Front.png", alt: "Carta project", bullets: [
+            "Aesthetics should never harm usability,learn to combine both",
+            "Bake in accessibility from the start, not as an afterthought",
+            "Design for the whole system,isolated features limit the experience",
+          ] },
+          { label: "Focal", img: "Focal/NewFocal1.jpg", alt: "Focal lessons", collageImgs: ["Focal/NewFocal1.jpg", "Focal/NewFocal2.jpg", "Focal/NewFocal3.jpg"], bullets: [
+            "Build conviction with evidence, not assumptions",
+            "Don't add complexity without proof",
+            "Field research reveals what surveys can't",
+            "Your work lives on,documentation and handoff matter as much as the design itself",
+          ] },
+        ]}
+      />
     ),
   },
 

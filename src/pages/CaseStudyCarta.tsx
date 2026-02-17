@@ -382,7 +382,7 @@ const CaseStudyCarta = () => (
             Keeping it Simple
           </h3>
           <img
-            src="Carta/1_Keeping it Simple .png"
+            src="Carta/1_Keeping it Simple.png"
             alt="Keeping it simple design change"
             className="w-full rounded-sm mb-6"
             loading="lazy"
@@ -396,14 +396,14 @@ const CaseStudyCarta = () => (
           </p>
         </div>
 
-        {/* Quick Access */}
+        {/* Clairity */}
         <div>
           <h3 className="text-2xl md:text-3xl font-medium text-foreground mb-4">
-            Quick Access
+            Clairity
           </h3>
           <img
-            src="Carta/1_Quick Access.png"
-            alt="Quick access design change"
+            src="Carta/1_Clairity.png"
+            alt="Clairity design change"
             className="w-full rounded-sm mb-6"
             loading="lazy"
           />
@@ -443,7 +443,7 @@ const CaseStudyCarta = () => (
               automatically filled out. No more hunting across websites.
             </p>
             <img
-              src="Carta/Automated.png"
+              src="Carta/Carta Final 1.png"
               alt="Automated degree requirement filling"
               className="w-full rounded-sm"
               loading="lazy"
@@ -459,7 +459,7 @@ const CaseStudyCarta = () => (
               needs. Track WAYS and unit count requirements in one place.
             </p>
             <img
-              src="Carta/Personlized.png"
+              src="Carta/Carta Final 2.png"
               alt="Personalized degree planning"
               className="w-full rounded-sm"
               loading="lazy"
@@ -475,7 +475,7 @@ const CaseStudyCarta = () => (
               the four-year planner contribute to a given degree.
             </p>
             <img
-              src="Carta/Visulize.png"
+              src="Carta/Carta Final 3.png"
               alt="Visualized degree progress"
               className="w-full rounded-sm"
               loading="lazy"
@@ -509,14 +509,14 @@ const CaseStudyCarta = () => (
               the team to understand not just what to build, but why each
               choice was made.
             </p>
-            <a
+            {/* <a
               href="https://www.figma.com/design/CvJo35Zlnt6dfGmb8k7VEI/Degree-Planner?node-id=41-2&t=yu85yPLjZLXbenLR-1"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-white text-sm font-medium tracking-wide uppercase rounded-sm hover:bg-primary/90 transition-colors"
             >
               View Figma File &rarr;
-            </a>
+            </a> */}
           </div>
         </div>
       </motion.div>

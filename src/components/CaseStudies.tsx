@@ -2,6 +2,19 @@ import CaseStudyCard from "./CaseStudyCard";
 
 const caseStudies = [
   {
+    title: "Introduced AI-Powered Concepts Into Amazon's A+ Content Manager",
+    titleHighlight: "Amazon's A+ Content Manager",
+    category: "UX Design & AI",
+    description:
+      "Designed AI-powered tools for 168K sellers publishing content to 20M+ products across 21 marketplaces, helping brands generate higher-converting content faster and with greater confidence.",
+    image: "Amazon/Amazon Thumbnail.png",
+    slug: "#",
+    skills: ["User Research", "Usability Testing", "AI Concepts", "Roadmapping"],
+    date: "Summer 2025",
+    impact: "Increased the most common seller confidence rating from 4/7 to 7/7",
+    comingSoon: true,
+  },
+  {
     title: "Designed Degree Tracker UI for Stanford's Academic Planner",
     titleHighlight: "Stanford's Academic Planner",
     category: "Product Design & Launch",
