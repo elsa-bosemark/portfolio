@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="px-6 md:px-16 lg:px-24 py-16 border-t border-border">
+    <footer className="px-6 md:px-16 lg:px-24 py-16">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
         <div>
           <p className="text-2xl font-display text-foreground" style={{ fontFamily: 'var(--font-display)' }}>

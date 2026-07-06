@@ -217,11 +217,7 @@ const WaveHero = () => {
           }}
           className="text-xl md:text-2xl lg:text-3xl text-muted-foreground max-w-2xl mx-auto leading-relaxed font-light"
         >
-          Crafting{" "}
-          <span className="text-foreground font-medium">
-            human-centered experiences
-          </span>{" "}
-          at the intersection of design and code, bringing clarity in ambiguous situations.
+          My background spans <span className="text-foreground font-semibold">Product Design and Computer Science</span>, but my real interest is <span className="text-foreground font-semibold">people</span>. I love uncovering how they think, where they struggle, and what new possibilities technology can unlock.
         </motion.p>
 
         <motion.div

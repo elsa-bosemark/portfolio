@@ -39,7 +39,7 @@ const CaseStudyCard = ({
         duration: 0.8,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className="min-h-screen flex items-center border-t border-border"
+      className="min-h-screen flex items-center"
     >
       <div
         className={`w-full grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 px-6 md:px-16 lg:px-24 py-16 md:py-24 ${
@@ -73,7 +73,7 @@ const CaseStudyCard = ({
             <p className="text-xs font-medium tracking-widest uppercase text-primary">
               {category}
             </p>
-            <span className="h-px flex-1 bg-border" />
+            <span className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
             <p className="text-xs font-medium tracking-widest uppercase text-muted-foreground">
               {date}
             </p>
@@ -94,7 +94,7 @@ const CaseStudyCard = ({
           </p>
 
           {/* Impact card */}
-          <div className="bg-card rounded-sm p-6 mb-8 border border-border">
+          <div className="bg-white/50 backdrop-blur-md border border-white/50 rounded-lg p-6 mb-8">
             <p className="text-xs font-medium tracking-widest uppercase text-primary mb-2">
               Impact
             </p>
@@ -108,7 +108,7 @@ const CaseStudyCard = ({
             {skills.map((skill) => (
               <span
                 key={skill}
-                className="px-3 py-1.5 text-xs font-medium tracking-wide uppercase bg-muted text-muted-foreground rounded-sm"
+                className="px-3 py-1.5 text-xs font-medium tracking-wide uppercase bg-white/50 backdrop-blur-md border border-white/50 text-muted-foreground rounded-lg"
               >
                 {skill}
               </span>

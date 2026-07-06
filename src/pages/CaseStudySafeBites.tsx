@@ -66,7 +66,7 @@ const CaseStudySafeBites = () => (
                   (s) => (
                     <span
                       key={s}
-                      className="px-2 py-1 text-xs font-medium tracking-wide uppercase bg-muted text-muted-foreground rounded-sm"
+                      className="px-2 py-1 text-xs font-medium tracking-wide uppercase bg-white/50 backdrop-blur-md border border-white/50 text-muted-foreground rounded-lg"
                     >
                       {s}
                     </span>
@@ -117,7 +117,7 @@ const CaseStudySafeBites = () => (
     </section>
 
     {/* Solution */}
-    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-card">
+    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-white">
       <motion.div {...fadeIn} className="max-w-3xl mx-auto">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           The Solution
@@ -152,19 +152,19 @@ const CaseStudySafeBites = () => (
           Awards & Press
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <div className="bg-card rounded-sm p-6 border border-border">
+          <div className="bg-white rounded-sm p-6 border border-border">
             <p className="text-2xl font-light text-primary mb-2">1st Place</p>
             <p className="text-base text-muted-foreground leading-relaxed">
               MIT App Inventor 2020 Hackathon, Youth Team Category
             </p>
           </div>
-          <div className="bg-card rounded-sm p-6 border border-border">
+          <div className="bg-white rounded-sm p-6 border border-border">
             <p className="text-2xl font-light text-primary mb-2">CNN</p>
             <p className="text-base text-muted-foreground leading-relaxed">
               Interviewed for a CNN Digital article and featured on their Instagram
             </p>
           </div>
-          <div className="bg-card rounded-sm p-6 border border-border">
+          <div className="bg-white rounded-sm p-6 border border-border">
             <p className="text-2xl font-light text-primary mb-2">20</p>
             <p className="text-base text-muted-foreground leading-relaxed">
               Restaurants onboarded for beta testing the app
@@ -175,7 +175,7 @@ const CaseStudySafeBites = () => (
     </section>
 
     {/* Context */}
-    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-card">
+    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-white">
       <motion.div {...fadeIn} className="max-w-3xl mx-auto">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           Where It Started
@@ -246,7 +246,7 @@ const CaseStudySafeBites = () => (
     </section>
 
     {/* Revised Design */}
-    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-card">
+    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-white">
       <motion.div {...fadeIn} className="max-w-4xl mx-auto">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           Revised Design
@@ -378,7 +378,7 @@ const CaseStudySafeBites = () => (
     </section>
 
     {/* Looking Back */}
-    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-card">
+    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-white">
       <motion.div {...fadeIn} className="max-w-3xl mx-auto">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           Looking Back
@@ -418,7 +418,7 @@ const CaseStudySafeBites = () => (
     </section>
 
     {/* Next Projects */}
-    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 border-t border-border">
+    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24">
       <p className="text-xs font-medium tracking-widest uppercase text-primary mb-8 text-center">
         Next Projects
       </p>

@@ -66,7 +66,7 @@ const CaseStudyCarta = () => (
                   (s) => (
                     <span
                       key={s}
-                      className="px-2 py-1 text-xs font-medium tracking-wide uppercase bg-muted text-muted-foreground rounded-sm"
+                      className="px-2 py-1 text-xs font-medium tracking-wide uppercase bg-white/50 backdrop-blur-md border border-white/50 text-muted-foreground rounded-lg"
                     >
                       {s}
                     </span>
@@ -125,7 +125,7 @@ const CaseStudyCarta = () => (
     </section>
 
     {/* Listening to Students */}
-    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-card">
+    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-white">
       <motion.div {...fadeIn} className="max-w-3xl mx-auto">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           Listening to Students
@@ -195,7 +195,7 @@ const CaseStudyCarta = () => (
     </section>
 
     {/* Looking at the Landscape */}
-    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-card">
+    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-white">
       <motion.div {...fadeIn} className="max-w-3xl mx-auto">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           Looking at the Landscape
@@ -250,7 +250,7 @@ const CaseStudyCarta = () => (
     </section>
 
     {/* Defining the Direction */}
-    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-card">
+    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-white">
       <motion.div {...fadeIn} className="max-w-3xl mx-auto">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           Defining the Direction
@@ -419,7 +419,7 @@ const CaseStudyCarta = () => (
     </section>
 
     {/* The Final Design */}
-    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-card">
+    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-white">
       <motion.div {...fadeIn} className="max-w-3xl mx-auto">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           The Final Design
@@ -523,7 +523,7 @@ const CaseStudyCarta = () => (
     </section>
 
     {/* Looking Back */}
-    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-card">
+    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-white">
       <motion.div {...fadeIn} className="max-w-3xl mx-auto">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           Looking Back
@@ -551,7 +551,7 @@ const CaseStudyCarta = () => (
     </section>
 
     {/* Next Projects */}
-    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 border-t border-border">
+    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24">
       <p className="text-xs font-medium tracking-widest uppercase text-primary mb-8 text-center">
         Next Projects
       </p>

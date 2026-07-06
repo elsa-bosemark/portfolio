@@ -3,7 +3,7 @@ import { Languages, Swords, Cookie } from "lucide-react";
 
 const About = () => {
   return (
-    <section id="about" className="px-6 md:px-16 lg:px-24 py-24 md:py-32 border-t border-border">
+    <section id="about" className="px-6 md:px-16 lg:px-24 py-24 md:py-32">
       {/* Photo left + title & bio right */}
       <div className="flex flex-col lg:flex-row gap-10 md:gap-14 items-center justify-center mb-20 md:mb-28 max-w-4xl mx-auto">
         <motion.div
@@ -35,13 +35,13 @@ const About = () => {
               Fun Facts
             </p>
             <div className="flex flex-col gap-2">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium tracking-wide uppercase bg-muted text-muted-foreground rounded-sm w-fit">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium tracking-wide uppercase bg-white/50 backdrop-blur-md border border-white/50 text-muted-foreground rounded-lg w-fit">
                 <Languages className="w-3.5 h-3.5" /> Speaks French
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium tracking-wide uppercase bg-muted text-muted-foreground rounded-sm w-fit">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium tracking-wide uppercase bg-white/50 backdrop-blur-md border border-white/50 text-muted-foreground rounded-lg w-fit">
                 <Swords className="w-3.5 h-3.5" /> Martial Arts Instructor
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium tracking-wide uppercase bg-muted text-muted-foreground rounded-sm w-fit">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium tracking-wide uppercase bg-white/50 backdrop-blur-md border border-white/50 text-muted-foreground rounded-lg w-fit">
                 <Cookie className="w-3.5 h-3.5" /> Loves Cinnamon Rolls
               </span>
             </div>
@@ -105,7 +105,6 @@ const About = () => {
                 <p className="text-muted-foreground text-base">
                   M.S. in Computer Science, HCI
                 </p>
-                <p className="text-xs text-muted-foreground mt-1">2027</p>
               </div>
               <div>
                 <p className="text-foreground text-base font-medium">
@@ -114,7 +113,6 @@ const About = () => {
                 <p className="text-muted-foreground text-base">
                   B.S. in Design
                 </p>
-                <p className="text-xs text-muted-foreground mt-1">2027</p>
               </div>
             </div>
           </div>
@@ -185,7 +183,7 @@ const About = () => {
             ].map((skill) => (
               <span
                 key={skill}
-                className="px-3 py-1.5 text-xs font-medium tracking-wide uppercase bg-muted text-muted-foreground rounded-sm"
+                className="px-3 py-1.5 text-xs font-medium tracking-wide uppercase bg-white/50 backdrop-blur-md border border-white/50 text-muted-foreground rounded-lg"
               >
                 {skill}
               </span>

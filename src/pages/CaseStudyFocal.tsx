@@ -66,7 +66,7 @@ const CaseStudyFocal = () => (
                   (s) => (
                     <span
                       key={s}
-                      className="px-2 py-1 text-xs font-medium tracking-wide uppercase bg-muted text-muted-foreground rounded-sm"
+                      className="px-2 py-1 text-xs font-medium tracking-wide uppercase bg-white/50 backdrop-blur-md border border-white/50 text-muted-foreground rounded-lg"
                     >
                       {s}
                     </span>
@@ -119,7 +119,7 @@ const CaseStudyFocal = () => (
     </section>
 
     {/* Solution */}
-    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-card">
+    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-white">
       <motion.div {...fadeIn} className="max-w-3xl mx-auto">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           The Outcome
@@ -206,7 +206,7 @@ const CaseStudyFocal = () => (
 
         {/* Research Methods */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-card border border-border rounded-sm overflow-hidden">
+          <div className="bg-white border border-border rounded-sm overflow-hidden">
             <img
               src="Focal/Field Work.png"
               alt="Field work research"
@@ -224,7 +224,7 @@ const CaseStudyFocal = () => (
               </p>
             </div>
           </div>
-          <div className="bg-card border border-border rounded-sm overflow-hidden">
+          <div className="bg-white border border-border rounded-sm overflow-hidden">
             <img
               src="Focal/Observations.png"
               alt="Observations at restaurants"
@@ -241,7 +241,7 @@ const CaseStudyFocal = () => (
               </p>
             </div>
           </div>
-          <div className="bg-card border border-border rounded-sm overflow-hidden">
+          <div className="bg-white border border-border rounded-sm overflow-hidden">
             <img
               src="Focal/Interviews.png"
               alt="Interview notes"
@@ -263,7 +263,7 @@ const CaseStudyFocal = () => (
     </section>
 
     {/* How Might We */}
-    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-card">
+    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-white">
       <motion.div {...fadeIn} className="max-w-3xl mx-auto">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           Reframing the Challenge
@@ -291,7 +291,7 @@ const CaseStudyFocal = () => (
           Themes & Insights
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-card rounded-sm p-6">
+          <div className="bg-white rounded-sm p-6">
             <h3 className="text-lg font-medium text-foreground mb-3">
               Convenience
             </h3>
@@ -302,7 +302,7 @@ const CaseStudyFocal = () => (
             </ul>
           </div>
 
-          <div className="bg-card rounded-sm p-6">
+          <div className="bg-white rounded-sm p-6">
             <h3 className="text-lg font-medium text-foreground mb-3">
               Ambiance
             </h3>
@@ -313,7 +313,7 @@ const CaseStudyFocal = () => (
             </ul>
           </div>
 
-          <div className="bg-card rounded-sm p-6">
+          <div className="bg-white rounded-sm p-6">
             <h3 className="text-lg font-medium text-foreground mb-3">
               Flexibility
             </h3>
@@ -328,7 +328,7 @@ const CaseStudyFocal = () => (
     </section>
 
     {/* Case Studies */}
-    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-card">
+    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-white">
       <motion.div {...fadeIn} className="max-w-3xl mx-auto">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-8">
           Restaurant Case Studies
@@ -451,7 +451,7 @@ const CaseStudyFocal = () => (
     </section>
 
     {/* Pain Points */}
-    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-card">
+    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-white">
       <motion.div {...fadeIn} className="max-w-3xl mx-auto">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-8">
           Pain Points
@@ -518,7 +518,7 @@ const CaseStudyFocal = () => (
             ].map((project) => (
               <div
                 key={project.num}
-                className="bg-card rounded-sm p-5 flex gap-4"
+                className="bg-white rounded-sm p-5 flex gap-4"
               >
                 <span className="text-2xl font-light text-primary leading-none">
                   {project.num}
@@ -545,7 +545,7 @@ const CaseStudyFocal = () => (
     </section>
 
     {/* Reflection */}
-    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-card">
+    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-white">
       <motion.div {...fadeIn} className="max-w-3xl mx-auto">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           Looking Back
@@ -571,7 +571,7 @@ const CaseStudyFocal = () => (
     </section>
 
     {/* Next Projects */}
-    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 border-t border-border">
+    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24">
       <p className="text-xs font-medium tracking-widest uppercase text-primary mb-8 text-center">
         Next Projects
       </p>
