@@ -37,13 +37,13 @@ const Index = () => {
       </section>
       <ProjectThumbnails />
       <section id="about" className="folio-about" aria-labelledby="about-title">
-        <div className="folio-about-title" data-build="about-title"><div data-piece><p className="folio-eyebrow">THE PERSON BEHIND THE POINTER</p><h2 id="about-title">Designing for<br /><span>human–AI collaboration.</span></h2></div></div>
+        <div className="folio-about-title" data-build="about-title"><div data-piece><p className="folio-eyebrow">A LITTLE ABOUT ME</p><h2 id="about-title">Designing for<br /><span>human–AI collaboration.</span></h2></div></div>
         <div className="folio-about-body">
           <div className="about-paragraph"><p>My background is in Product Design, with a concentration in Digital Experiences and AI. I’m pursuing a master’s in Computer Science focused on Human–Computer Interaction at Stanford.</p></div>
           <div className="about-paragraph"><p>In a Stanford Computer Science lab, I work on collaborative and predictive AI. At the Graduate School of Education’s AI Tinkery, I focus on education and AI enablement, helping people explore and use AI as a creative collaborator.</p></div>
           <div><dl>
             <div><dt>On campus</dt><dd>AI Tinkery, d.school & ShapeLab</dd></div>
-            <div><dt>Beyond the screen</dt><dd>Martial arts, making things & cinnamon rolls</dd></div>
+            <div><dt>Fun facts</dt><dd>Speaks French · Martial Arts Instructor · Loves Cinnamon Rolls</dd></div>
           </dl></div>
         </div>
       </section>
