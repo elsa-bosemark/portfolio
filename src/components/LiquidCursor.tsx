@@ -57,6 +57,20 @@ function Flock({ reduced, paused }: { reduced: boolean; paused: boolean }) {
   const pointer = useRef({ x: -1000, y: -1000, impulse: 0 });
   const elapsed = useRef(0);
   const offsets = useRef(Array.from({ length: 10 }, () => new THREE.Vector2()));
+  const paintingOffsets = useRef(Array.from({ length: 10 }, () => new THREE.Vector2()));
+  const drawingPartner = useRef<{x: number; y: number}[] | null>(null);
+  const userDrawing = useRef(false);
+  const drawingSpace = useRef(0);
+  const gathered = useRef(false);
+  useEffect(() => {
+    const update = (event: Event) => { drawingPartner.current = (event as CustomEvent).detail; };
+    window.addEventListener("folio-drawing", update);
+    const active = (event: Event) => { userDrawing.current = (event as CustomEvent).detail; };
+    window.addEventListener("folio-user-drawing", active);
+    const gather = (event: Event) => { gathered.current = (event as CustomEvent).detail; };
+    window.addEventListener("folio-gather", gather);
+    return () => { window.removeEventListener("folio-drawing", update); window.removeEventListener("folio-user-drawing", active); window.removeEventListener("folio-gather", gather); };
+  }, []);
   const targets = useRef<BuildTarget[]>([]);
   const scrollSequence = useRef({ available: 0, lastScroll: -Infinity });
   const geometry = useMemo(() => {
@@ -182,33 +196,47 @@ function Flock({ reduced, paused }: { reduced: boolean; paused: boolean }) {
     });
 
     pointer.current.impulse *= Math.exp(-delta * 1.3);
+    if (!reduced) drawingSpace.current = THREE.MathUtils.lerp(drawingSpace.current, gathered.current ? 1 : 0, 1 - Math.exp(-delta * (gathered.current ? 1.5 : .65)));
+    const canvasBounds = document.querySelector(".drawing-playground")?.getBoundingClientRect();
     meshes.current.forEach((mesh, i) => {
       if (!mesh) return;
       // Restore the original staggered flock, with separate lanes and slow tumbling.
       const phase = i * 2.39996 + t * .035;
-      const radius = .18 + (i % 3) * .075;
-      let x = stage.left + stage.width * (.5 + Math.cos(phase) * radius);
-      let y = stage.top + stage.height * (.5 + Math.sin(phase) * .34);
+      // Loose, overlapping orbits above the introduction, separate from the canvas.
+      const orbit = i / 10 * Math.PI * 2 + t * .065;
+      const radiusX = stage.width * (.32 + .06 * Math.sin(i * 1.7));
+      const radiusY = stage.height * (.28 + .08 * Math.cos(i * 2.1));
+      let x = stage.left + stage.width / 2 + Math.cos(orbit) * radiusX + Math.sin(t * .22 + i) * 12;
+      let y = stage.top + stage.height / 2 + Math.sin(orbit) * radiusY + Math.cos(t * .18 + i * 2.1) * 10;
+      if (i < 10 && canvasBounds && !reduced) {
+        // Separate resting places around the rim, with a gentle watching drift.
+        const a = i / 10 * Math.PI * 2 + .18
+          + Math.sin(t * .19 + i * 1.73) * .085
+          + Math.sin(t * .11 + i * 2.41) * .045;
+        const dx = Math.cos(a), dy = Math.sin(a);
+        const rim = 1 / Math.max(Math.abs(dx), Math.abs(dy));
+        const breathingRoom = 30 + Math.sin(t * .28 + i * 1.91) * 10;
+        const watchX = canvasBounds.left + canvasBounds.width / 2 + dx * rim * (canvasBounds.width / 2 + breathingRoom) + Math.sin(t * .38 + i * 1.37) * 10;
+        const watchY = canvasBounds.top + canvasBounds.height / 2 + dy * rim * (canvasBounds.height / 2 + breathingRoom) + Math.cos(t * .31 + i * 2.13) * 12;
+        x = THREE.MathUtils.lerp(x, THREE.MathUtils.clamp(watchX, 18, width - 18), drawingSpace.current);
+        y = THREE.MathUtils.lerp(y, watchY, drawingSpace.current);
+      }
       const job = destinations[i];
       let carrying = false;
-      if (job?.active) {
+      if (i < 10 && drawingPartner.current?.[i] && !reduced) {
+        const blend = 1 - Math.exp(-delta * 4);
+        paintingOffsets.current[i].lerp(new THREE.Vector2(drawingPartner.current[i].x - x, drawingPartner.current[i].y - y), blend);
+        x += paintingOffsets.current[i].x; y += paintingOffsets.current[i].y; carrying = true;
+      } else if (job?.active) {
         x = job.x; y = job.y; carrying = job.carrying;
       } else if (i >= 10) {
         mesh.visible = false;
         return;
       }
       mesh.visible = true;
-      if (i < 10 && !reduced) {
-        const dx = x - pointer.current.x, dy = y - pointer.current.y;
-        const distance = Math.hypot(dx, dy);
-        const proximity = Math.max(0, 1 - distance / (mobile ? 140 : 220));
-        const pointerActive = pointer.current.x >= 0 && pointer.current.y >= stage.top && pointer.current.y <= stage.bottom;
-        const push = pointerActive ? proximity * (95 + pointer.current.impulse * 100) : 0;
-        const direction = distance > 1 ? Math.atan2(dy, dx) : phase;
-        const ease = 1 - Math.exp(-delta * 2.6);
-        offsets.current[i].x = THREE.MathUtils.lerp(offsets.current[i].x, Math.cos(direction) * push, ease);
-        offsets.current[i].y = THREE.MathUtils.lerp(offsets.current[i].y, Math.sin(direction) * push, ease);
-        x += offsets.current[i].x; y += offsets.current[i].y;
+      if (i < 10 && !carrying) {
+        paintingOffsets.current[i].multiplyScalar(Math.exp(-delta * 2));
+        x += paintingOffsets.current[i].x; y += paintingOffsets.current[i].y;
       }
       // Pointer tip is at (-.52, .65): offset the mesh so the tip grips the content.
       const pixels = carrying ? (mobile ? 21 : 25) : (mobile ? 19 : 25) + i % 4 * 3;
@@ -230,8 +258,9 @@ function Flock({ reduced, paused }: { reduced: boolean; paused: boolean }) {
 
   return <>{Array.from({ length: 15 }, (_, i) => (
     <mesh key={i} position={[-100, 0, 0]} ref={mesh => { meshes.current[i] = mesh; }} geometry={geometry}>
-      <meshPhysicalMaterial attach="material-0" color={light ? "#f1fbff" : "#101820"} metalness={light ? 0 : .7} roughness={light ? .035 : .12} clearcoat={1}
-        transparent={light} opacity={light ? .2 : 1} depthWrite={!light}
+      <meshPhysicalMaterial attach="material-0" color={light ? "#ffffff" : "#101820"} metalness={light ? 0 : .7} roughness={light ? .035 : .12} clearcoat={1}
+        transparent={light} opacity={light ? .48 : 1} depthWrite={!light}
+        emissive={light ? "#ffffff" : "#000000"} emissiveIntensity={light ? .65 : 0}
         ior={1.45} reflectivity={light ? .35 : .5}
         iridescence={light ? 1 : 0} iridescenceIOR={1.8} iridescenceThicknessRange={[180, 650]}
         clearcoatRoughness={.04} envMap={environment.texture} envMapIntensity={light ? 1.8 : .75} />

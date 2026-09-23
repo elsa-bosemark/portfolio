@@ -8,7 +8,35 @@
 .folio-nav a { display: flex; align-items: center; gap: 7px; color: #e4e4e7; }
 .folio-nav button:hover, .folio a:hover { color: white; }
 .folio-hero { position: relative; min-height: min(760px, 100svh); height: auto; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 100px 24px 120px; isolation: isolate; }
-.folio-orbit-space { height: 260px; width: 100%; }
+.folio-orbit-space { height: 260px; width: min(100%, 1000px); flex-shrink: 0; }
+.drawing-playground { width: min(100%, 535px); aspect-ratio: 1; }
+.drawing-playground { position: relative; flex-shrink: 0; max-width: 1000px; margin-bottom: 26px; border-radius: 42px; overflow: hidden; isolation: isolate; border: 1px solid #d8e9ff30; background: linear-gradient(145deg, #dbeaff12, #ffffff03 45%, #b8a0ec0a); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); box-shadow: inset 0 1px 2px #ffffff40, inset 0 -2px 5px #a4c7f31a, 0 16px 50px #00000024; }
+.drawing-playground::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 2; background: linear-gradient(155deg, #ffffff16, transparent 30%, transparent 72%, #b6cbff12); box-shadow: inset 1px 1px 1px #ffffff38, inset -1px -1px 2px #d6baff30; }
+html[data-theme="light"] .drawing-playground { border-color: #ffffffd9; background: linear-gradient(135deg, #ffffff70, #e1e8ef26 50%, #e9ddf52b); box-shadow: inset 0 2px 3px #ffffffed, inset 0 -2px 5px #91a3bb25, 0 12px 40px #637c9910, 0 0 0 1px #a8bac629; }
+html[data-theme="light"] .drawing-playground::after { background: linear-gradient(155deg, #ffffff50, transparent 35%, transparent 75%, #ffffff28); }
+.watercolor-paint { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; border-radius: inherit; }
+@media(max-width: 640px) { .drawing-playground { border-radius: 28px; } }
+.drawing-surface { position: relative; }
+.drawing-composition { position: relative; width: min(100%, 535px); margin-top: 48px; }
+.drawing-composition > .drawing-playground { width: 100%; margin-top: 0; }
+.drawing-composition > .folio-intro-anchor { position: absolute; top: 20px; left: 20px; width: calc(100% - 40px); margin-top: 0; z-index: 3; }
+.drawing-composition .folio-intro { background: #11111845; border-color: #ffffff30; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+html[data-theme="light"] .drawing-composition .folio-intro { background: #ffffff65; border-color: #ffffffa0; }
+@media(max-width: 640px) {
+  .drawing-composition > .folio-intro-anchor { top: 12px; left: 12px; width: calc(100% - 24px); margin-top: 0; }
+}
+.drawing-surface { width: 100%; height: 100%; display: block; touch-action: pan-y; cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg stroke='%23fff' stroke-width='1.2' stroke-linejoin='round'%3E%3Cpath d='M15 18L25 3Q28 0 30 3Q31 5 28 8L19 21Z' fill='%23111'/%3E%3Cpath d='M13 19l3-4 6 5-4 3z' fill='%23777'/%3E%3Cpath d='M17 21C11 15 7 21 7 24Q7 28 3 29Q13 32 17 26Q19 23 17 21Z' fill='%23111'/%3E%3C/g%3E%3C/svg%3E") 3 29, crosshair; }
+.drawing-user-line { stroke: #d9dce5; }
+.drawing-surface { cursor: default; }
+.paintbrush-cursor { position: fixed; left: 0; top: 0; width: 70px; height: 70px; z-index: 100; pointer-events: none; visibility: hidden; transform-origin: 12px 58px; filter: drop-shadow(1px 3px 2px #0003); }
+.brush-handle-group { transform-origin: 24px 43px; transform: skewX(var(--brush-bend, 0deg)) scaleX(var(--brush-width, 1)); }
+.drawing-partner-line { stroke: #b394e5; }
+.drawing-hint { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); margin: 0; pointer-events: none; color: #99939f; font-size: clamp(24px, 4vw, 34px); font-weight: 400; letter-spacing: -.035em; white-space: nowrap; }
+.drawing-controls { position: absolute; bottom: 4px; right: 12px; }
+.drawing-controls button { color: #96909f; font-size: 11px; padding: 8px; border-radius: 12px; background: #8888880a; }
+html[data-theme="light"] .drawing-user-line { stroke: #45444c; }
+html[data-theme="light"] .drawing-partner-line { stroke: #956dc7; }
+html[data-theme="light"] .drawing-hint, html[data-theme="light"] .drawing-controls button { color: #73697f; }
 .folio h1.folio-eyebrow { font-size: 11px; letter-spacing: .19em; line-height: 1.5; font-weight: 500; margin: 0 0 22px; }
 .folio-flock { position: fixed; inset: 0; z-index: 8; pointer-events: none; }
 .folio-heading { text-align: center; }

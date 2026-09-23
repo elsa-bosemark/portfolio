@@ -2,6 +2,7 @@ import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { useDisplayPreferences, ThemeToggle } from "@/components/DisplayPreferences";
 import LiquidCursor from "@/components/LiquidCursor";
 import ProjectThumbnails from "@/components/ProjectThumbnails";
+import DrawingPlayground from "@/components/DrawingPlayground";
 import "./Portfolio.css";
 
 const Index = () => {
@@ -23,10 +24,13 @@ const Index = () => {
       <section className="folio-hero" id="top" aria-labelledby="hero-title">
         <div className="folio-orbit-space" aria-hidden="true" />
         <h1 id="hero-title" className="folio-greeting">Hi, I’m Elsa.</h1>
+        <div className="drawing-composition">
         <div className="folio-intro-anchor" data-build="intro"><article className="folio-intro" data-piece>
           <img src={`${import.meta.env.BASE_URL}profilepicture.PNG`} alt="Elsa Bosemark" width="48" height="48" />
           <div><p>I design for a future where <span className="build-highlight" data-highlight="intro">AI works alongside us.</span></p><p className="folio-internship">Previously interned @ OpenAI and Amazon.</p></div>
         </article></div>
+        <DrawingPlayground />
+        </div>
         <div className="folio-hero-foot">
           <div className="folio-display-controls">
           <button role="switch" aria-label="Reduce motion" aria-checked={reduced} onClick={toggleMotion}><span className="motion-switch" data-on={reduced} aria-hidden="true"><span>{reduced ? "On" : "Off"}</span></span> Reduce motion</button>
