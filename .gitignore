@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Private material archived outside this website; avoid accidental re-addition.
+/public/Amazon/
+/src/pages/Presentation.tsx
+/src/pages/IntuitDeck.tsx
+/private-archive*/

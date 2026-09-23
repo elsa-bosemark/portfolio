@@ -1,5 +1,8 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import CaseStudyNav from "../components/CaseStudyNav";
+import ProjectGradient from "../components/ProjectGradient";
+import "./Portfolio.css";
 
 const fadeIn = {
   initial: { opacity: 0, y: 40 } as const,
@@ -9,16 +12,9 @@ const fadeIn = {
 };
 
 const CaseStudyFocal = () => (
-  <main className="min-h-screen bg-background">
+  <main className="case-study study-focal min-h-screen">
     {/* Back link */}
-    <div className="px-6 md:px-16 lg:px-24 pt-24">
-      <Link
-        to="/"
-        className="inline-flex items-center gap-2 text-sm font-medium tracking-widest uppercase text-muted-foreground hover:text-primary transition-colors"
-      >
-        &larr; Back
-      </Link>
-    </div>
+    <CaseStudyNav project="Focal" />
 
     {/* Hero */}
     <section className="px-6 md:px-16 lg:px-24 pt-16 pb-12">
@@ -88,8 +84,9 @@ const CaseStudyFocal = () => (
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-          className="lg:w-1/2 flex items-center"
+          className="study-art lg:w-1/2 flex items-center"
         >
+          <ProjectGradient project="focal" />
           <img
             src="Focal/Top Image and Thumbnail.png"
             alt="Focal infrared heater project"

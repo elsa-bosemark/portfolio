@@ -1,5 +1,8 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import CaseStudyNav from "../components/CaseStudyNav";
+import ProjectGradient from "../components/ProjectGradient";
+import "./Portfolio.css";
 
 const fadeIn = {
   initial: { opacity: 0, y: 40 } as const,
@@ -9,16 +12,9 @@ const fadeIn = {
 };
 
 const CaseStudyCarta = () => (
-  <main className="min-h-screen bg-background">
+  <main className="case-study study-carta min-h-screen">
     {/* Back link */}
-    <div className="px-6 md:px-16 lg:px-24 pt-24">
-      <Link
-        to="/"
-        className="inline-flex items-center gap-2 text-sm font-medium tracking-widest uppercase text-muted-foreground hover:text-primary transition-colors"
-      >
-        &larr; Back
-      </Link>
-    </div>
+    <CaseStudyNav project="Carta" />
 
     {/* Hero */}
     <section className="px-6 md:px-16 lg:px-24 pt-16 pb-12">
@@ -88,8 +84,9 @@ const CaseStudyCarta = () => (
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-          className="lg:w-1/2 flex items-center"
+          className="study-art lg:w-1/2 flex items-center"
         >
+          <ProjectGradient project="carta" />
           <img
             src="Carta/MacBook Pro 16-inch Space Black Front.png"
             alt="Carta degree tracker interface"
@@ -215,7 +212,7 @@ const CaseStudyCarta = () => (
         <img
           src="Carta/Landscape.png"
           alt="Competitive landscape of degree planning tools"
-          className="w-full rounded-sm"
+          className="study-image-paper w-full rounded-sm"
           loading="lazy"
         />
       </motion.div>
@@ -363,7 +360,7 @@ const CaseStudyCarta = () => (
           <img
             src="Carta/1_Select instead of Drag & Drop.png"
             alt="Select instead of drag and drop"
-            className="w-full rounded-sm mb-6"
+            className="study-image-paper w-full rounded-sm mb-6"
             loading="lazy"
           />
           <p className="text-lg text-muted-foreground leading-relaxed">
@@ -384,7 +381,7 @@ const CaseStudyCarta = () => (
           <img
             src="Carta/1_Keeping it Simple.png"
             alt="Keeping it simple design change"
-            className="w-full rounded-sm mb-6"
+            className="study-image-paper w-full rounded-sm mb-6"
             loading="lazy"
           />
           <p className="text-lg text-muted-foreground leading-relaxed">
