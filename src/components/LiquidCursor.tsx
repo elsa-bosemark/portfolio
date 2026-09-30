@@ -4,7 +4,7 @@ import * as THREE from "three";
 import { useDisplayPreferences } from "./DisplayPreferences";
 
 // A rounded, beveled pointer silhouette. Each flock member is a true 3D mesh.
-function makePointer() {
+export function makePointer() {
   const shape = new THREE.Shape();
   shape.moveTo(-.52, .65);
   shape.quadraticCurveTo(-.59, .7, -.57, .57);
@@ -24,7 +24,7 @@ function makePointer() {
 }
 
 // Studio reflection map: white softboxes with narrow spectral accents.
-function studioEnvironment() {
+export function studioEnvironment() {
   const canvas = document.createElement("canvas");
   canvas.width = 1024; canvas.height = 512;
   const ctx = canvas.getContext("2d")!;

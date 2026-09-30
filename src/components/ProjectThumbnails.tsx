@@ -11,7 +11,7 @@ const selectedProjects = [
 
 export default function ProjectThumbnails() {
   return (
-    <section id="work" className="folio-work" aria-labelledby="work-title">
+    <section id="selected-work" className="folio-work" aria-labelledby="work-title">
       <div className="folio-work-heading">
         <h2 id="work-title">Selected work <span className="folio-work-note">(New work coming soon)</span></h2>
       </div>
@@ -27,9 +27,9 @@ export default function ProjectThumbnails() {
             <div className="folio-project-text">
             <div className="folio-project-caption">
               <div><h3>{name}</h3><p>{project.category}</p></div>
-              <ArrowUpRight size={20} aria-hidden="true" />
             </div>
             <p className="folio-project-summary">{summary}</p>
+            <span className="folio-project-cta">View case study <ArrowUpRight size={17} aria-hidden="true" /></span>
             </div>
           </>;
           return <Link key={slug} to={slug} className="folio-project" aria-label={`View ${name} case study`}>{content}</Link>;
