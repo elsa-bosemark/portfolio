@@ -120,11 +120,6 @@ html[data-theme="light"] .drawing-hint, html[data-theme="light"] .drawing-contro
 .folio-protected-expanded h4 { font-size: 18px; font-weight: 500; margin: 24px 0 10px; }
 .folio-protected-expanded h4:first-child { margin-top: 0; }
 .folio-protected-expanded p { color: #62626b; font-size: 16px; line-height: 1.75; margin-top: 12px; }
-.protected-study-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
-.protected-study-hero dt { text-transform: uppercase; letter-spacing: .14em; font-size: 11px; }
-.protected-study-hero .folio-protected-image { aspect-ratio: 4 / 3; }
-.protected-study-skill { border: 1px solid #d6d6d9; border-radius: 5px; padding: 4px 8px; font-size: 13px; color: #62626b; }
-@media(max-width: 900px) { .protected-study-hero { grid-template-columns: 1fr; } }
 .folio-protected-card { border-radius: 20px; }
 .folio a.folio-protected-card, .folio a.folio-protected-card:hover { color: #202023; }
 .folio-protected-card:focus-visible { outline: 2px solid #6150a4; outline-offset: 8px; }
