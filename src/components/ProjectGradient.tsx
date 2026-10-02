@@ -1,6 +1,7 @@
 import { Component, useEffect, useRef, useState, type ReactNode } from "react";
 import { ShaderGradient, ShaderGradientCanvas } from "@shadergradient/react";
 import { useDisplayPreferences } from "./DisplayPreferences";
+import { useLocation } from "react-router-dom";
 
 const treatments = {
   carta: { colors: ["#e9a6bc", "#e5a18f"], speed: 0.018, strength: 2.8, density: 1.2, frequency: 4.2, rotation: -32, time: 4 },
@@ -15,6 +16,8 @@ class GradientFallback extends Component<{ children: ReactNode }, { failed: bool
 }
 
 export default function ProjectGradient({ project }: { project: string }) {
+  const { pathname } = useLocation();
+  const staticGradient = pathname.startsWith("/case-study/");
   const { reduced: preferenceReduced } = useDisplayPreferences();
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
@@ -30,8 +33,8 @@ export default function ProjectGradient({ project }: { project: string }) {
   }, []);
   const treatment = treatments[project as keyof typeof treatments] ?? treatments.carta;
   const [color1, color2] = treatment.colors;
-  return <div ref={ref} className="folio-project-gradient" aria-hidden="true">
-    {visible && !reduced && !preferenceReduced && <GradientFallback>
+  return <div ref={ref} className="folio-project-gradient" aria-hidden="true" style={staticGradient ? { background: `linear-gradient(${treatment.rotation + 135}deg, ${color1}, ${color2})` } : undefined}>
+    {!staticGradient && visible && !reduced && !preferenceReduced && <GradientFallback>
       <ShaderGradientCanvas style={{ position: "absolute", inset: "-60px", width: "calc(100% + 120px)", height: "calc(100% + 120px)", filter: "blur(38px)" }} pixelDensity={1.25} pointerEvents="none" lazyLoad={false}>
         <ShaderGradient control="props" type="plane" animate="on"
           color1={color1} color2={color2} color3={color1}

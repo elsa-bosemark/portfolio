@@ -9,6 +9,7 @@ import CaseStudyFocal from "./pages/CaseStudyFocal";
 import CaseStudyCarta from "./pages/CaseStudyCarta";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
+import SiteFooter from "./components/SiteFooter";
 import { DisplayPreferences } from "./components/DisplayPreferences";
 
 const queryClient = new QueryClient();
@@ -25,6 +26,7 @@ const Layout = () => {
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <SiteFooter />
     </>
   );
 };

@@ -3,7 +3,7 @@ import { Canvas, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { makePointer, studioEnvironment } from "./LiquidCursor";
 
-function PointerMesh() {
+export function PointerMesh() {
   const { gl } = useThree();
   const geometry = useMemo(() => makePointer(), []);
   const environment = useMemo(() => {

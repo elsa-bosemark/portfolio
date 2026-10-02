@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import CaseStudyNav from "../components/CaseStudyNav";
+import NextProjectImage from "../components/NextProjectImage";
+import CaseStudyContents from "../components/CaseStudyContents";
 import ProjectGradient from "../components/ProjectGradient";
 import "./Portfolio.css";
 
@@ -95,6 +97,9 @@ const CaseStudyCarta = () => (
         </motion.div>
       </div>
     </section>
+    <div className="study-body-layout">
+      <CaseStudyContents project="Carta" />
+      <div className="study-body-content">
 
     {/* The Starting Point */}
     <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24">
@@ -557,6 +562,7 @@ const CaseStudyCarta = () => (
           to="/case-study/focal"
           className="group border border-border rounded-sm p-6 hover:border-primary transition-colors"
         >
+          <NextProjectImage project="focal" />
           <p className="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-2">
             UX Design & Research
           </p>
@@ -568,6 +574,7 @@ const CaseStudyCarta = () => (
           to="/case-study/safebites"
           className="group border border-border rounded-sm p-6 hover:border-primary transition-colors"
         >
+          <NextProjectImage project="safebites" />
           <p className="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-2">
             Mobile App Development & Design
           </p>
@@ -576,7 +583,10 @@ const CaseStudyCarta = () => (
           </p>
         </Link>
       </div>
+      <div className="study-home-action"><Link to="/" className="study-home-button">← Back to home</Link></div>
     </section>
+      </div>
+    </div>
   </main>
 );
 

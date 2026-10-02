@@ -24,6 +24,7 @@ export default function ProtectedWork() {
         </article>
         <article className="folio-protected-card">
           <div className="folio-protected-image folio-protected-image--amazon">
+            <img className="folio-amazon-logo" src={`${import.meta.env.BASE_URL}amazon.svg`} alt="Amazon" width="603" height="182" />
             <div className="folio-amazon-crop"><img src={`${import.meta.env.BASE_URL}amazon-preview.png`} alt="Amazon Seller Central design preview with details obscured" loading="lazy" decoding="async" width="1883" height="1476" /></div>
           </div>
           <div className="folio-protected-caption">
@@ -38,7 +39,9 @@ export default function ProtectedWork() {
               <p>I designed AI-powered features for an existing Amazon tool that helps sellers and vendors create branded content for their product detail pages. My work focused on helping brands tell their product stories through more effective, personalized content.</p>
               <p>At the time of my internship, the tool served over 68,000 daily active users, who published content for more than 20 million products each month across 21 global marketplaces.</p>
               <h4>Skills</h4>
-              <p>User research, usability testing, and AI concepts.</p>
+              <ul className="folio-intro-skills folio-protected-skills" aria-label="Amazon skills">
+                <li>User research</li><li>Usability testing</li><li>AI concepts</li>
+              </ul>
             </div>
           </details>
         </article>
