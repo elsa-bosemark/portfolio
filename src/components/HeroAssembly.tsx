@@ -85,7 +85,6 @@ export default function HeroAssembly({ children }: { children: ReactNode }) {
   },[reduced]);
   const activate=()=>{
     sounds.current ??= new CursorSounds();
-    sounds.current.press();
     if (pressedAt.current === null) pressedAt.current = performance.now();
     if(action.current)return;
     arrivalHandled.current=true;
@@ -98,6 +97,6 @@ export default function HeroAssembly({ children }: { children: ReactNode }) {
   return <div className="hero-assembly" ref={root}>
     <h1 id="hero-title" className="folio-greeting" aria-label="Hi, I’m Elsa."><span aria-hidden="true">H<span className="assembly-letter assembly-i">ı<span ref={dot} className="assembly-i-dot" style={{visibility:"hidden"}}/></span>, I’m Elsa.</span></h1>
     <div className="folio-intro-anchor">{children}</div>
-    <button ref={pointer} type="button" className="greeting-glass-cursor" onPointerDown={() => { pressedAt.current = performance.now(); }} onClick={activate} aria-pressed={highlighted} aria-label={highlighted?"Remove the highlights":"Highlight technology easier to understand and more meaningful to use"} title={highlighted?"Remove highlights":"Highlight a thought"}><GlassPointer/></button>
+    <button ref={pointer} type="button" className="greeting-glass-cursor" onPointerDown={() => { pressedAt.current = performance.now(); sounds.current ??= new CursorSounds(); sounds.current.press(); }} onClick={event => { if (event.detail === 0) { sounds.current ??= new CursorSounds(); sounds.current.press(); } activate(); }} aria-pressed={highlighted} aria-label={highlighted?"Remove the highlights":"Highlight technology easier to understand and more meaningful to use"} title={highlighted?"Remove highlights":"Highlight a thought"}><GlassPointer/></button>
   </div>;
 }

@@ -1,24 +1,24 @@
 import { useEffect } from "react";
-import { isSoundEnabled, trackSound } from "./SoundPreferences";
+import { playSound, prepareSounds, unlockSounds } from "./SoundEngine";
 
 export default function ButtonSounds() {
   useEffect(() => {
-    const audio = new Audio(`${import.meta.env.BASE_URL}sounds/button-down.mp3`);
-    audio.preload = "auto";
-    audio.volume = .35;
-    const untrack = trackSound(audio);
-    const click = (event: MouseEvent) => {
+    prepareSounds();
+    const press = (event: Event) => {
+      unlockSounds();
       if (!(event.target instanceof Element)) return;
       const button = event.target.closest(".folio-intro-links a, .study-home-button, a.folio-project");
-      if (!button || !isSoundEnabled()) return;
-      audio.currentTime = 0;
-      void audio.play().catch(() => {});
+      if (button) playSound("button-down.mp3", .35);
     };
+    const key = () => unlockSounds();
+    const click = (event: MouseEvent) => { if (event.detail === 0) press(event); };
+    document.addEventListener("pointerdown", press, true);
+    document.addEventListener("keydown", key, true);
     document.addEventListener("click", click, true);
     return () => {
       document.removeEventListener("click", click, true);
-      audio.pause();
-      untrack();
+      document.removeEventListener("pointerdown", press, true);
+      document.removeEventListener("keydown", key, true);
     };
   }, []);
   return null;

@@ -296,13 +296,14 @@ html[data-theme="light"] .case-study section.bg-white { background: transparent;
 html[data-theme="light"] .case-study [class~="bg-white/50"] { background: #00000004; border-color: #0002; }
 html[data-theme="light"] .case-study > section:last-child a { background: #00000003; }
 html[data-theme="light"] .case-study a.bg-primary { color: white; }
-/* Deep recessed shadows around the paper card, using the existing palette. */
-.hero-assembly .folio-intro-anchor { position: relative; isolation: isolate; width: 100vw; max-width: none; }
-.hero-assembly .folio-intro, html[data-theme="light"] .hero-assembly .folio-intro { position: relative; isolation: isolate; background: #faf9f7; color: #29292e; border: 0; border-radius: 0; padding: 36px max(24px, calc((100vw - 584px) / 2)); box-shadow: inset 0 6px 10px -5px #00000045; backdrop-filter: none; -webkit-backdrop-filter: none; }
-.hero-assembly .folio-intro::before { content: ""; position: absolute; inset: 12px 0; z-index: -1; pointer-events: none; background: linear-gradient(120deg, #201a4240, transparent 70%), url("/gradient-noise.svg"); background-size: auto, 320px 320px; filter: contrast(170%) brightness(700%); mix-blend-mode: multiply; opacity: .38; mask-image: linear-gradient(transparent, #000 5px, #000 calc(100% - 5px), transparent); -webkit-mask-image: linear-gradient(transparent, #000 5px, #000 calc(100% - 5px), transparent); }
+/* Scale the recessed paper edge with the viewport; softer on phones. */
+.hero-assembly .folio-intro-anchor { position: relative; isolation: isolate; z-index: 0; width: 100vw; max-width: none; background-color: #faf9f7; --paper-edge-height: clamp(6px, 1vw, 10px); --paper-shadow-color: #00000028; }
+.hero-assembly .folio-intro, html[data-theme="light"] .hero-assembly .folio-intro { position: relative; background: #faf9f7; color: #29292e; border: 0; border-radius: 0; padding: 36px max(24px, calc((100vw - 584px) / 2)); box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+/* A plain gradient edge avoids filtered/blended paper layers in WebKit. */
+.hero-assembly .folio-intro::before { content: ""; position: absolute; inset: 0 0 auto; height: var(--paper-edge-height); background: linear-gradient(to bottom, var(--paper-shadow-color), transparent); pointer-events: none; }
 .hero-assembly .folio-intro p.folio-intro-statement { color: #29292e; }
 .hero-assembly .folio-intro .folio-internship { color: #77716b; }
-@media(max-width: 640px) { .hero-assembly .folio-intro { border-radius: 0; padding: 28px 26px; } }
+@media(max-width: 640px) { .hero-assembly .folio-intro-anchor { --paper-shadow-color: #00000018; } .hero-assembly .folio-intro { border-radius: 0; padding: 28px 26px; } }
 .folio-project-cta { position: relative; border: 1px solid transparent; background: linear-gradient(#fff, #fff) padding-box, conic-gradient(from 120deg, #a7b8ed, #e2b7d9, #f2d7ad, #b7e3df, #a7b8ed) border-box; box-shadow: 0 3px 9px #52607912; }
 .folio-project-cta { transition: transform .25s ease, box-shadow .25s ease; }
 a.folio-project:hover .folio-project-cta, a.folio-project:focus-visible .folio-project-cta { color: #202024; transform: translateY(-3px); box-shadow: 0 6px 14px #52607916, -3px 2px 12px #d6c9ed55, 3px 2px 12px #c9e5e055; }

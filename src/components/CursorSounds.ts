@@ -1,25 +1,14 @@
-import { isSoundEnabled, trackSound } from "./SoundPreferences";
+import { playSound } from "./SoundEngine";
 export class CursorSounds {
-  private playing = new Map<HTMLAudioElement, () => void>();
+  private playing = new Set<() => void>();
   private timers = new Set<number>();
   private disposed = false;
 
   private play(file: string, volume: number, duration?: number) {
-    if (this.disposed || !isSoundEnabled()) return;
-    const audio = new Audio(`${import.meta.env.BASE_URL}sounds/${file}`);
-    audio.volume = volume;
-    const untrack = trackSound(audio);
-    const finish = () => {
-      audio.removeEventListener("ended", finish);
-      audio.removeEventListener("pause", finish);
-      this.playing.delete(audio);
-      untrack();
-      audio.pause();
-    };
-    this.playing.set(audio, finish);
-    audio.addEventListener("ended", finish, { once: true });
-    audio.addEventListener("pause", finish, { once: true });
-    void audio.play().then(() => { if (duration) this.later(finish, duration); }).catch(finish);
+    if (this.disposed) return;
+    const stop = playSound(file, volume, duration);
+    this.playing.add(stop);
+    this.later(() => { stop(); this.playing.delete(stop); }, duration ?? 5000);
   }
 
   private later(callback: () => void, delay: number) {

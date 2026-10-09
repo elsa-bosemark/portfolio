@@ -25,13 +25,8 @@
 .case-study > section { scroll-margin-top: 28px; }
 @media(max-width: 1099px) {
   .study-body-layout { display: block; padding-inline: 0; }
-  .study-contents { top: 0; width: 100%; max-height: none; margin-top: 0; padding: 12px 24px; background: #faf9f7f5; backdrop-filter: blur(12px); border-bottom: 1px solid #dedee3; }
-  .study-contents > p { margin-bottom: 6px; }
-  .study-contents ol { display: flex; overflow-x: auto; }
-  .study-contents li { flex-shrink: 0; }
-  .study-contents button { border-left: 0; border-bottom: 2px solid transparent; white-space: nowrap; }
-  .study-contents button[aria-current] { border-bottom-color: #202023; }
-  .case-study > section, .study-body-content > section { scroll-margin-top: 105px; }
+  .study-contents { display: none; }
+  .case-study > section, .study-body-content > section { scroll-margin-top: 28px; }
 }
 .case-study {
   --background: 0 0% 2%;
