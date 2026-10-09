@@ -122,7 +122,7 @@ html[data-theme="light"] .folio-intro p.folio-intro-statement { font-size: 18px;
 .folio-work-heading h2 { font-family: inherit; font-size: 32px; font-weight: 400; letter-spacing: -.04em; }
 .folio-work-heading > span { color: #85858f; font-size: 14px; }
 .folio-protected { padding-bottom: 40px; }
-.folio-work-heading.folio-protected-heading { justify-content: flex-start; align-items: center; flex-wrap: wrap; gap: 12px 20px; }
+.folio-work-heading.folio-protected-heading, .folio-work-heading.folio-work-heading--with-note { justify-content: flex-start; align-items: center; flex-wrap: wrap; gap: 12px 20px; }
 .folio-protected-summary { margin-top: 14px; font-size: 16px; line-height: 1.65; color: #62626a; }
 .folio-project-facts { display: grid; grid-template-columns: 1fr 1.3fr; gap: 16px 24px; margin-top: 24px; padding-top: 20px; border-top: 1px solid #20202314; }
 .folio-project-facts dt { color: #777780; font-size: 11px; letter-spacing: .06em; margin-bottom: 6px; }
@@ -194,7 +194,7 @@ a.folio-project:hover img { transform: scale(1.025); }
   .folio-project, .folio-project:nth-child(even) { grid-template-columns: minmax(0, 1fr); gap: 22px; }
   .folio-project:nth-child(even) .folio-project-image { order: 0; }
   .folio-work { margin: 0 24px; padding: 60px 0 75px; }
-  .folio-work-heading, .folio-work-heading.folio-protected-heading { align-items: flex-start; flex-direction: column; gap: 8px; }
+  .folio-work-heading, .folio-work-heading.folio-protected-heading, .folio-work-heading.folio-work-heading--with-note { align-items: flex-start; flex-direction: column; gap: 8px; }
   .folio-project-caption, .folio-protected-caption { flex-direction: column; align-items: flex-start; gap: 8px; text-align: left; }
   .folio .folio-project-caption .folio-project-date, .folio-protected-caption .folio-protected-date { text-align: left; }
   .folio-project-grid { gap: 44px; }
@@ -237,7 +237,7 @@ a.folio-project:hover img { transform: scale(1.025); }
 }
 @media (prefers-reduced-motion: reduce) { .folio-heading, .folio-intro { animation: none; } }
 .folio .folio-intro p.folio-internship { margin-top: 10px; font-size: 12px; line-height: 1.5; color: #92929c; }
-.folio-work-note { display: inline-block; font-size: 14px; font-weight: 400; letter-spacing: 0; color: #93939d; margin-left: 10px; }
+.folio-work-note { display: inline-block; font-size: 14px; font-weight: 400; letter-spacing: 0; color: #93939d; margin-left: 0; }
 html[data-theme="light"] .folio-work-note { color: #62626a; }
 html[data-theme="light"] .folio .folio-intro p.folio-internship { color: #777780; }
 .theme-toggle { display: inline-flex; align-items: center; justify-content: center; min-width: 32px; min-height: 32px; border-radius: 50%; color: inherit; }

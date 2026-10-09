@@ -19,8 +19,9 @@ const selectedProjects = [
 export default function ProjectThumbnails() {
   return (
     <section id="selected-work" className="folio-work" aria-labelledby="work-title">
-      <div className="folio-work-heading">
-        <h2 id="work-title">Selected case studies <span className="folio-work-note">(New work coming soon)</span></h2>
+      <div className="folio-work-heading folio-work-heading--with-note">
+        <h2 id="work-title">Selected case studies</h2>
+        <span className="folio-work-note">(New work coming soon)</span>
       </div>
       <div className="folio-project-grid">
         {selectedProjects.map(({ slug, name, summary }) => {
