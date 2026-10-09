@@ -28,3 +28,11 @@ dist-ssr
 /src/pages/Presentation.tsx
 /src/pages/IntuitDeck.tsx
 /private-archive*/
+
+# Unpublished Makery drafts: local only, never include in a release.
+/.local-drafts/
+/dashboardmakery/
+/makery-map-preview.jpg
+/public/Makery/
+/src/pages/CaseStudyMakery.tsx
+/src/pages/Makery.css

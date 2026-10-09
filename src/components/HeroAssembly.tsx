@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useDisplayPreferences } from "./DisplayPreferences";
 import GlassPointer from "./GlassPointer";
+import { CursorSounds } from "./CursorSounds";
 
 const smooth = (t: number) => { const p=Math.max(0,Math.min(1,t)); return p*p*(3-2*p); };
 export default function HeroAssembly({ children }: { children: ReactNode }) {
@@ -9,6 +10,9 @@ export default function HeroAssembly({ children }: { children: ReactNode }) {
   const root=useRef<HTMLDivElement>(null), pointer=useRef<HTMLButtonElement>(null), dot=useRef<HTMLSpanElement>(null);
   const action=useRef<{start:number; erase:boolean}|null>(null);
   const arrivalHandled=useRef(false);
+  const pressedAt = useRef<number | null>(null);
+  const sounds = useRef<CursorSounds | null>(null);
+  useEffect(() => () => { sounds.current?.dispose(); sounds.current = null; }, []);
   useEffect(()=>{
     const timer=window.setTimeout(()=>{
       if(arrivalHandled.current)return;
@@ -28,7 +32,10 @@ export default function HeroAssembly({ children }: { children: ReactNode }) {
       const box=root.current!.getBoundingClientRect(), target=dot.current!.getBoundingClientRect();
       const home={x:target.left-box.left+target.width/2,y:target.top-box.top+target.height/2};
       const marks=Array.from(root.current!.querySelectorAll<HTMLElement>(".cursor-highlight"));
-      let x=home.x, y=home.y, rotation=0;
+      const idleX = reduced ? 0 : Math.sin(now*.0008)*1.8;
+      const idleY = reduced ? 0 : Math.cos(now*.001)*1.5;
+      const idleRotation = reduced ? 0 : Math.sin(now*.00065)*6;
+      let x=home.x + idleX, y=home.y + idleY, rotation=idleRotation;
       if(action.current && !reduced){
         const t=(now-action.current.start)/1000;
         const ordered=action.current.erase?[...marks].reverse():marks;
@@ -58,29 +65,39 @@ export default function HeroAssembly({ children }: { children: ReactNode }) {
         });
         // Keep the cursor upright, with its tip on the highlight while sweeping.
         const grip=smooth(t/1.25)*(1-smooth((t-returnStart)/1.4));
-        x=pos.x+9*grip; y=pos.y+9*grip;
-        if(t>=duration){action.current=null;rotation=0;x=home.x;y=home.y;}
-      } else if(!reduced) {
-        x+=Math.sin(now*.0008)*1.8; y+=Math.cos(now*.001)*1.5;
-        rotation=Math.sin(now*.00065)*6;
+        x=pos.x+9*grip + idleX*(1-grip);
+        y=pos.y+9*grip + idleY*(1-grip);
+        rotation=idleRotation*(1-grip);
+        if(t>=duration) action.current=null;
       }
-      pointer.current!.style.transform=`translate(${x-24}px,${y-24}px) rotate(${rotation}deg)`;
+      let scale = 1;
+      if (pressedAt.current !== null) {
+        const elapsed = now - pressedAt.current;
+        if (elapsed < 220 && !reduced) {
+          scale = 1 - .12 * Math.sin(Math.PI * elapsed / 220);
+        } else if (elapsed >= 220) pressedAt.current = null;
+      }
+      pointer.current!.style.transform=`translate(${x-24}px,${y-24}px) rotate(${rotation}deg) scale(${scale})`;
       frame=requestAnimationFrame(tick);
     };
     frame=requestAnimationFrame(tick);
     return ()=>cancelAnimationFrame(frame);
   },[reduced]);
   const activate=()=>{
+    sounds.current ??= new CursorSounds();
+    sounds.current.press();
+    if (pressedAt.current === null) pressedAt.current = performance.now();
     if(action.current)return;
     arrivalHandled.current=true;
     const next=!highlighted;setHighlighted(next);
     const marks=root.current!.querySelectorAll<HTMLElement>(".cursor-highlight");
     if(reduced){marks.forEach(mark=>mark.style.setProperty("--cursor-mark",next?"1":"0"));return;}
-    action.current={start:performance.now(),erase:!next};
+    action.current={start:performance.now() + 220,erase:!next};
+    sounds.current.sweep(marks.length, !next);
   };
   return <div className="hero-assembly" ref={root}>
     <h1 id="hero-title" className="folio-greeting" aria-label="Hi, I’m Elsa."><span aria-hidden="true">H<span className="assembly-letter assembly-i">ı<span ref={dot} className="assembly-i-dot" style={{visibility:"hidden"}}/></span>, I’m Elsa.</span></h1>
     <div className="folio-intro-anchor">{children}</div>
-    <button ref={pointer} type="button" className="greeting-glass-cursor" onClick={activate} aria-pressed={highlighted} aria-label={highlighted?"Remove the highlights":"Highlight technology easier to understand and more meaningful to use"} title={highlighted?"Remove highlights":"Highlight a thought"}><GlassPointer/></button>
+    <button ref={pointer} type="button" className="greeting-glass-cursor" onPointerDown={() => { pressedAt.current = performance.now(); }} onClick={activate} aria-pressed={highlighted} aria-label={highlighted?"Remove the highlights":"Highlight technology easier to understand and more meaningful to use"} title={highlighted?"Remove highlights":"Highlight a thought"}><GlassPointer/></button>
   </div>;
 }

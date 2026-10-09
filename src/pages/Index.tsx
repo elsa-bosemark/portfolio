@@ -1,24 +1,15 @@
 import { ArrowUpRight, FileText, Linkedin } from "lucide-react";
-import { useLayoutEffect, useRef } from "react";
 import { useDisplayPreferences } from "@/components/DisplayPreferences";
 import ProjectThumbnails from "@/components/ProjectThumbnails";
 import ProtectedWork from "@/components/ProtectedWork";
 import HeroAssembly from "@/components/HeroAssembly";
-import FooterKeyboard from "@/components/FooterKeyboard";
+import PortraitReveal from "@/components/PortraitReveal";
+import HeaderGrain from "@/components/HeaderGrain";
+import SoundToggle from "@/components/SoundToggle";
 import "./Portfolio.css";
 
 const Index = () => {
   const { reduced } = useDisplayPreferences();
-  const introCopy = useRef<HTMLDivElement>(null);
-  useLayoutEffect(() => {
-    const copy = introCopy.current;
-    if (!copy) return;
-    const update = () => copy.closest<HTMLElement>(".folio-intro")?.style.setProperty("--portrait-size", `${copy.getBoundingClientRect().height}px`);
-    const observer = new ResizeObserver(update);
-    observer.observe(copy);
-    update();
-    return () => observer.disconnect();
-  }, []);
   const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({
     behavior: reduced ? "instant" : "smooth",
   });
@@ -30,15 +21,16 @@ const Index = () => {
           <button onClick={() => scrollTo("work")}>Work</button>
           <button onClick={() => scrollTo("about")}>About</button>
           <a href="https://www.linkedin.com/in/elsa-bosemark/" target="_blank" rel="noreferrer">Let’s connect <ArrowUpRight size={14} /></a>
+          <SoundToggle />
         </nav>
       </header>
       <section className="folio-hero" id="top" aria-labelledby="hero-title">
+        <HeaderGrain />
         <HeroAssembly><article className="folio-intro">
-          <div className="folio-portrait-frame"><img src={`${import.meta.env.BASE_URL}profilepicture.PNG`} alt="Elsa Bosemark" width="104" height="156" /></div>
-          <div className="folio-intro-copy" ref={introCopy}><p className="folio-intro-statement">I design to make <span className="cursor-highlight">technology easier to understand</span> and<br /><span className="cursor-highlight">more meaningful to use.</span></p><p className="folio-internship">Previously interned @ OpenAI and Amazon.</p></div>
-        </article>
-        </HeroAssembly>
+          <div className="folio-intro-copy"><p className="folio-intro-statement">I’m driven to bring <span className="cursor-highlight">the texture of being human to technology,</span> so the tools we use meet us where we are and help us achieve our goals. As a digital product designer, <span className="cursor-highlight">I’m exploring new ways for AI to collaborate with us</span>, building on my work at OpenAI and Amazon. I’m finishing my master’s in Computer Science focused on HCI at Stanford (2027), where I also earned my BS in Design.</p></div>
+        </article></HeroAssembly>
       </section>
+      <div className="folio-content-panel">
       <section className="folio-connect" aria-labelledby="connect-title">
         <div>
         <h2 id="connect-title">Let’s connect</h2>
@@ -56,7 +48,7 @@ const Index = () => {
       <ProtectedWork />
       <ProjectThumbnails />
       <section id="about" className="folio-about" aria-labelledby="about-title">
-        <div className="folio-about-title"><div><p className="folio-eyebrow">A LITTLE ABOUT ME</p><h2 id="about-title">Designing for<br /><span>human–tech collaboration.</span></h2></div><FooterKeyboard /></div>
+        <div className="folio-about-title"><div><p className="folio-eyebrow">A LITTLE ABOUT ME</p><h2 id="about-title">Designing for<br /><span className="about-collaboration">human–tech collaboration.</span></h2></div><div className="folio-about-portrait"><PortraitReveal /></div></div>
         <div className="folio-about-body">
           <div className="about-paragraph"><p>My background is in Product Design, with a concentration in Digital Experiences and AI. I’m pursuing a master’s in Computer Science focused on Human–Computer Interaction at Stanford.</p></div>
           <div className="about-paragraph"><p>In a Stanford Computer Science lab, I work on collaborative and predictive AI. At the Graduate School of Education’s AI Tinkery, I focus on education and AI enablement, helping people explore and use AI as a creative collaborator.</p></div>
@@ -66,6 +58,7 @@ const Index = () => {
           </dl></div>
         </div>
       </section>
+      </div>
     </main>
   );
 };

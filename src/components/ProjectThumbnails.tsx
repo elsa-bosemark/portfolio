@@ -33,7 +33,7 @@ export default function ProjectThumbnails() {
             </div>
             <div className="folio-project-text">
             <div className="folio-project-caption">
-              <div><h3>{name}</h3><p>{projectFacts[name as keyof typeof projectFacts].role}</p></div>
+              <div><h3 className="folio-project-title">{name}</h3><p>{projectFacts[name as keyof typeof projectFacts].role}</p></div>
               <p className="folio-project-date">{projectFacts[name as keyof typeof projectFacts].date}</p>
             </div>
             <p className="folio-project-summary">{summary}</p>

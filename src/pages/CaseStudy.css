@@ -47,7 +47,7 @@
 .study-carta { --primary: 340 43% 77%; }
 .study-focal { --primary: 42 49% 74%; }
 .study-safebites { --primary: 154 28% 73%; }
-.study-nav { max-width: 1344px; margin: auto; padding: 30px 48px; display: flex; align-items: center; justify-content: space-between; gap: 24px; font-size: 14px; color: #a1a1aa; }
+.study-nav { width: 100%; max-width: none; margin: 0; padding: 30px 48px; display: flex; align-items: center; justify-content: space-between; gap: 24px; font-size: 14px; color: #a1a1aa; }
 .study-nav .study-brand { font-size: 21px; letter-spacing: -.04em; color: #f3f3f5; }
 .study-nav a:hover { color: white; }
 .case-study a:focus-visible { outline: 2px solid hsl(var(--primary)); outline-offset: 6px; border-radius: 4px; }

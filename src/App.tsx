@@ -10,13 +10,16 @@ import CaseStudyCarta from "./pages/CaseStudyCarta";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
 import SiteFooter from "./components/SiteFooter";
+import ButtonSounds from "./components/ButtonSounds";
 import { DisplayPreferences } from "./components/DisplayPreferences";
+import "./styles/Typography.css";
 
 const queryClient = new QueryClient();
 
 const Layout = () => {
   return (
     <>
+      <ButtonSounds />
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Index />} />

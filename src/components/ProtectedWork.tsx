@@ -10,7 +10,7 @@ export default function ProtectedWork() {
             <span className="folio-openai-wordmark"><img className="folio-openai-logo" src={`${import.meta.env.BASE_URL}openai.svg`} alt="" width="64" height="64" />OpenAI</span>
           </div>
           <div className="folio-protected-caption">
-            <div><h3>OpenAI</h3><p>Member of Technical Staff Intern</p></div>
+            <div><h3 className="folio-project-title">OpenAI</h3><p>Member of Technical Staff Intern</p></div>
             <p className="folio-protected-date">Summer 2026 · 12 weeks</p>
           </div>
           <p className="folio-protected-summary">Design and technical prototyping with OpenAI’s consumer device team.</p>
@@ -28,7 +28,7 @@ export default function ProtectedWork() {
             <div className="folio-amazon-crop"><img src={`${import.meta.env.BASE_URL}amazon-preview.png`} alt="Amazon Seller Central design preview with details obscured" loading="lazy" decoding="async" width="1883" height="1476" /></div>
           </div>
           <div className="folio-protected-caption">
-            <div><h3>Amazon</h3><p>UX Design Intern</p></div>
+            <div><h3 className="folio-project-title">Amazon</h3><p>UX Design Intern</p></div>
             <p className="folio-protected-date">Summer 2025 · 12 weeks</p>
           </div>
           <p className="folio-protected-summary">Designed AI-powered features for an Amazon content creation tool to help brands create more effective content for their product detail pages.</p>
