@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useDisplayPreferences } from "./DisplayPreferences";
 import GlassPointer from "./GlassPointer";
-import { CursorSounds } from "./CursorSounds";
 
 const smooth = (t: number) => { const p=Math.max(0,Math.min(1,t)); return p*p*(3-2*p); };
 export default function HeroAssembly({ children }: { children: ReactNode }) {
@@ -11,8 +10,6 @@ export default function HeroAssembly({ children }: { children: ReactNode }) {
   const action=useRef<{start:number; erase:boolean}|null>(null);
   const arrivalHandled=useRef(false);
   const pressedAt = useRef<number | null>(null);
-  const sounds = useRef<CursorSounds | null>(null);
-  useEffect(() => () => { sounds.current?.dispose(); sounds.current = null; }, []);
   useEffect(()=>{
     const timer=window.setTimeout(()=>{
       if(arrivalHandled.current)return;
@@ -84,7 +81,6 @@ export default function HeroAssembly({ children }: { children: ReactNode }) {
     return ()=>cancelAnimationFrame(frame);
   },[reduced]);
   const activate=()=>{
-    sounds.current ??= new CursorSounds();
     if (pressedAt.current === null) pressedAt.current = performance.now();
     if(action.current)return;
     arrivalHandled.current=true;
@@ -92,11 +88,10 @@ export default function HeroAssembly({ children }: { children: ReactNode }) {
     const marks=root.current!.querySelectorAll<HTMLElement>(".cursor-highlight");
     if(reduced){marks.forEach(mark=>mark.style.setProperty("--cursor-mark",next?"1":"0"));return;}
     action.current={start:performance.now() + 220,erase:!next};
-    sounds.current.sweep(marks.length, !next);
   };
   return <div className="hero-assembly" ref={root}>
     <h1 id="hero-title" className="folio-greeting" aria-label="Hi, I’m Elsa."><span aria-hidden="true">H<span className="assembly-letter assembly-i">ı<span ref={dot} className="assembly-i-dot" style={{visibility:"hidden"}}/></span>, I’m Elsa.</span></h1>
     <div className="folio-intro-anchor">{children}</div>
-    <button ref={pointer} type="button" className="greeting-glass-cursor" onPointerDown={() => { pressedAt.current = performance.now(); sounds.current ??= new CursorSounds(); sounds.current.press(); }} onClick={event => { if (event.detail === 0) { sounds.current ??= new CursorSounds(); sounds.current.press(); } activate(); }} aria-pressed={highlighted} aria-label={highlighted?"Remove the highlights":"Highlight technology easier to understand and more meaningful to use"} title={highlighted?"Remove highlights":"Highlight a thought"}><GlassPointer/></button>
+    <button ref={pointer} type="button" className="greeting-glass-cursor" onPointerDown={() => { pressedAt.current = performance.now(); }} onClick={activate} aria-pressed={highlighted} aria-label={highlighted?"Remove the highlights":"Highlight technology easier to understand and more meaningful to use"} title={highlighted?"Remove highlights":"Highlight a thought"}><GlassPointer/></button>
   </div>;
 }

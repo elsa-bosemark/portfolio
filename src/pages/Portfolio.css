@@ -332,14 +332,8 @@ a.folio-project:hover .folio-project-cta, a.folio-project:focus-visible .folio-p
 
 
 .header-grain { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; mix-blend-mode: soft-light; opacity: .22; }
-.site-sound-toggle { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 116px; flex: 0 0 116px; height: 38px; padding: 8px 12px; border: 1px solid transparent; border-radius: 999px; background: linear-gradient(#fff, #fff) padding-box, conic-gradient(from 120deg, #a7b8ed, #e2b7d9, #f2d7ad, #b7e3df, #a7b8ed) border-box; color: #202024; font-size: 12px; font-weight: 500; box-shadow: 0 3px 9px #52607912; transition: transform .25s ease, box-shadow .25s ease; }
-.site-sound-toggle svg { width: 16px; height: 16px; flex: 0 0 16px; }
-.site-sound-toggle span { width: 64px; text-align: left; white-space: nowrap; }
 .study-nav-actions { display: flex; align-items: center; gap: 20px; }
-@media(max-width: 600px) { .site-sound-toggle span { display: none; } .site-sound-toggle { width: 38px; flex-basis: 38px; padding: 9px; } .study-nav-actions { gap: 12px; } }
-.site-sound-toggle:hover { color: #202024; transform: translateY(-3px); box-shadow: 0 6px 14px #52607916, -3px 2px 12px #d6c9ed55, 3px 2px 12px #c9e5e055; }
-@media(prefers-reduced-motion: reduce) { .site-sound-toggle { transition: none; } .site-sound-toggle:hover { transform: none; } }
-.site-sound-toggle:focus-visible { outline: 2px solid #8170ac; outline-offset: 3px; }
+@media(max-width: 600px) { .study-nav-actions { gap: 12px; } }
 
 @keyframes opal-gradient-drift {
   0% { transform: translate(-3%, -2%) scale(1.03) rotate(-2deg); }

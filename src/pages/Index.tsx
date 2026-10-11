@@ -5,7 +5,6 @@ import ProtectedWork from "@/components/ProtectedWork";
 import HeroAssembly from "@/components/HeroAssembly";
 import PortraitReveal from "@/components/PortraitReveal";
 import HeaderGrain from "@/components/HeaderGrain";
-import SoundToggle from "@/components/SoundToggle";
 import "./Portfolio.css";
 
 const Index = () => {
@@ -21,7 +20,6 @@ const Index = () => {
           <button onClick={() => scrollTo("work")}>Work</button>
           <button onClick={() => scrollTo("about")}>About</button>
           <a href="https://www.linkedin.com/in/elsa-bosemark/" target="_blank" rel="noreferrer">Let’s connect <ArrowUpRight size={14} /></a>
-          <SoundToggle />
         </nav>
       </header>
       <section className="folio-hero" id="top" aria-labelledby="hero-title">
