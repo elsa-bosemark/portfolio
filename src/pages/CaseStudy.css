@@ -19,8 +19,11 @@
 .study-contents { position: sticky; top: 28px; width: 170px; max-height: calc(100vh - 56px); overflow-y: auto; z-index: 10; margin-top: 64px; }
 .study-contents > p { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: #777780; margin-bottom: 16px; }
 .study-contents ol { list-style: none; margin: 0; padding: 0; }
-.study-contents button { display: block; width: 100%; padding: 9px 12px; text-align: left; font-size: 12px; line-height: 1.5; color: #707078; border-left: 2px solid #dedee3; }
-.study-contents button:hover, .study-contents button[aria-current] { color: #202023; border-left-color: #202023; background: #20202306; }
+.study-contents button { display: flex; align-items: center; gap: 12px; width: 100%; padding: 12px 0; text-align: left; font-size: 12px; line-height: 1.5; color: #707078; }
+.study-contents button::before { content: ""; width: 20px; height: 2px; flex-shrink: 0; background: #dedee3; transition: width .2s ease, background-color .2s ease; }
+.study-contents button:hover, .study-contents button[aria-current] { color: #202023; }
+.study-contents button:hover::before, .study-contents button[aria-current]::before { width: 32px; background: #202023; }
+@media(prefers-reduced-motion: reduce) { .study-contents button::before { transition: none; } }
 .study-contents button:focus-visible { outline: 2px solid #6150a4; outline-offset: -2px; }
 .case-study > section { scroll-margin-top: 28px; }
 @media(max-width: 1099px) {
@@ -68,6 +71,29 @@
 .study-focal .study-art { background: #e8d599; }
 .study-safebites .study-art { background: #8cc7b6; }
 .study-art img { position: relative; object-fit: contain; margin-inline: auto; }
+/* Title, artwork and context share one continuous project gradient. */
+.case-study > section.study-hero { position: relative; isolation: isolate; overflow: hidden; max-width: none; padding: 56px 0 64px; }
+.study-hero > div:not(.folio-project-gradient) { display: grid; grid-template-columns: minmax(260px, .7fr) minmax(0, 1.3fr); column-gap: clamp(32px, 5vw, 72px); row-gap: 24px; width: calc(100% - 96px); max-width: 1184px; margin-inline: auto; align-items: center; }
+.study-hero > div > .study-art { grid-column: 2; grid-row: 2; position: relative; z-index: 1; width: 100%; height: auto; min-height: 0; align-self: start; border-radius: 0; padding: 0; background: transparent; margin-top: -48px; margin-bottom: -48px; }
+.study-hero .study-art img { display: block; width: 100%; height: auto; max-width: 100%; max-height: clamp(300px, 38vw, 480px); object-fit: contain; }
+.study-hero > div > div:first-child { display: contents; }
+.study-hero > div > div:first-child > div { width: 100%; min-width: 0; }
+.study-hero > div > div:first-child > div:first-child { grid-column: 1 / -1; grid-row: 1; }
+.study-hero > div > div:first-child > div:last-child { position: relative; isolation: isolate; grid-column: 1; grid-row: 2; width: 100%; padding: 36px 0; grid-template-columns: repeat(2, minmax(0, 1fr)); background: transparent; border: 0; border-radius: 0; box-shadow: none; --paper-shadow-color: #00000028; }
+.study-hero > div > div:first-child > div:last-child::before { content: ""; position: absolute; top: 0; bottom: 0; left: min(-48px, calc((1184px - 100vw) / 2)); width: 100vw; z-index: -1; background: #faf9f7; pointer-events: none; }
+.study-hero > div > div:first-child > div:last-child::after { content: ""; position: absolute; top: 0; left: min(-48px, calc((1184px - 100vw) / 2)); width: 100vw; height: clamp(6px, 1vw, 10px); background: linear-gradient(to bottom, var(--paper-shadow-color), transparent); pointer-events: none; }
+@media(max-width: 640px) { .study-hero > div > div:first-child > div:last-child { --paper-shadow-color: #00000018; } }
+html[data-theme] .case-study .study-hero { color: #202023; --foreground: 240 5% 13%; --muted-foreground: 240 5% 24%; --primary: 240 5% 24%; }
+html[data-theme] .case-study .study-hero h1, html[data-theme] .case-study .study-hero h1 .text-primary { color: #202023; }
+html[data-theme] .case-study .study-hero p, html[data-theme] .case-study .study-hero .text-muted-foreground { color: #38383f; }
+html[data-theme] .case-study .study-hero [class~="bg-white/50"] { background: #faf9f7e6; color: #38383f; border-color: #20202340; backdrop-filter: none; -webkit-backdrop-filter: none; }
+@media(max-width: 900px) {
+  .case-study > section.study-hero { padding: 36px 0 40px; }
+  .study-hero > div:not(.folio-project-gradient) { width: calc(100% - 48px); grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .study-hero > div > .study-art { grid-column: 1; grid-row: 2; margin-top: 0; margin-bottom: 0; }
+  .study-hero > div > div:first-child > div:last-child { grid-column: 1; grid-row: 3; padding: 28px 0; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  .study-hero > div > div:first-child > div:last-child::before, .study-hero > div > div:first-child > div:last-child::after { left: -24px; }
+}
 .case-study .study-image-paper { background: #fff; padding: clamp(12px, 2vw, 28px); }
 .case-study > section:last-child a { padding: 30px; background: #ffffff03; border-radius: 20px; }
 .case-study > section:last-child a:hover { background: #ffffff08; }

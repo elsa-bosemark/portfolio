@@ -19,7 +19,8 @@ const CaseStudySafeBites = () => (
     <CaseStudyNav project="SafeBites" />
 
     {/* Hero */}
-    <section className="px-6 md:px-16 lg:px-24 pt-16 pb-12">
+    <section className="study-hero px-6 md:px-16 lg:px-24 pt-16 pb-12">
+      <ProjectGradient project="safebites" />
       <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-start">
         {/* Left: title + context */}
         <div className="lg:w-1/2">
@@ -88,7 +89,6 @@ const CaseStudySafeBites = () => (
           transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           className="study-art lg:w-1/2 flex items-center justify-center"
         >
-          <ProjectGradient project="safebites" />
           <img
             src="SafeBites/topthumbnailimage.png"
             alt="SafeBites app"

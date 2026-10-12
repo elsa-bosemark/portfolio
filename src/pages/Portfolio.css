@@ -317,6 +317,7 @@ a.folio-project:hover .folio-project-cta, a.folio-project:focus-visible .folio-p
 
 /* Normal page flow with the animated greeting cursor. */
 .folio-hero { position: relative; }
+.folio-hero::before { content: ""; position: absolute; inset: auto 0 0; height: clamp(64px, 8vw, 120px); z-index: 0; pointer-events: none; background: linear-gradient(to bottom, #faf9f700 0%, #faf9f712 18%, #faf9f742 38%, #faf9f78c 60%, #faf9f7d9 82%, #faf9f7 100%); }
 .folio-content-panel { display: flow-root; }
 
 .portrait-flip { display: block; position: relative; width: 100%; aspect-ratio: 1; padding: 0; border: 0; background: none; perspective: 1000px; cursor: pointer; border-radius: 50%; transform: perspective(1000px) rotateX(0deg) rotateY(0deg); transition: transform .35s ease; }

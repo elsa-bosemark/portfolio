@@ -1,17 +1,24 @@
 import { useEffect, useState } from "react";
 import { useDisplayPreferences } from "./DisplayPreferences";
 
+const destinations: Record<string, string[]> = {
+  Carta: ["The Starting Point", "Listening to Students", "The Final Design"],
+  Focal: ["The Challenge", "Where It Started", "Research-Informed Projects"],
+  SafeBites: ["The Challenge", "Where It Started", "Revised Design"],
+};
+const labels = ["Problem", "Process", "Final design"];
+
 export default function CaseStudyContents({ project }: { project: string }) {
   const [sections, setSections] = useState<{ id: string; label: string }[]>([]);
   const [active, setActive] = useState("");
   const { reduced } = useDisplayPreferences();
   useEffect(() => {
-    const elements = Array.from(document.querySelectorAll<HTMLElement>(".case-study > section, .study-body-content > section"));
-    const entries = elements.flatMap((element, index) => {
-      const label = index === 0 ? "Overview" : (element.querySelector("p.uppercase")?.textContent || element.querySelector("h2")?.textContent)?.trim().replace(/\s+/g, " ");
-      if (!label) return [];
-      element.id ||= `study-section-${index}`;
-      return [{ id: element.id, label, element }];
+    const elements = Array.from(document.querySelectorAll<HTMLElement>(".study-body-content > section"));
+    const entries = (destinations[project] ?? []).flatMap((heading, index) => {
+      const element = elements.find(section => section.querySelector("p.uppercase")?.textContent?.trim() === heading);
+      if (!element) return [];
+      element.id ||= `study-${labels[index].toLowerCase().replace(/\s+/g, "-")}`;
+      return [{ id: element.id, label: labels[index], element }];
     });
     setSections(entries.map(({ id, label }) => ({ id, label })));
     let frame = 0;
