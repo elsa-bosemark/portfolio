@@ -31,9 +31,9 @@
 .paper-hero-assembly .cursor-highlight { display: inline-block; --cursor-mark: 0; background: linear-gradient(100deg, #dcd3f0b3, #cbdff0b3) left center / calc(var(--cursor-mark) * 100%) 100% no-repeat; border-radius: 3px; }
 .paper-hero-assembly .cursor-highlight + .cursor-highlight, .paper-hero-assembly .cursor-highlight:last-child { background-image: linear-gradient(100deg, #f0d8cbb3, #cee6dcb3); }
 .paper-mosaic { position: absolute; top: 0; left: 50%; width: 1440px; height: 382px; transform: translateX(-50%); z-index: -1; overflow: clip; }
-.paper-mosaic > button { pointer-events: auto; appearance: none; border: 0; padding: 0; background: transparent; cursor: pointer; border-radius: 10px; }
+.paper-mosaic > button { pointer-events: auto; appearance: none; border: 0; padding: 0; background: transparent; cursor: pointer; border-radius: 10px; contain: layout paint; }
 .paper-mosaic > button * { pointer-events: none; }
-.paper-mosaic .paper-relief-original, .paper-mosaic .paper-relief-alternate { transition: opacity .16s ease; }
+.paper-mosaic .paper-relief-original, .paper-mosaic .paper-relief-alternate { transition: opacity .16s ease; will-change: opacity; }
 .paper-mosaic .paper-relief-alternate { opacity: 0; }
 .paper-mosaic > button[aria-pressed="true"] .paper-relief-original { opacity: 0; }
 .paper-mosaic > button[aria-pressed="true"] .paper-relief-alternate { opacity: 1; }

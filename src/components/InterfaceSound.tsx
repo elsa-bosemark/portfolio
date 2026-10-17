@@ -66,17 +66,6 @@ export function InterfaceSound() {
       else if (target.parentElement?.classList.contains("paper-mosaic")) {
         if (event.type === "click") return;
         const tile = target as HTMLElement;
-        if (!tile.dataset.initialDepth) {
-          const shape = tile.querySelector<HTMLElement>(":scope > div[data-node-id]");
-          const layers = shape ? [shape, ...shape.querySelectorAll<HTMLElement>("div")] : [];
-          const shadow = layers.map(layer => layer.dataset.originalShadow ?? getComputedStyle(layer).boxShadow).find(value => value && value !== "none");
-          // SVG quarter shapes start raised; native panels may start inset.
-          tile.dataset.initialDepth = shadow?.includes("inset") ? "inset" : "raised";
-          if (shadow) {
-            const alphas = [...shadow.matchAll(/rgba\([^)]*,\s*([\d.]+)\)/g)].map(match => Number(match[1]));
-            tile.dataset.shadowStrength = String(Math.min(1, Math.max(0, ...alphas) / .4));
-          }
-        }
         const startsInset = tile.dataset.initialDepth === "inset";
         const reversed = tile.getAttribute("aria-pressed") === "true";
         const currentlyInset = startsInset !== reversed;

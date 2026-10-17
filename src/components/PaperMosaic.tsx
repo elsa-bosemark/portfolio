@@ -1,4 +1,4 @@
-import { Children, cloneElement, isValidElement, useEffect, useRef, useState, type ReactElement, type HTMLAttributes } from "react";
+import { Children, cloneElement, isValidElement, useEffect, useMemo, useRef, useState, type ReactElement, type HTMLAttributes } from "react";
 import HeaderFollower from "./HeaderFollower";
 
 const svgSources = import.meta.glob("../../public/portfolio-2027/mosaic-tile*.svg", { query: "?raw", import: "default", eager: true }) as Record<string, string>;
@@ -36,9 +36,11 @@ function ReliefTile({ tile, index }: { tile: ReactElement<HTMLAttributes<HTMLEle
   const root = useRef<HTMLButtonElement>(null);
   const imageChild = Children.toArray(tile.props.children).find(child => isValidElement(child) && child.type === "img") as ReactElement<{ src: string }> | undefined;
   const source = imageChild ? svgSources[`../../public/portfolio-2027/${imageChild.props.src.split("/").pop()}`] : undefined;
-  const filter = source?.match(/<filter id="filter1_[\s\S]*?<\/filter>/)?.[0];
-  const alphas = filter ? [...filter.matchAll(/<feColorMatrix(?![^>]*in="SourceAlpha")[^>]*values="([^"]+)"/g)].map(match => Number(match[1].trim().split(/\s+/)[18])) : [];
-  const strength = filter ? Math.min(1, Math.max(0, ...alphas) / .4) : undefined;
+  const strength = useMemo(() => {
+    const filter = source?.match(/<filter id="filter1_[\s\S]*?<\/filter>/)?.[0];
+    const alphas = filter ? [...filter.matchAll(/<feColorMatrix(?![^>]*in="SourceAlpha")[^>]*values="([^"]+)"/g)].map(match => Number(match[1].trim().split(/\s+/)[18])) : [];
+    return filter ? Math.min(1, Math.max(0, ...alphas) / .4) : undefined;
+  }, [source]);
   useEffect(() => {
     const shape = root.current?.querySelector<HTMLElement>(":scope > div[data-node-id]");
     const originalLayer = shape ?? root.current?.querySelector<HTMLImageElement>("img");
@@ -51,6 +53,14 @@ function ReliefTile({ tile, index }: { tile: ReactElement<HTMLAttributes<HTMLEle
     const alternateElements = [alternate, ...alternate.querySelectorAll<HTMLElement>("div")];
     // Read all computed shadows before writing any styles. Toggle only opacity later.
     const shadows = shadowElements.map(element => getComputedStyle(element).boxShadow);
+    const shadow = shadows.find(value => value && value !== "none");
+    if (root.current) {
+      root.current.dataset.initialDepth = shadow?.includes("inset") ? "inset" : "raised";
+      if (shadow) {
+        const alphas = [...shadow.matchAll(/rgba\([^)]*,\s*([\d.]+)\)/g)].map(match => Number(match[1]));
+        root.current.dataset.shadowStrength = String(Math.min(1, Math.max(0, ...alphas) / .4));
+      }
+    }
     shadowElements.forEach((element, index) => {
       const original = shadows[index];
       if (!original || original === "none") return;
