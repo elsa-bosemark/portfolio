@@ -1,21 +1,27 @@
 import { Link } from "react-router-dom";
-import { ArrowUpRight } from "lucide-react";
+import PaperAction, { linkedinUrl, resumeUrl } from "./PaperAction";
+import "./SiteFooter.css";
 
 export default function SiteFooter() {
-  return <footer className="site-footer">
-    <div className="site-footer-identity">
-      <Link to="/" className="site-footer-brand">Elsa Bosemark</Link>
+  return <footer className="paper-footer" id="connect">
+    <div className="paper-footer-inner">
+      <div className="paper-footer-identity">
+        <Link to="/" className="paper-footer-brand">Elsa Bosemark</Link>
+        <Link to="/design-system" className="paper-footer-system">Design system</Link>
+      </div>
+      <nav className="paper-footer-projects" aria-label="Footer case studies">
+        <h2>Case studies</h2>
+        <Link to="/case-study/carta">Carta</Link>
+        <Link to="/case-study/focal">Focal</Link>
+        <Link to="/case-study/safebites">SafeBites</Link>
+      </nav>
+      <nav className="paper-footer-connect" aria-label="Footer résumé and LinkedIn">
+        <h2>Let’s connect</h2>
+        <div className="paper-actions">
+          <PaperAction href={resumeUrl}>View résumé</PaperAction>
+          <PaperAction href={linkedinUrl} secondary>LinkedIn</PaperAction>
+        </div>
+      </nav>
     </div>
-    <nav aria-label="Footer case studies">
-      <h2>Case studies</h2>
-      <Link to="/case-study/carta">Carta</Link>
-      <Link to="/case-study/focal">Focal</Link>
-      <Link to="/case-study/safebites">SafeBites</Link>
-    </nav>
-    <nav aria-label="Footer résumé and LinkedIn">
-      <h2>Connect</h2>
-      <a href="https://drive.google.com/file/d/16_tL-tuJBZhH0Asrn7B6ovjwlVOgvQiC/view?usp=drive_link" target="_blank" rel="noopener noreferrer" aria-label="View résumé (opens in a new tab)">Résumé <ArrowUpRight size={14} aria-hidden="true" /></a>
-      <a href="https://www.linkedin.com/in/elsa-bosemark/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (opens in a new tab)">LinkedIn <ArrowUpRight size={14} aria-hidden="true" /></a>
-    </nav>
   </footer>;
 }

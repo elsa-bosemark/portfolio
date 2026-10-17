@@ -1,17 +1,15 @@
+import PaperCard from "../components/PaperCard";
+import ContentImage from "../components/ContentImage";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import PaperAction from "../components/PaperAction";
+import PaperTags from "../components/PaperTags";
 import CaseStudyNav from "../components/CaseStudyNav";
-import NextProjectImage from "../components/NextProjectImage";
+import CaseStudyNextProjects from "../components/CaseStudyNextProjects";
 import CaseStudyContents from "../components/CaseStudyContents";
-import ProjectGradient from "../components/ProjectGradient";
+import ProjectGradient from "../components/CaseStudyGradient";
+import { caseStudyFadeIn as fadeIn } from "../lib/case-study-motion";
 import "./Portfolio.css";
 
-const fadeIn = {
-  initial: { opacity: 0, y: 40 } as const,
-  whileInView: { opacity: 1, y: 0 } as const,
-  viewport: { once: true, margin: "-80px" } as const,
-  transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
-};
 
 const CaseStudySafeBites = () => (
   <main className="case-study study-safebites min-h-screen">
@@ -60,18 +58,7 @@ const CaseStudySafeBites = () => (
               <p className="text-xs font-medium tracking-widest uppercase text-primary mb-2">
                 Skills
               </p>
-              <div className="flex flex-wrap gap-1.5">
-                {["Mobile App Dev", "Presenting", "Team Management", "Beta Testing"].map(
-                  (s) => (
-                    <span
-                      key={s}
-                      className="px-2 py-1 text-xs font-medium tracking-wide uppercase bg-white/50 backdrop-blur-md border border-white/50 text-muted-foreground rounded-lg"
-                    >
-                      {s}
-                    </span>
-                  )
-                )}
-              </div>
+              <PaperTags tags={["Mobile App Dev", "Presenting", "Team Management", "Beta Testing"]} label="SafeBites skills" />
             </div>
             <div>
               <p className="text-xs font-medium tracking-widest uppercase text-primary mb-2">
@@ -89,11 +76,10 @@ const CaseStudySafeBites = () => (
           transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           className="study-art lg:w-1/2 flex items-center justify-center"
         >
-          <img
+<ContentImage
             src="SafeBites/topthumbnailimage.png"
             alt="SafeBites app"
-            className="w-full max-w-sm rounded-sm"
-          />
+            className="w-full max-w-sm study-transparent-image" width={913} height={1328} loading="eager" fetchPriority="high" />
         </motion.div>
       </div>
     </section>
@@ -103,7 +89,7 @@ const CaseStudySafeBites = () => (
 
     {/* Problem Statement */}
     <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24">
-      <motion.div {...fadeIn} className="max-w-3xl mx-auto">
+      <motion.div {...fadeIn} className="study-section-inner">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           The Challenge
         </p>
@@ -120,7 +106,7 @@ const CaseStudySafeBites = () => (
 
     {/* Solution */}
     <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-white">
-      <motion.div {...fadeIn} className="max-w-3xl mx-auto">
+      <motion.div {...fadeIn} className="study-section-inner">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           The Solution
         </p>
@@ -146,7 +132,7 @@ const CaseStudySafeBites = () => (
 
     {/* Results */}
     <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24">
-      <motion.div {...fadeIn} className="max-w-3xl mx-auto">
+      <motion.div {...fadeIn} className="study-section-inner">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           Recognition
         </p>
@@ -154,31 +140,31 @@ const CaseStudySafeBites = () => (
           Awards & Press
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <div className="bg-white rounded-sm p-6 border border-border">
-            <p className="text-2xl font-light text-primary mb-2">1st Place</p>
+          <PaperCard >
+            <h3 className="paper-card-metric">1st Place</h3>
             <p className="text-base text-muted-foreground leading-relaxed">
               MIT App Inventor 2020 Hackathon, Youth Team Category
             </p>
-          </div>
-          <div className="bg-white rounded-sm p-6 border border-border">
-            <p className="text-2xl font-light text-primary mb-2">CNN</p>
+          </PaperCard>
+          <PaperCard >
+            <h3 className="paper-card-metric">CNN</h3>
             <p className="text-base text-muted-foreground leading-relaxed">
               Interviewed for a CNN Digital article and featured on their Instagram
             </p>
-          </div>
-          <div className="bg-white rounded-sm p-6 border border-border">
-            <p className="text-2xl font-light text-primary mb-2">20</p>
+          </PaperCard>
+          <PaperCard >
+            <h3 className="paper-card-metric">20</h3>
             <p className="text-base text-muted-foreground leading-relaxed">
               Restaurants onboarded for beta testing the app
             </p>
-          </div>
+          </PaperCard>
         </div>
       </motion.div>
     </section>
 
     {/* Context */}
     <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-white">
-      <motion.div {...fadeIn} className="max-w-3xl mx-auto">
+      <motion.div {...fadeIn} className="study-section-inner">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           Where It Started
         </p>
@@ -186,12 +172,11 @@ const CaseStudySafeBites = () => (
           Drew Inspiration from Personal Experiences
         </h2>
         <div className="flex flex-col md:flex-row gap-8 items-center">
-          <img
+<ContentImage
             src="SafeBites/Context.png"
             alt="SafeBites team context"
             className="w-full md:w-1/2 rounded-sm"
-            loading="lazy"
-          />
+            loading="lazy" width={1024} height={691} />
           <p className="text-lg text-muted-foreground leading-relaxed">
             During the summer of 2020, I teamed up with five friends who were
             inspired by the closure of one of our friend's family restaurants.
@@ -204,7 +189,7 @@ const CaseStudySafeBites = () => (
 
     {/* Proof of Concept */}
     <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24">
-      <motion.div {...fadeIn} className="max-w-3xl mx-auto">
+      <motion.div {...fadeIn} className="study-section-inner">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           Proof of Concept
         </p>
@@ -214,12 +199,11 @@ const CaseStudySafeBites = () => (
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
-            <img
+<ContentImage
               src="SafeBites/Brought Ideas to Life.png"
               alt="MIT Hackathon submission"
-              className="w-full rounded-sm mb-5"
-              loading="lazy"
-            />
+              className="w-full study-transparent-image mb-5"
+              loading="lazy" width={1024} height={647} />
             <h3 className="text-xl font-medium text-foreground mb-3">
               Brought Ideas to Life
             </h3>
@@ -230,12 +214,11 @@ const CaseStudySafeBites = () => (
           </div>
 
           <div>
-            <img
+<ContentImage
               src="SafeBites/Online Excitement .png"
               alt="CNN Digital coverage of SafeBites"
               className="w-full rounded-sm mb-5"
-              loading="lazy"
-            />
+              loading="lazy" width={1024} height={662} />
             <h3 className="text-xl font-medium text-foreground mb-3">
               Online Excitement
             </h3>
@@ -249,51 +232,45 @@ const CaseStudySafeBites = () => (
 
     {/* Revised Design */}
     <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-white">
-      <motion.div {...fadeIn} className="max-w-4xl mx-auto">
+      <motion.div {...fadeIn} className="study-section-inner">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           Revised Design
         </p>
         <h2 className="text-3xl md:text-4xl leading-tight text-foreground mb-8">
-          Honed Use Cases and Features
+          What Changed in the Revised Design
         </h2>
+        <p className="text-lg text-muted-foreground leading-relaxed mb-8">I refined four parts of the app: finding restaurants, understanding their safety information, rating them, and returning to saved places.</p>
 
-        <img
+<ContentImage
           src="SafeBites/Revised Design.png"
           alt="Revised SafeBites design"
-          className="w-full rounded-sm mb-10"
-          loading="lazy"
-        />
+          className="w-full study-transparent-image mb-10"
+          loading="lazy" width={1807} height={2048} />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <ol className="study-question-list">
           {[
             {
               num: "01",
-              title: "Homepage Quick Actions",
-              desc: "Relevant filters and view nearby restaurants.",
+              title: "Homepage: Find Nearby Restaurants",
+              desc: "Added quick actions for relevant filters and nearby restaurants, giving diners a clearer starting point for their search.",
             },
             {
               num: "02",
-              title: "Restaurant Detail Page",
-              desc: "Restaurant summary and explore information in depth.",
+              title: "Restaurant Details: Summary First, Details Next",
+              desc: "Organized the restaurant page around a summary, with more detailed information available for diners who want to explore further.",
             },
             {
               num: "03",
-              title: "Rating",
-              desc: "Updated metrics based on CDC guidelines.",
+              title: "Ratings: Updated Safety Criteria",
+              desc: "Updated the rating metrics using CDC guidelines at the time, so the criteria reflected the safety information the app was designed to help diners assess.",
             },
             {
               num: "04",
-              title: "Profile Page",
-              desc: "Save restaurants and view recent ratings & comments.",
+              title: "Profile: Keep Track of Places and Activity",
+              desc: "Brought saved restaurants, recent ratings, and comments together on the profile page, so diners could revisit places and review their activity.",
             },
           ].map((item) => (
-            <div
-              key={item.num}
-              className="bg-background rounded-sm p-5 flex gap-4"
-            >
-              <span className="text-2xl font-light text-primary leading-none">
-                {item.num}
-              </span>
+            <li key={item.num} className="study-question-item">
               <div>
                 <h3 className="text-base font-medium text-foreground mb-1">
                   {item.title}
@@ -302,44 +279,41 @@ const CaseStudySafeBites = () => (
                   {item.desc}
                 </p>
               </div>
-            </div>
+            </li>
           ))}
-        </div>
+        </ol>
       </motion.div>
     </section>
 
     {/* Coding */}
     <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24">
-      <motion.div {...fadeIn} className="max-w-4xl mx-auto">
+      <motion.div {...fadeIn} className="study-section-inner">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           Coding
         </p>
         <h2 className="text-3xl md:text-4xl leading-tight text-foreground mb-6">
           React Native Mobile App Development
         </h2>
-        <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-3xl">
+        <div className="study-project-introduction">
+<ContentImage
+          src="SafeBites/Coding.png"
+          alt="SafeBites code and GitHub repo"
+          className="w-full study-transparent-image"
+          loading="lazy" width={3249} height={1828} />
+          <div>
+        <p className="text-lg text-muted-foreground leading-relaxed mb-6">
           As the front-end lead, I was responsible for building the app
           architecture and bringing the designs to life in code.
         </p>
 
-        <img
-          src="SafeBites/Coding.png"
-          alt="SafeBites code and GitHub repo"
-          className="w-full rounded-sm mb-10"
-          loading="lazy"
-        />
+        <PaperAction href="https://github.com/elsa-bosemark/SafeBites-ReactNative/tree/master">View GitHub Repo</PaperAction>
+          </div>
 
-        <a
-          href="https://github.com/elsa-bosemark/SafeBites-ReactNative/tree/master"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-white text-sm font-medium tracking-wide uppercase rounded-sm hover:bg-primary/90 transition-colors mb-10"
-        >
-          View GitHub Repo &rarr;
-        </a>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="border border-border rounded-sm p-6">
+        </div>
+
+        <ol className="study-question-list">
+          <li className="study-question-item">
             <h3 className="text-base font-medium text-foreground mb-2">
               Component Architecture
             </h3>
@@ -347,8 +321,8 @@ const CaseStudySafeBites = () => (
               Organized the front-end architecture to utilize components,
               enabling faster development and easier maintenance.
             </p>
-          </div>
-          <div className="border border-border rounded-sm p-6">
+          </li>
+          <li className="study-question-item">
             <h3 className="text-base font-medium text-foreground mb-2">
               API Integration
             </h3>
@@ -356,8 +330,8 @@ const CaseStudySafeBites = () => (
               Utilized APIs from Yelp, Google, and Apple Maps for
               comprehensive location-based information.
             </p>
-          </div>
-          <div className="border border-border rounded-sm p-6">
+          </li>
+          <li className="study-question-item">
             <h3 className="text-base font-medium text-foreground mb-2">
               Backend Collaboration
             </h3>
@@ -365,8 +339,8 @@ const CaseStudySafeBites = () => (
               Collaborated with the backend developer to ensure accurate data
               was pulled from Firebase.
             </p>
-          </div>
-          <div className="border border-border rounded-sm p-6">
+          </li>
+          <li className="study-question-item">
             <h3 className="text-base font-medium text-foreground mb-2">
               Cross-Platform
             </h3>
@@ -374,14 +348,14 @@ const CaseStudySafeBites = () => (
               Adapted the code for compatibility across different phone sizes,
               iOS and Android devices.
             </p>
-          </div>
-        </div>
+          </li>
+        </ol>
       </motion.div>
     </section>
 
     {/* Looking Back */}
     <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-white">
-      <motion.div {...fadeIn} className="max-w-3xl mx-auto">
+      <motion.div {...fadeIn} className="study-section-inner">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           Looking Back
         </p>
@@ -419,39 +393,7 @@ const CaseStudySafeBites = () => (
       </motion.div>
     </section>
 
-    {/* Next Projects */}
-    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24">
-      <p className="text-xs font-medium tracking-widest uppercase text-primary mb-8 text-center">
-        Next Projects
-      </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-        <Link
-          to="/case-study/carta"
-          className="group border border-border rounded-sm p-6 hover:border-primary transition-colors"
-        >
-          <NextProjectImage project="carta" />
-          <p className="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-2">
-            Product Design & Launch
-          </p>
-          <p className="text-lg font-medium text-foreground group-hover:text-primary transition-colors">
-            Designed Degree Tracker UI for Stanford's Academic Planner
-          </p>
-        </Link>
-        <Link
-          to="/case-study/focal"
-          className="group border border-border rounded-sm p-6 hover:border-primary transition-colors"
-        >
-          <NextProjectImage project="focal" />
-          <p className="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-2">
-            UX Design & Research
-          </p>
-          <p className="text-lg font-medium text-foreground group-hover:text-primary transition-colors">
-            Uncovered User Insights to Improve the UX of Infrared Heaters
-          </p>
-        </Link>
-      </div>
-      <div className="study-home-action"><Link to="/" className="study-home-button">← Back to home</Link></div>
-    </section>
+    <CaseStudyNextProjects current="safebites" />
       </div>
     </div>
   </main>

@@ -1,17 +1,15 @@
+import PaperCard from "../components/PaperCard";
+import ContentImage from "../components/ContentImage";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import PaperAction from "../components/PaperAction";
+import PaperTags from "../components/PaperTags";
 import CaseStudyNav from "../components/CaseStudyNav";
-import NextProjectImage from "../components/NextProjectImage";
+import CaseStudyNextProjects from "../components/CaseStudyNextProjects";
 import CaseStudyContents from "../components/CaseStudyContents";
-import ProjectGradient from "../components/ProjectGradient";
+import ProjectGradient from "../components/CaseStudyGradient";
+import { caseStudyFadeIn as fadeIn } from "../lib/case-study-motion";
 import "./Portfolio.css";
 
-const fadeIn = {
-  initial: { opacity: 0, y: 40 } as const,
-  whileInView: { opacity: 1, y: 0 } as const,
-  viewport: { once: true, margin: "-80px" } as const,
-  transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
-};
 
 const CaseStudyFocal = () => (
   <main className="case-study study-focal min-h-screen">
@@ -60,18 +58,7 @@ const CaseStudyFocal = () => (
               <p className="text-xs font-medium tracking-widest uppercase text-primary mb-2">
                 Skills
               </p>
-              <div className="flex flex-wrap gap-1.5">
-                {["Experiments", "A/B Testing", "User Research", "Journey Mapping"].map(
-                  (s) => (
-                    <span
-                      key={s}
-                      className="px-2 py-1 text-xs font-medium tracking-wide uppercase bg-white/50 backdrop-blur-md border border-white/50 text-muted-foreground rounded-lg"
-                    >
-                      {s}
-                    </span>
-                  )
-                )}
-              </div>
+              <PaperTags tags={["Experiments", "A/B Testing", "User Research", "Journey Mapping"]} label="Focal skills" />
             </div>
             <div>
               <p className="text-xs font-medium tracking-widest uppercase text-primary mb-2">
@@ -89,11 +76,10 @@ const CaseStudyFocal = () => (
           transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           className="study-art lg:w-1/2 flex items-center"
         >
-          <img
+<ContentImage
             src="Focal/Top Image and Thumbnail.png"
             alt="Focal infrared heater project"
-            className="w-full rounded-sm"
-          />
+            className="w-full study-transparent-image" width={3917} height={2822} loading="eager" fetchPriority="high" />
         </motion.div>
       </div>
     </section>
@@ -103,7 +89,7 @@ const CaseStudyFocal = () => (
 
     {/* Problem Statement */}
     <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24">
-      <motion.div {...fadeIn} className="max-w-3xl mx-auto">
+      <motion.div {...fadeIn} className="study-section-inner">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           The Challenge
         </p>
@@ -122,7 +108,7 @@ const CaseStudyFocal = () => (
 
     {/* Solution */}
     <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-white">
-      <motion.div {...fadeIn} className="max-w-3xl mx-auto">
+      <motion.div {...fadeIn} className="study-section-inner">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           The Outcome
         </p>
@@ -136,12 +122,11 @@ const CaseStudyFocal = () => (
           satisfaction. Additionally, I leveraged the collected data to
           contribute to market fit discussions with the Strategy Lead.
         </p>
-        <img
+<ContentImage
           src="Focal/Final Customer Satisfaction Report.png"
           alt="Snapshots from the final Customer Satisfaction Report"
-          className="w-full rounded-sm mb-4"
-          loading="lazy"
-        />
+          className="w-full study-transparent-image mb-4"
+          loading="lazy" width={1761} height={686} />
         <p className="text-base text-muted-foreground">
           Snapshots from the final Customer Satisfaction Report.
         </p>
@@ -150,7 +135,7 @@ const CaseStudyFocal = () => (
 
     {/* Context */}
     <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24">
-      <motion.div {...fadeIn} className="max-w-3xl mx-auto">
+      <motion.div {...fadeIn} className="study-section-inner">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           Where It Started
         </p>
@@ -158,12 +143,11 @@ const CaseStudyFocal = () => (
           Working at an Infrared Heater Startup
         </h2>
         <div className="flex flex-col md:flex-row gap-8 items-center">
-          <img
+<ContentImage
             src="Focal/Context.png"
             alt="Focal context, infrared heater installations"
             className="w-full md:w-1/2 rounded-sm"
-            loading="lazy"
-          />
+            loading="lazy" width={1024} height={575} />
           <p className="text-lg text-muted-foreground leading-relaxed">
             Focal is a startup whose mission is to revolutionize how people are
             heated. When I joined, they had finished installing five pilot
@@ -175,7 +159,7 @@ const CaseStudyFocal = () => (
 
     {/* Discovery */}
     <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24">
-      <motion.div {...fadeIn} className="max-w-3xl mx-auto">
+      <motion.div {...fadeIn} className="study-section-inner">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           Discovery
         </p>
@@ -185,36 +169,29 @@ const CaseStudyFocal = () => (
         <p className="text-lg text-muted-foreground leading-relaxed mb-4">
           I set out to answer two key questions:
         </p>
-        <div className="space-y-4 mb-12">
-          <div className="flex gap-5 items-start">
-            <span className="text-3xl font-light text-primary leading-none mt-1">
-              1
-            </span>
+        <ol className="study-question-list study-question-list--large">
+          <li className="study-question-item">
             <p className="text-lg text-muted-foreground leading-relaxed">
               What is the ideal user journey for guests and staff when it comes
               to heating?
             </p>
-          </div>
-          <div className="flex gap-5 items-start">
-            <span className="text-3xl font-light text-primary leading-none mt-1">
-              2
-            </span>
+          </li>
+          <li className="study-question-item">
             <p className="text-lg text-muted-foreground leading-relaxed">
               What is the current guest and staff experience using Focal? What
               can be improved?
             </p>
-          </div>
-        </div>
+          </li>
+        </ol>
 
         {/* Research Methods */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white border border-border rounded-sm overflow-hidden">
-            <img
+        <div className="study-research-methods grid grid-cols-1 md:grid-cols-3 gap-6">
+          <PaperCard flush>
+<ContentImage
               src="Focal/Field Work.png"
               alt="Field work research"
               className="w-full"
-              loading="lazy"
-            />
+              loading="lazy" width={512} height={296} />
             <div className="p-5">
               <p className="text-xs font-medium tracking-widest uppercase text-primary mb-2">
                 Field Work
@@ -225,14 +202,13 @@ const CaseStudyFocal = () => (
                 staff.
               </p>
             </div>
-          </div>
-          <div className="bg-white border border-border rounded-sm overflow-hidden">
-            <img
+          </PaperCard>
+          <PaperCard flush>
+<ContentImage
               src="Focal/Observations.png"
               alt="Observations at restaurants"
               className="w-full"
-              loading="lazy"
-            />
+              loading="lazy" width={512} height={383} />
             <div className="p-5">
               <p className="text-xs font-medium tracking-widest uppercase text-primary mb-2">
                 Observations
@@ -242,14 +218,13 @@ const CaseStudyFocal = () => (
                 moments from parklet cameras.
               </p>
             </div>
-          </div>
-          <div className="bg-white border border-border rounded-sm overflow-hidden">
-            <img
+          </PaperCard>
+          <PaperCard flush>
+<ContentImage
               src="Focal/Interviews.png"
               alt="Interview notes"
               className="w-full"
-              loading="lazy"
-            />
+              loading="lazy" width={512} height={310} />
             <div className="p-5">
               <p className="text-xs font-medium tracking-widest uppercase text-primary mb-2">
                 Interviews
@@ -259,14 +234,14 @@ const CaseStudyFocal = () => (
                 pitched pricing.
               </p>
             </div>
-          </div>
+          </PaperCard>
         </div>
       </motion.div>
     </section>
 
     {/* How Might We */}
     <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-white">
-      <motion.div {...fadeIn} className="max-w-3xl mx-auto">
+      <motion.div {...fadeIn} className="study-section-inner">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           Reframing the Challenge
         </p>
@@ -277,23 +252,22 @@ const CaseStudyFocal = () => (
           Create a heating system for restaurant parklets that feels more
           convenient, flexible, and ambient for guests and staff.
         </p>
-        <img
+<ContentImage
           src="Focal/How Might We.png"
           alt="How Might We synthesis"
-          className="w-full rounded-sm"
-          loading="lazy"
-        />
+          className="w-full study-transparent-image"
+          loading="lazy" width={4096} height={3728} />
       </motion.div>
     </section>
 
     {/* Themes and Insights */}
     <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24">
-      <motion.div {...fadeIn} className="max-w-4xl mx-auto">
+      <motion.div {...fadeIn} className="study-section-inner">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-8">
           Themes & Insights
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white rounded-sm p-6">
+          <PaperCard>
             <h3 className="text-lg font-medium text-foreground mb-3">
               Convenience
             </h3>
@@ -302,9 +276,9 @@ const CaseStudyFocal = () => (
               <li>Heaters must be simpler than flicking a light switch to compete with electric systems.</li>
               <li>Outdoor table objects frequently get lost or broken during clean-up.</li>
             </ul>
-          </div>
+          </PaperCard>
 
-          <div className="bg-white rounded-sm p-6">
+          <PaperCard>
             <h3 className="text-lg font-medium text-foreground mb-3">
               Ambiance
             </h3>
@@ -313,9 +287,9 @@ const CaseStudyFocal = () => (
               <li>Restaurants promote heaters to attract guests to the parklet.</li>
               <li>Guests enjoy the ambient glow that heaters create.</li>
             </ul>
-          </div>
+          </PaperCard>
 
-          <div className="bg-white rounded-sm p-6">
+          <PaperCard>
             <h3 className="text-lg font-medium text-foreground mb-3">
               Flexibility
             </h3>
@@ -324,27 +298,28 @@ const CaseStudyFocal = () => (
               <li>Guests rearrange tables and chairs to suit their needs.</li>
               <li>Parklets feature various table and chair arrangements.</li>
             </ul>
-          </div>
+          </PaperCard>
         </div>
       </motion.div>
     </section>
 
     {/* Case Studies */}
     <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-white">
-      <motion.div {...fadeIn} className="max-w-3xl mx-auto">
+      <motion.div {...fadeIn} className="study-section-inner">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-8">
           Restaurant Case Studies
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        <div className="grid grid-cols-1 gap-8 mb-12">
           {/* Cole Valley Tavern */}
-          <div className="border border-border rounded-sm overflow-hidden bg-background">
-            <img
+          <PaperCard flush className="study-restaurant-card">
+            <div className="study-restaurant-media">
+<ContentImage
               src="Focal/Cole Valley Tavern.png"
               alt="Cole Valley Tavern"
               className="w-full"
-              loading="lazy"
-            />
+              loading="lazy" width={1024} height={768} />
+            </div>
             <div className="p-6">
               <h3 className="text-xl font-medium text-foreground mb-3">
                 Cole Valley Tavern
@@ -357,7 +332,8 @@ const CaseStudyFocal = () => (
                 Needs a way for guests to stay warm without disrupting staff
                 workflow.
               </p>
-              <div className="space-y-3 pt-4 border-t border-border">
+            </div>
+<div className="study-restaurant-personas">
                 <div>
                   <p className="text-sm font-medium text-foreground">
                     George & Sam
@@ -375,17 +351,17 @@ const CaseStudyFocal = () => (
                   </p>
                 </div>
               </div>
-            </div>
-          </div>
+          </PaperCard>
 
           {/* Vega */}
-          <div className="border border-border rounded-sm overflow-hidden bg-background">
-            <img
+          <PaperCard flush className="study-restaurant-card">
+            <div className="study-restaurant-media">
+<ContentImage
               src="Focal/Vega.png"
               alt="Vega restaurant"
               className="w-full"
-              loading="lazy"
-            />
+              loading="lazy" width={468} height={400} />
+            </div>
             <div className="p-6">
               <h3 className="text-xl font-medium text-foreground mb-3">Vega</h3>
               <p className="text-xs font-medium tracking-widest uppercase text-primary mb-2">
@@ -395,7 +371,8 @@ const CaseStudyFocal = () => (
                 Goal: Provide an exceptionally pleasant heating experience.
                 Needs a convenient system with minimal labor and cost to staff.
               </p>
-              <div className="space-y-3 pt-4 border-t border-border">
+            </div>
+<div className="study-restaurant-personas">
                 <div>
                   <p className="text-sm font-medium text-foreground">
                     Jude & Sergio
@@ -415,15 +392,14 @@ const CaseStudyFocal = () => (
                   </p>
                 </div>
               </div>
-            </div>
-          </div>
+          </PaperCard>
         </div>
       </motion.div>
     </section>
 
     {/* User Journeys */}
     <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24">
-      <motion.div {...fadeIn} className="max-w-3xl mx-auto">
+      <motion.div {...fadeIn} className="study-section-inner">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           Mapping the Experience
         </p>
@@ -435,67 +411,54 @@ const CaseStudyFocal = () => (
           identifying key moments of friction and delight throughout the heating
           experience.
         </p>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <img
+<ContentImage
             src="Focal/User Journeys Left.png"
             alt="User journey map, left"
             className="w-full rounded-sm"
-            loading="lazy"
-          />
-          <img
+            loading="lazy" width={843} height={1024} />
+<ContentImage
             src="Focal/User Journeys Right.png"
             alt="User journey map, right"
-            className="w-full rounded-sm"
-            loading="lazy"
-          />
+            className="w-full study-transparent-image"
+            loading="lazy" width={1024} height={902} />
         </div>
-      </motion.div>
-    </section>
-
-    {/* Pain Points */}
-    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-white">
-      <motion.div {...fadeIn} className="max-w-3xl mx-auto">
-        <p className="text-xs font-medium tracking-widest uppercase text-primary mb-8">
-          Pain Points
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <h3 className="text-xl font-medium mb-4">Pain Points</h3>
+        <ol className="study-question-list study-question-list--large">
           {[
             "Forgetfulness and tediousness around turning off heaters",
             "Confusion if heater is on, off, or warming up",
             "Equipment weathering and insufficient communication of technical issues",
             "Unclarity around what Focal is and how to operate it",
           ].map((pain, i) => (
-            <div
-              key={i}
-              className="flex gap-4 items-start bg-background border border-border rounded-sm p-5"
-            >
-              <span className="text-2xl font-light text-primary leading-none mt-0.5">
-                {i + 1}
-              </span>
+            <li key={i} className="study-question-item">
               <p className="text-muted-foreground leading-relaxed">{pain}</p>
-            </div>
+            </li>
           ))}
-        </div>
+        </ol>
       </motion.div>
     </section>
 
     {/* Research Informed Projects */}
     <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24">
-      <motion.div {...fadeIn} className="max-w-4xl mx-auto">
+      <motion.div {...fadeIn} className="study-section-inner">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           Research-Informed Projects
         </p>
         <h2 className="text-3xl md:text-4xl leading-tight text-foreground mb-6">
           From Friction to Four High-Impact Projects
         </h2>
-        <p className="text-lg text-muted-foreground leading-relaxed mb-10 max-w-3xl">
+        <div className="study-project-introduction">
+<ContentImage src="Focal/Research Informed Projects.png" alt="Four research-informed projects" className="study-transparent-image" loading="lazy" width={1024} height={752} />
+          <p className="text-lg text-muted-foreground leading-relaxed">
           By identifying points of friction through user journey mapping and
           other methods, I scoped out four high-impact projects feasible within
           my limited timeline, all aimed at enhancing the user experience:
-        </p>
+          </p>
+        </div>
 
-        <div className="flex flex-col md:flex-row gap-8 items-start">
-          <div className="grid grid-cols-1 gap-4 md:w-1/2">
+          <ol className="study-question-list">
             {[
               {
                 num: "01",
@@ -518,13 +481,7 @@ const CaseStudyFocal = () => (
                 desc: "Explored ideas such as signage, lighting, symbols, and scripts to help guests understand the product.",
               },
             ].map((project) => (
-              <div
-                key={project.num}
-                className="bg-white rounded-sm p-5 flex gap-4"
-              >
-                <span className="text-2xl font-light text-primary leading-none">
-                  {project.num}
-                </span>
+              <li key={project.num} className="study-question-item">
                 <div>
                   <h3 className="text-base font-medium text-foreground mb-1">
                     {project.title}
@@ -533,22 +490,15 @@ const CaseStudyFocal = () => (
                     {project.desc}
                   </p>
                 </div>
-              </div>
+              </li>
             ))}
-          </div>
-          <img
-            src="Focal/Research Informed Projects.png"
-            alt="Four research-informed projects"
-            className="w-full md:w-1/2 rounded-sm"
-            loading="lazy"
-          />
-        </div>
+          </ol>
       </motion.div>
     </section>
 
     {/* Reflection */}
     <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-white">
-      <motion.div {...fadeIn} className="max-w-3xl mx-auto">
+      <motion.div {...fadeIn} className="study-section-inner">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           Looking Back
         </p>
@@ -572,39 +522,7 @@ const CaseStudyFocal = () => (
       </motion.div>
     </section>
 
-    {/* Next Projects */}
-    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24">
-      <p className="text-xs font-medium tracking-widest uppercase text-primary mb-8 text-center">
-        Next Projects
-      </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-        <Link
-          to="/case-study/carta"
-          className="group border border-border rounded-sm p-6 hover:border-primary transition-colors"
-        >
-          <NextProjectImage project="carta" />
-          <p className="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-2">
-            Product Design & Launch
-          </p>
-          <p className="text-lg font-medium text-foreground group-hover:text-primary transition-colors">
-            Designed Degree Tracker UI for Stanford's Academic Planner
-          </p>
-        </Link>
-        <Link
-          to="/case-study/safebites"
-          className="group border border-border rounded-sm p-6 hover:border-primary transition-colors"
-        >
-          <NextProjectImage project="safebites" />
-          <p className="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-2">
-            Mobile App Development & Design
-          </p>
-          <p className="text-lg font-medium text-foreground group-hover:text-primary transition-colors">
-            Coded an App for Safer Dining Experiences During COVID-19
-          </p>
-        </Link>
-      </div>
-      <div className="study-home-action"><Link to="/" className="study-home-button">← Back to home</Link></div>
-    </section>
+    <CaseStudyNextProjects current="focal" />
       </div>
     </div>
   </main>

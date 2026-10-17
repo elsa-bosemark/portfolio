@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# Local design reviews and generated working output.
+/.impeccable/
+/output/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

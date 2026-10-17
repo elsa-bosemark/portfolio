@@ -1,0 +1,13 @@
+@font-face { font-family: "Portfolio Inter"; src: url("/portfolio-2027/inter-regular.ttf") format("truetype"); font-style: normal; font-weight: 400; font-display: swap; }
+@font-face { font-family: "Portfolio Inter"; src: url("/portfolio-2027/inter-medium.ttf") format("truetype"); font-style: normal; font-weight: 500 700; font-display: swap; }
+.content-image { transition: opacity .3s ease; }
+.content-image[data-ready="false"] { background-color: #e9e8e6; opacity: .5; }
+@media(prefers-reduced-motion: reduce) { .content-image { transition: none; } }
+html[data-motion="reduce"] .content-image { transition: none; }
+:root {
+  --paper-surface: #faf9f7;
+  --paper-foreground: #202023;
+  --paper-secondary: #62626a;
+  --paper-strip-shadow: inset 0 clamp(-4px, -.3vw, -2px) clamp(6px, .65vw, 9px) #7378851f, inset 0 clamp(2px, .3vw, 4px) clamp(6px, .7vw, 10px) #73788526;
+  --paper-media-shadow: inset 0 -3px 8px #fffaf242, inset 0 6px 16px #526b6129;
+}

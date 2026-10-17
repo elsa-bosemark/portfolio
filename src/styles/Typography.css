@@ -1,55 +1,33 @@
-/* PORTFOLIO TYPOGRAPHY GUIDELINE
- * One system sans-serif family throughout; no separate case-study font.
- * Semantic hierarchy: one H1 per page; H2 for sections; H3 for projects and
- * subsections; H4 for nested details. Labels, dates and roles are not headings.
- * Display: homepage greeting only, 56–106px / 1.08, medium.
- * H1: case-study page title, 40–64px / 1.1, regular.
- * H2: major section, 30–40px / 1.2, regular.
- * H3: project/subsection, 22–24px / 1.3, medium.
- * H4: nested heading, 18px / 1.4, medium.
- * Lead: introduction, 18px / 1.6. Body: 16px / 1.65.
- * Secondary: role/navigation, 14px / 1.5. Metadata: dates/captions, 13px / 1.5.
- * Label: 11px / 1.5, medium, .1em tracking. Tags: 12px / 1.5.
- * Typography role is independent of content access: NDA projects never get
- * a smaller title or paragraph than public projects.
- * Exceptions: illustrative UI inside mockups, numerical metrics, decorative
- * hero lettering. Do not use these exceptions for normal article text.
- */
+/* One hierarchy for the homepage, case studies, and design-system specimens. */
 :root {
-  --type-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-  --type-display: clamp(56px, 7.3vw, 106px);
+  --type-family: "Portfolio Inter", Inter, -apple-system, BlinkMacSystemFont, sans-serif;
   --type-h1: clamp(40px, 4.3vw, 64px);
-  --type-h2: clamp(30px, 3vw, 40px);
+  --type-h2: clamp(32px, 3vw, 40px);
   --type-h3: clamp(22px, 2vw, 24px);
-  --type-h4: 18px;
-  --type-lead: 18px;
   --type-body: 16px;
-  --type-secondary: 14px;
-  --type-meta: 13px;
-  --type-label: 11px;
-  --type-tag: 12px;
+  --type-meta: 16px;
   --type-ink: #202023;
   --type-muted: #62626a;
+  /* Compatibility aliases all resolve to the same five public styles. */
+  --type-display: var(--type-h1);
+  --type-project: var(--type-h3);
+  --type-project-leading: 1.3;
+  --type-h4: var(--type-h3);
+  --type-lead: var(--type-body);
+  --type-secondary: var(--type-body);
+  --type-label: var(--type-body);
+  --type-tag: var(--type-body);
 }
-.folio, .case-study, .site-footer, .site-sound-toggle { font-family: var(--type-family); }
-.folio h1.folio-greeting { font-size: var(--type-display); line-height: 1.08; font-weight: 500; }
-.case-study h1 { font-size: var(--type-h1); line-height: 1.1; font-weight: 400; letter-spacing: -.045em; }
-.folio .folio-work-heading h2, .folio .folio-about h2, .case-study h2 { font-size: var(--type-h2); line-height: 1.2; font-weight: 400; letter-spacing: -.035em; }
-.folio .folio-project-caption h3, .folio .folio-protected-caption h3, .case-study h3 { font-size: var(--type-h3); line-height: 1.3; font-weight: 500; letter-spacing: -.025em; }
-.case-study h4 { font-size: var(--type-h4); line-height: 1.4; font-weight: 500; letter-spacing: -.015em; }
-.folio .folio-project-summary, .folio .folio-protected-summary,
-.folio .folio-protected-expanded p, .folio .folio-project-facts dd,
-.folio .about-paragraph p, .case-study p.leading-relaxed { font-size: var(--type-body); line-height: 1.65; font-weight: 400; letter-spacing: 0; }
-.folio .folio-intro p.folio-intro-statement { font-size: var(--type-lead); line-height: 1.6; font-weight: 400; letter-spacing: -.015em; }
-.folio .folio-project-caption > div > p, .folio .folio-protected-caption > div > p { font-size: var(--type-secondary); line-height: 1.5; color: var(--type-muted); margin-top: 8px; }
-.folio .folio-project-caption .folio-project-date, .folio .folio-protected-caption .folio-protected-date,
-.case-study figcaption { font-size: var(--type-meta); line-height: 1.5; font-weight: 400; color: var(--type-muted); }
-.folio .folio-eyebrow, .case-study p.uppercase, .folio .folio-project-facts dt,
-.folio .folio-protected-expanded h4, .case-study .study-contents > p { font-size: var(--type-label); line-height: 1.5; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; }
-.folio .folio-intro-skills li, .case-study span.uppercase { font-size: var(--type-tag); line-height: 1.5; font-weight: 400; letter-spacing: 0; text-transform: none; }
-.folio .folio-project-summary, .folio .folio-protected-summary, .folio .folio-protected-expanded p { color: var(--type-muted); }
-.folio .folio-project-caption h3, .folio .folio-protected-caption h3 { color: var(--type-ink); }
-/* All homepage project names share this one class, including NDA cards. */
-html[data-theme] .folio h3.folio-project-title { font-family: var(--type-family); font-size: 24px; font-weight: 500; line-height: 1.3; letter-spacing: -.025em; color: var(--type-ink); margin: 0; }
-.folio .folio-connect h2, .folio .folio-connect .folio-design-focus h2 { font-size: var(--type-h3); line-height: 1.3; font-weight: 500; letter-spacing: -.025em; }
-.folio .folio-read-toggle, .folio .folio-project-cta, .folio .folio-intro-links a { font-size: var(--type-secondary); line-height: 1.5; font-weight: 500; }
+/* Canonical public-site hierarchy. Semantic headings and specimens share rules. */
+html[data-theme] :is(.portfolio-2027, .case-study) :is(h1, .type-h1) { font-family: var(--type-family); font-size: var(--type-h1); font-weight: 500; line-height: 1.1; letter-spacing: -.04em; }
+html[data-theme] :is(.portfolio-2027, .case-study) :is(h2, .type-h2) { font-family: var(--type-family); font-size: var(--type-h2); font-weight: 400; line-height: 1.2; letter-spacing: -.035em; }
+html[data-theme] :is(.portfolio-2027, .case-study) :is(h3, h4, .type-h3) { font-family: var(--type-family); font-size: var(--type-h3); font-weight: 500; line-height: 1.3; letter-spacing: -.025em; }
+html[data-theme] :is(.portfolio-2027, .case-study) p { font-size: var(--type-body); line-height: 1.65; letter-spacing: 0; color: var(--type-ink); }
+html[data-theme] .case-study .study-body-content li { color: var(--type-ink); }
+html[data-theme] :is(.portfolio-2027, .case-study) :is(.paper-organization, .paper-role, .paper-education, .paper-experience-row > p, .paper-experience-row > div > p:last-child, p.uppercase, .ds-note, .paper-section-heading > p, .paper-subheading > p) { color: var(--type-muted); }
+html[data-theme] :is(.portfolio-2027, .case-study) .type-body { font-size: var(--type-body); font-weight: 400; line-height: 1.65; letter-spacing: 0; }
+html[data-theme] :is(.portfolio-2027, .case-study) :is(figcaption, .type-caption) { font-size: var(--type-meta); font-weight: 400; line-height: 1.5; letter-spacing: 0; color: var(--type-muted); }
+
+/* The homepage greeting is the single display-size exception. */
+html[data-theme] .portfolio-2027 :is(.paper-masthead h1, .type-landing) { font-size: 106px; font-weight: 500; line-height: 1.1; letter-spacing: -.05em; }
+@media(max-width: 760px) { html[data-theme] .portfolio-2027 :is(.paper-masthead h1, .type-landing) { font-size: clamp(56px, 10vw, 76px); letter-spacing: -.04em; } }

@@ -1,1 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#050505"/><text x="32" y="43" text-anchor="middle" fill="white" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="600" letter-spacing="-2">EB</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="paper" x2="0" y2="1">
+      <stop stop-color="#a798c9"/>
+      <stop offset=".3" stop-color="#eee7fc"/>
+      <stop offset="1" stop-color="#d2c4ed"/>
+    </linearGradient>
+    <filter id="shadow" x="-50%" y="-50%" width="220%" height="220%">
+      <feDropShadow dx="2" dy="4" stdDeviation="2" flood-color="#49346f" flood-opacity=".55"/>
+    </filter>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="10" fill="url(#paper)"/>
+  <path d="M13 50V21Q13 12 22 12H51Q51 49 13 50Z" fill="#a48bd2" filter="url(#shadow)"/>
+</svg>

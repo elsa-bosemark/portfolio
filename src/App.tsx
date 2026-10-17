@@ -1,9 +1,7 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HashRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
+import { InterfaceSound } from "./components/InterfaceSound";
+import DesignSystem from "./pages/DesignSystem";
 import CaseStudySafeBites from "./pages/CaseStudySafeBites";
 import CaseStudyFocal from "./pages/CaseStudyFocal";
 import CaseStudyCarta from "./pages/CaseStudyCarta";
@@ -12,15 +10,17 @@ import ScrollToTop from "./components/ScrollToTop";
 import SiteFooter from "./components/SiteFooter";
 import { DisplayPreferences } from "./components/DisplayPreferences";
 import "./styles/Typography.css";
+import "./styles/PaperFoundation.css";
 
-const queryClient = new QueryClient();
 
 const Layout = () => {
   return (
     <>
       <ScrollToTop />
+      <InterfaceSound />
       <Routes>
         <Route path="/" element={<Index />} />
+        <Route path="/design-system" element={<DesignSystem />} />
         <Route path="/case-study/safebites" element={<CaseStudySafeBites />} />
         <Route path="/case-study/focal" element={<CaseStudyFocal />} />
         <Route path="/case-study/carta" element={<CaseStudyCarta />} />
@@ -33,15 +33,11 @@ const Layout = () => {
 };
 
 const App = () => (
-  <DisplayPreferences><QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
+  <DisplayPreferences>
       <HashRouter>
         <Layout />
       </HashRouter>
-    </TooltipProvider>
-  </QueryClientProvider></DisplayPreferences>
+  </DisplayPreferences>
 );
 
 export default App;

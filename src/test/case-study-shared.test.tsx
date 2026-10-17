@@ -1,0 +1,22 @@
+import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
+import { describe, expect, it } from "vitest";
+import CaseStudyNextProjects from "../components/CaseStudyNextProjects";
+import CaseStudyGradient from "../components/CaseStudyGradient";
+
+describe("shared case-study elements", () => {
+  it("shows the other projects and a home action", () => {
+    render(<MemoryRouter><CaseStudyNextProjects current="carta" /></MemoryRouter>);
+    expect(screen.getAllByRole("link")).toHaveLength(3);
+    expect(screen.getByRole("link", { name: /Infrared Heaters/ })).toHaveAttribute("href", "/case-study/focal");
+    expect(screen.getByRole("link", { name: /COVID-19/ })).toHaveAttribute("href", "/case-study/safebites");
+    expect(screen.getByRole("link", { name: "Back home" })).toHaveAttribute("href", "/");
+  });
+
+  it("renders case-study gradients without a canvas", () => {
+    const { container } = render(<CaseStudyGradient project="carta" />);
+    expect(container.querySelector("canvas")).toBeNull();
+    expect(container.firstElementChild).toHaveAttribute("aria-hidden", "true");
+    expect(container.firstElementChild).toHaveClass("folio-project-gradient");
+  });
+});

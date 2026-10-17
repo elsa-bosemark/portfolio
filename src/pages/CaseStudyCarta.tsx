@@ -1,17 +1,15 @@
+import PaperCard from "../components/PaperCard";
+import ContentImage from "../components/ContentImage";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import PaperAction from "../components/PaperAction";
+import PaperTags from "../components/PaperTags";
 import CaseStudyNav from "../components/CaseStudyNav";
-import NextProjectImage from "../components/NextProjectImage";
+import CaseStudyNextProjects from "../components/CaseStudyNextProjects";
 import CaseStudyContents from "../components/CaseStudyContents";
-import ProjectGradient from "../components/ProjectGradient";
+import ProjectGradient from "../components/CaseStudyGradient";
+import { caseStudyFadeIn as fadeIn } from "../lib/case-study-motion";
 import "./Portfolio.css";
 
-const fadeIn = {
-  initial: { opacity: 0, y: 40 } as const,
-  whileInView: { opacity: 1, y: 0 } as const,
-  viewport: { once: true, margin: "-80px" } as const,
-  transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
-};
 
 const CaseStudyCarta = () => (
   <main className="case-study study-carta min-h-screen">
@@ -54,24 +52,13 @@ const CaseStudyCarta = () => (
               <p className="text-xs font-medium tracking-widest uppercase text-primary mb-2">
                 Timeline
               </p>
-              <p className="text-foreground">10 weeks</p>
+              <p className="text-foreground">Dec 2023–Jun 2024</p>
             </div>
             <div>
               <p className="text-xs font-medium tracking-widest uppercase text-primary mb-2">
                 Skills
               </p>
-              <div className="flex flex-wrap gap-1.5">
-                {["Interviewing", "UI Design", "Documenting", "Collaborating"].map(
-                  (s) => (
-                    <span
-                      key={s}
-                      className="px-2 py-1 text-xs font-medium tracking-wide uppercase bg-white/50 backdrop-blur-md border border-white/50 text-muted-foreground rounded-lg"
-                    >
-                      {s}
-                    </span>
-                  )
-                )}
-              </div>
+              <PaperTags tags={["Interviewing", "UI Design", "Documenting", "Collaborating"]} label="Carta skills" />
             </div>
             <div>
               <p className="text-xs font-medium tracking-widest uppercase text-primary mb-2">
@@ -89,11 +76,10 @@ const CaseStudyCarta = () => (
           transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           className="study-art lg:w-1/2 flex items-center"
         >
-          <img
+<ContentImage
             src="Carta/MacBook Pro 16-inch Space Black Front.png"
             alt="Carta degree tracker interface"
-            className="w-full rounded-sm"
-          />
+            className="w-full study-transparent-image" width={3717} height={2263} loading="eager" fetchPriority="high" />
         </motion.div>
       </div>
     </section>
@@ -103,7 +89,7 @@ const CaseStudyCarta = () => (
 
     {/* The Starting Point */}
     <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24">
-      <motion.div {...fadeIn} className="max-w-3xl mx-auto">
+      <motion.div {...fadeIn} className="study-section-inner">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           The Starting Point
         </p>
@@ -128,7 +114,7 @@ const CaseStudyCarta = () => (
 
     {/* Listening to Students */}
     <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-white">
-      <motion.div {...fadeIn} className="max-w-3xl mx-auto">
+      <motion.div {...fadeIn} className="study-section-inner">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           Listening to Students
         </p>
@@ -157,12 +143,12 @@ const CaseStudyCarta = () => (
 
     {/* What I Found */}
     <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24">
-      <motion.div {...fadeIn} className="max-w-3xl mx-auto">
+      <motion.div {...fadeIn} className="study-section-inner">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-8">
           What I Found
         </p>
         <div className="space-y-10">
-          <div className="border border-border rounded-sm p-6">
+          <PaperCard >
             <h3 className="text-xl font-medium text-foreground mb-3">
               Too Many Tabs and Copy-Pasting
             </h3>
@@ -170,8 +156,8 @@ const CaseStudyCarta = () => (
               Students were frustrated with the need to constantly switch between
               tabs and manually copy-paste information into their own documents.
             </p>
-          </div>
-          <div className="border border-border rounded-sm p-6">
+          </PaperCard>
+          <PaperCard >
             <h3 className="text-xl font-medium text-foreground mb-3">
               Visually Intuitive Four-Year Planner
             </h3>
@@ -181,8 +167,8 @@ const CaseStudyCarta = () => (
               planner and degree planner to easily see how their courses align
               with degree requirements.
             </p>
-          </div>
-          <div className="border border-border rounded-sm p-6">
+          </PaperCard>
+          <PaperCard >
             <h3 className="text-xl font-medium text-foreground mb-3">
               "What If" Experimentations with Majors
             </h3>
@@ -191,14 +177,14 @@ const CaseStudyCarta = () => (
               while planning their courses but found existing tools lacked the
               ability to explore and compare academic paths.
             </p>
-          </div>
+          </PaperCard>
         </div>
       </motion.div>
     </section>
 
     {/* Looking at the Landscape */}
     <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-white">
-      <motion.div {...fadeIn} className="max-w-3xl mx-auto">
+      <motion.div {...fadeIn} className="study-section-inner">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           Looking at the Landscape
         </p>
@@ -214,46 +200,42 @@ const CaseStudyCarta = () => (
           actually mapped to degree requirements. The integration just didn't
           exist.
         </p>
-        <img
+<ContentImage
           src="Carta/Landscape.png"
           alt="Competitive landscape of degree planning tools"
-          className="study-image-paper w-full rounded-sm"
-          loading="lazy"
-        />
+          className="study-image-paper w-full study-transparent-image"
+          loading="lazy" width={2048} height={763} />
       </motion.div>
     </section>
 
     {/* Reframing the Challenge */}
     <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24">
-      <motion.div {...fadeIn} className="max-w-3xl mx-auto">
+      <motion.div {...fadeIn} className="study-section-inner">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           Reframing the Challenge
         </p>
         <h2 className="text-3xl md:text-4xl leading-tight text-foreground mb-8">
           Three Questions That Guided the Design
         </h2>
-        <div className="space-y-6">
+        <ol className="study-question-list study-question-list--headings">
           {[
             "How might we reduce the need for online scavenging to find degree requirements, minimize redundant tabs and copy-pasting, and simplify the overall process?",
             "How might we improve the four-year planner to provide more detailed information about degree progress?",
             "How might we make it easier for students to experiment with different majors?",
           ].map((q, i) => (
-            <div key={i} className="flex gap-5 items-start">
-              <span className="text-3xl font-light text-primary leading-none mt-1">
-                {i + 1}
-              </span>
+            <li key={i} className="study-question-item">
               <p className="text-lg text-muted-foreground leading-relaxed">
                 {q}
               </p>
-            </div>
+            </li>
           ))}
-        </div>
+        </ol>
       </motion.div>
     </section>
 
     {/* Defining the Direction */}
     <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-white">
-      <motion.div {...fadeIn} className="max-w-3xl mx-auto">
+      <motion.div {...fadeIn} className="study-section-inner">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           Defining the Direction
         </p>
@@ -268,7 +250,7 @@ const CaseStudyCarta = () => (
           design pillars:
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-background border border-border rounded-sm p-5">
+          <PaperCard >
             <p className="text-xs font-medium tracking-widest uppercase text-primary mb-2">
               Automate
             </p>
@@ -276,8 +258,8 @@ const CaseStudyCarta = () => (
               Select any major and automatically upload all its requirements to
               Carta.
             </p>
-          </div>
-          <div className="bg-background border border-border rounded-sm p-5">
+          </PaperCard>
+          <PaperCard >
             <p className="text-xs font-medium tracking-widest uppercase text-primary mb-2">
               Integrate
             </p>
@@ -285,8 +267,8 @@ const CaseStudyCarta = () => (
               Automatically show which requirements have been satisfied by
               existing courses in the four-year planner.
             </p>
-          </div>
-          <div className="bg-background border border-border rounded-sm p-5">
+          </PaperCard>
+          <PaperCard >
             <p className="text-xs font-medium tracking-widest uppercase text-primary mb-2">
               Visualize
             </p>
@@ -294,21 +276,21 @@ const CaseStudyCarta = () => (
               Support multiple majors with a progress bar indicating completed
               versus required courses.
             </p>
-          </div>
+          </PaperCard>
         </div>
       </motion.div>
     </section>
 
     {/* From Wireframes to Prototypes */}
     <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24">
-      <motion.div {...fadeIn} className="max-w-4xl mx-auto">
+      <motion.div {...fadeIn} className="study-section-inner">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           From Wireframes to Prototypes
         </p>
         <h2 className="text-3xl md:text-4xl leading-tight text-foreground mb-6">
           Testing Structure, Then Polish
         </h2>
-        <p className="text-lg text-muted-foreground leading-relaxed mb-10 max-w-3xl">
+        <p className="text-lg text-muted-foreground leading-relaxed mb-10">
           I started with low-fidelity wireframes to explore how degree
           requirements, progress tracking, and course selection could coexist
           in a single interface. Once the structure was validated, I moved into
@@ -317,23 +299,21 @@ const CaseStudyCarta = () => (
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <figure>
-            <img
+<ContentImage
               src="Carta/Lowfi.png"
               alt="Low-fidelity wireframes for Carta"
               className="w-full rounded-sm"
-              loading="lazy"
-            />
+              loading="lazy" width={2690} height={1040} />
             <figcaption className="text-base text-muted-foreground mt-3">
               Low fidelity
             </figcaption>
           </figure>
           <figure>
-            <img
+<ContentImage
               src="Carta/Highfi.png"
               alt="High-fidelity designs for Carta"
               className="w-full rounded-sm"
-              loading="lazy"
-            />
+              loading="lazy" width={2692} height={1590} />
             <figcaption className="text-base text-muted-foreground mt-3">
               High fidelity
             </figcaption>
@@ -344,12 +324,12 @@ const CaseStudyCarta = () => (
 
     {/* What Testing Revealed */}
     <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24">
-      <motion.div {...fadeIn} className="max-w-3xl mx-auto">
+      <motion.div {...fadeIn} className="study-section-inner">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
-          What Testing Revealed
+          User Testing
         </p>
         <h2 className="text-3xl md:text-4xl leading-tight text-foreground mb-6">
-          Three Changes That Made All the Difference
+          What Testing Changed
         </h2>
         <p className="text-lg text-muted-foreground leading-relaxed mb-12">
           Putting the designs in front of students uncovered assumptions I
@@ -362,12 +342,11 @@ const CaseStudyCarta = () => (
           <h3 className="text-2xl md:text-3xl font-medium text-foreground mb-4">
             Select instead of Drag & Drop
           </h3>
-          <img
+<ContentImage
             src="Carta/1_Select instead of Drag & Drop.png"
             alt="Select instead of drag and drop"
-            className="study-image-paper w-full rounded-sm mb-6"
-            loading="lazy"
-          />
+            className="study-image-paper w-full study-transparent-image mb-6"
+            loading="lazy" width={6495} height={1468} />
           <p className="text-lg text-muted-foreground leading-relaxed">
             After consulting Stanford's Office of Accessibility, I learned that
             drag-and-drop interfaces are not ideal for keyboard users. Studies
@@ -383,12 +362,11 @@ const CaseStudyCarta = () => (
           <h3 className="text-2xl md:text-3xl font-medium text-foreground mb-4">
             Keeping it Simple
           </h3>
-          <img
+<ContentImage
             src="Carta/1_Keeping it Simple.png"
             alt="Keeping it simple design change"
-            className="study-image-paper w-full rounded-sm mb-6"
-            loading="lazy"
-          />
+            className="study-image-paper w-full study-transparent-image mb-6"
+            loading="lazy" width={6609} height={1511} />
           <p className="text-lg text-muted-foreground leading-relaxed">
             Research showed that tracking degree progress is helpful when it's
             actionable. Displaying completed, planned, and unplanned courses
@@ -398,17 +376,17 @@ const CaseStudyCarta = () => (
           </p>
         </div>
 
-        {/* Clairity */}
+        {/* Clarity */}
         <div>
           <h3 className="text-2xl md:text-3xl font-medium text-foreground mb-4">
-            Clairity
+            Clarity
           </h3>
-          <img
+<ContentImage
             src="Carta/1_Clairity.png"
-            alt="Clairity design change"
-            className="w-full rounded-sm mb-6"
-            loading="lazy"
-          />
+            alt="Clarity design change"
+            style={{ backgroundColor: "#fff" }}
+            className="w-full study-transparent-image mb-6"
+            loading="lazy" width={5806} height={1457} />
           <p className="text-lg text-muted-foreground leading-relaxed">
             I initially used three dots for editing to keep the design clean, but
             it required extra clicks. Since students edit frequently, I made the
@@ -422,7 +400,7 @@ const CaseStudyCarta = () => (
 
     {/* The Final Design */}
     <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-white">
-      <motion.div {...fadeIn} className="max-w-3xl mx-auto">
+      <motion.div {...fadeIn} className="study-section-inner">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           The Final Design
         </p>
@@ -444,12 +422,11 @@ const CaseStudyCarta = () => (
               Choose a degree and have requirements and current progress
               automatically filled out. No more hunting across websites.
             </p>
-            <img
+<ContentImage
               src="Carta/Carta Final 1.png"
               alt="Automated degree requirement filling"
-              className="w-full rounded-sm"
-              loading="lazy"
-            />
+              className="w-full study-transparent-image"
+              loading="lazy" width={2622} height={1937} />
           </div>
 
           <div>
@@ -460,12 +437,11 @@ const CaseStudyCarta = () => (
               Customize degree plans by editing requirements to fit individual
               needs. Track WAYS and unit count requirements in one place.
             </p>
-            <img
+<ContentImage
               src="Carta/Carta Final 2.png"
               alt="Personalized degree planning"
-              className="w-full rounded-sm"
-              loading="lazy"
-            />
+              className="w-full study-transparent-image"
+              loading="lazy" width={2622} height={1937} />
           </div>
 
           <div>
@@ -476,12 +452,11 @@ const CaseStudyCarta = () => (
               Easily identify degree progress and see exactly which classes in
               the four-year planner contribute to a given degree.
             </p>
-            <img
+<ContentImage
               src="Carta/Carta Final 3.png"
               alt="Visualized degree progress"
-              className="w-full rounded-sm"
-              loading="lazy"
-            />
+              className="w-full study-transparent-image"
+              loading="lazy" width={2622} height={1937} />
           </div>
         </div>
       </motion.div>
@@ -489,7 +464,7 @@ const CaseStudyCarta = () => (
 
     {/* Shipping It */}
     <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24">
-      <motion.div {...fadeIn} className="max-w-3xl mx-auto">
+      <motion.div {...fadeIn} className="study-section-inner">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           Shipping It
         </p>
@@ -497,12 +472,11 @@ const CaseStudyCarta = () => (
           Handing Off to Engineers
         </h2>
         <div className="flex flex-col md:flex-row gap-8 items-start">
-          <img
+<ContentImage
             src="Carta/Handoff.png"
             alt="Design handoff documentation"
             className="w-full md:w-1/2 rounded-sm"
-            loading="lazy"
-          />
+            loading="lazy" width={866} height={676} />
           <div className="flex-1">
             <p className="text-lg text-muted-foreground leading-relaxed mb-6">
               With the design finalized, I documented every key decision and
@@ -526,7 +500,7 @@ const CaseStudyCarta = () => (
 
     {/* Looking Back */}
     <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-white">
-      <motion.div {...fadeIn} className="max-w-3xl mx-auto">
+      <motion.div {...fadeIn} className="study-section-inner">
         <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4">
           Looking Back
         </p>
@@ -552,39 +526,7 @@ const CaseStudyCarta = () => (
       </motion.div>
     </section>
 
-    {/* Next Projects */}
-    <section className="px-6 md:px-16 lg:px-24 py-16 md:py-24">
-      <p className="text-xs font-medium tracking-widest uppercase text-primary mb-8 text-center">
-        Next Projects
-      </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-        <Link
-          to="/case-study/focal"
-          className="group border border-border rounded-sm p-6 hover:border-primary transition-colors"
-        >
-          <NextProjectImage project="focal" />
-          <p className="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-2">
-            UX Design & Research
-          </p>
-          <p className="text-lg font-medium text-foreground group-hover:text-primary transition-colors">
-            Uncovered User Insights to Improve the UX of Infrared Heaters
-          </p>
-        </Link>
-        <Link
-          to="/case-study/safebites"
-          className="group border border-border rounded-sm p-6 hover:border-primary transition-colors"
-        >
-          <NextProjectImage project="safebites" />
-          <p className="text-xs font-medium tracking-widest uppercase text-muted-foreground mb-2">
-            Mobile App Development & Design
-          </p>
-          <p className="text-lg font-medium text-foreground group-hover:text-primary transition-colors">
-            Coded an App for Safer Dining Experiences During COVID-19
-          </p>
-        </Link>
-      </div>
-      <div className="study-home-action"><Link to="/" className="study-home-button">← Back to home</Link></div>
-    </section>
+    <CaseStudyNextProjects current="carta" />
       </div>
     </div>
   </main>

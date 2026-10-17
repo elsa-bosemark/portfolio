@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
-import { caseStudies } from "./CaseStudies";
+import { caseStudies } from "../lib/case-studies";
 import ProjectGradient from "./ProjectGradient";
 import ProjectFacts from "./ProjectFacts";
 

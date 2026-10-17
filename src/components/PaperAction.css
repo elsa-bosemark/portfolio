@@ -1,0 +1,9 @@
+.paper-action { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 12px 18px; border: 1px solid transparent; border-radius: 999px; background: linear-gradient(158deg, #1e2937 14.286%, #303e4e 85.714%); color: #fff; font-size: 16px; line-height: 21px; font-weight: 500; text-decoration: none; box-shadow: 0 1px 3px #8c9ebd1f, 0 3px 8px #8c9ebd33; transition: transform .25s ease, box-shadow .25s ease, filter .25s ease; }
+.paper-action svg { flex-shrink: 0; transition: transform .25s ease; }
+.paper-action--secondary { color: #303e4e; background: #fff; border-color: #c7cfd9a6; }
+.paper-action:hover { transform: translateY(-2px); filter: brightness(.96); box-shadow: 0 4px 10px #8c9ebd38; }
+.paper-action:hover svg { transform: translate(1px, -2px); }
+.paper-action:active { transform: translateY(0); }
+.paper-action { font-family: "Portfolio Inter", Inter, sans-serif; cursor: pointer; }
+.paper-action:focus-visible { outline: 2px solid #465c76; outline-offset: 5px; }
+@media(prefers-reduced-motion: reduce) { .paper-action, .paper-action svg { transition: none; } .paper-action:hover, .paper-action:hover svg { transform: none; } }

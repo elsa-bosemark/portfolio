@@ -1,4 +1,4 @@
-import { caseStudies } from "./CaseStudies";
+import { caseStudies } from "../lib/case-studies";
 
 export default function NextProjectImage({ project }: { project: "carta" | "focal" | "safebites" }) {
   const study = caseStudies.find(item => item.slug === `/case-study/${project}`)!;

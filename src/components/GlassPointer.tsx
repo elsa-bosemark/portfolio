@@ -18,6 +18,6 @@ export function PointerMesh() {
     <meshPhysicalMaterial attach="material-1" color="#effaff" metalness={1} roughness={.075} clearcoat={1} ior={1.45} clearcoatRoughness={.03} envMap={environment.texture} envMapIntensity={3} iridescence={.65} iridescenceIOR={1.45} iridescenceThicknessRange={[150,450]}/>
   </mesh>;
 }
-export default function GlassPointer() {
-  return <Canvas orthographic camera={{ position: [0,0,5], zoom: 29 }} dpr={[1,2]} frameloop="demand" gl={{ alpha: true, antialias: true }}><ambientLight intensity={.3}/><directionalLight position={[2,5,5]} intensity={2}/><PointerMesh/></Canvas>;
+export default function GlassPointer({ onReady }: { onReady?: () => void }) {
+  return <Canvas onCreated={() => onReady?.()} orthographic camera={{ position: [0,0,5], zoom: 29 }} dpr={[1,2]} frameloop="demand" gl={{ alpha: true, antialias: true }}><ambientLight intensity={.3}/><directionalLight position={[2,5,5]} intensity={2}/><PointerMesh/></Canvas>;
 }

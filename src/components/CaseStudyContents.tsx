@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDisplayPreferences } from "./DisplayPreferences";
+import PaperAction from "./PaperAction";
+import { ArrowLeft } from "lucide-react";
 
 const destinations: Record<string, string[]> = {
   Carta: ["The Starting Point", "Listening to Students", "The Final Design"],
@@ -11,7 +13,15 @@ const labels = ["Problem", "Process", "Final design"];
 export default function CaseStudyContents({ project }: { project: string }) {
   const [sections, setSections] = useState<{ id: string; label: string }[]>([]);
   const [active, setActive] = useState("");
+  const [bottomVisible, setBottomVisible] = useState(false);
   const { reduced } = useDisplayPreferences();
+  useEffect(() => {
+    const bottom = document.querySelector(".study-home-action");
+    if (!bottom || typeof IntersectionObserver === "undefined") return;
+    const observer = new IntersectionObserver(([entry]) => setBottomVisible(entry.isIntersecting));
+    observer.observe(bottom);
+    return () => observer.disconnect();
+  }, [project]);
   useEffect(() => {
     const elements = Array.from(document.querySelectorAll<HTMLElement>(".study-body-content > section"));
     const entries = (destinations[project] ?? []).flatMap((heading, index) => {
@@ -42,5 +52,8 @@ export default function CaseStudyContents({ project }: { project: string }) {
         document.getElementById(id)?.scrollIntoView({ behavior: reduced ? "instant" : "smooth", block: "start" });
       }}>{label}</button>
     </li>)}</ol>
+    <div className="study-contents-home" data-hidden={bottomVisible}>
+      <PaperAction to="/" secondary className="study-home-link" icon={<ArrowLeft size={17} aria-hidden="true" />}>Back home</PaperAction>
+    </div>
   </nav>;
 }

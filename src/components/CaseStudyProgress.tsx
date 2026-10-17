@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowUp } from "lucide-react";
+import PaperAction from "./PaperAction";
 import { useDisplayPreferences } from "./DisplayPreferences";
 
 export default function CaseStudyProgress({ project }: { project: string }) {
@@ -30,8 +31,8 @@ export default function CaseStudyProgress({ project }: { project: string }) {
   }, [project]);
   return <>
     <div className="study-progress" aria-hidden="true"><div ref={line} className="study-progress-fill" /></div>
-    {showTop && <button className="study-back-top" type="button" aria-label="Back to top" title="Back to top" onClick={() => {
+    {showTop && <PaperAction secondary className="study-back-top" label="Back to top" icon={<ArrowUp size={17} aria-hidden="true" />} onClick={() => {
       window.scrollTo({ top: 0, behavior: reduced ? "instant" : "smooth" });
-    }}><ArrowUp size={18} aria-hidden="true" /><span>Back to top</span></button>}
+    }}>{null}</PaperAction>}
   </>;
 }
