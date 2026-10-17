@@ -21,6 +21,12 @@ export default function HeroAssembly({ children, paper = false, masthead }: { ch
   const arrivalHandled=useRef(false);
   const pressedAt = useRef<number | null>(null);
   const wake = useRef<() => void>(() => {});
+  const revealedAt = useRef<number | null>(null);
+  const revealPointer = () => {
+    if (revealedAt.current === null) revealedAt.current = performance.now();
+    setGlassReady(true);
+    wake.current();
+  };
   useEffect(()=>{
     if (!glassReady && !reduced) return;
     const timer=window.setTimeout(()=>{
@@ -33,7 +39,7 @@ export default function HeroAssembly({ children, paper = false, masthead }: { ch
         action.current={start:performance.now(),erase:false};
         wake.current();
       }
-    },1000);
+    },reduced ? 1000 : 1600);
     return ()=>window.clearTimeout(timer);
   },[reduced, glassReady]);
   useEffect(()=>{
@@ -98,6 +104,10 @@ export default function HeroAssembly({ children, paper = false, masthead }: { ch
           scale = cursorScale * (1 - .12 * Math.sin(Math.PI * elapsed / 220));
         } else if (elapsed >= 220) pressedAt.current = null;
       }
+      const entrance = revealedAt.current === null ? 0 : reduced ? 1 : 1 - Math.pow(1 - Math.min(1, (now - revealedAt.current) / 600), 3);
+      scale *= .35 + .65 * entrance;
+      pointer.current!.style.opacity = String(entrance);
+      pointer.current!.style.pointerEvents = entrance > .8 ? "auto" : "none";
       pointer.current!.style.transform=`translate(${x-24}px,${y-24}px) rotate(${rotation}deg) scale(${scale})`;
       if(visible && !document.hidden && !reduced)frame=requestAnimationFrame(tick);
     };
@@ -130,6 +140,6 @@ export default function HeroAssembly({ children, paper = false, masthead }: { ch
   return <div className={paper ? "paper-hero-assembly" : "hero-assembly"} ref={root}>
     {paper ? <section className="paper-masthead" aria-labelledby="paper-greeting">{masthead}{greeting}</section> : greeting}
     <div className={paper ? "paper-intro-anchor" : "folio-intro-anchor"}>{children}</div>
-    <button ref={pointer} type="button" className="greeting-glass-cursor" onPointerDown={() => { pressedAt.current = performance.now(); }} onClick={activate} aria-pressed={highlighted} aria-label={highlighted?"Remove the introduction highlights":"Highlight the introduction"} title={highlighted?"Remove highlights":"Highlight a thought"}><PointerFallbackBoundary onFailure={() => setGlassReady(true)}><Suspense fallback={pointerFallback}><GlassPointer onReady={() => setGlassReady(true)} /></Suspense></PointerFallbackBoundary></button>
+    <button ref={pointer} style={{ opacity: 0 }} tabIndex={glassReady ? 0 : -1} type="button" className="greeting-glass-cursor" onPointerDown={() => { pressedAt.current = performance.now(); }} onClick={activate} aria-pressed={highlighted} aria-label={highlighted?"Remove the introduction highlights":"Highlight the introduction"} title={highlighted?"Remove highlights":"Highlight a thought"}><PointerFallbackBoundary onFailure={revealPointer}><Suspense fallback={pointerFallback}><GlassPointer onReady={revealPointer} /></Suspense></PointerFallbackBoundary></button>
   </div>;
 }

@@ -19,5 +19,5 @@ export function PointerMesh() {
   </mesh>;
 }
 export default function GlassPointer({ onReady }: { onReady?: () => void }) {
-  return <Canvas onCreated={() => onReady?.()} orthographic camera={{ position: [0,0,5], zoom: 29 }} dpr={[1,2]} frameloop="demand" gl={{ alpha: true, antialias: true }}><ambientLight intensity={.3}/><directionalLight position={[2,5,5]} intensity={2}/><PointerMesh/></Canvas>;
+  return <Canvas resize={{ offsetSize: true }} onCreated={() => onReady?.()} orthographic camera={{ position: [0,0,5], zoom: 29 }} dpr={[1,2]} frameloop="demand" gl={{ alpha: true, antialias: true }}><ambientLight intensity={.3}/><directionalLight position={[2,5,5]} intensity={2}/><PointerMesh/></Canvas>;
 }
