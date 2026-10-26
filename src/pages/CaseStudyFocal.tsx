@@ -58,7 +58,7 @@ const CaseStudyFocal = () => (
               <p className="text-xs font-medium tracking-widest uppercase text-primary mb-2">
                 Skills
               </p>
-              <PaperTags tags={["Product strategy", "User research", "Technical development"]} label="Focal skills" />
+              <PaperTags tags={["Field research", "Physical–digital experiences"]} label="Focal skills" />
             </div>
             <div>
               <p className="text-xs font-medium tracking-widest uppercase text-primary mb-2">

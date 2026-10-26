@@ -6,31 +6,62 @@ import PaperMosaic from "./PaperMosaic";
 import ProgressiveImage from "./ProgressiveImage";
 import HeroAssembly from "./HeroAssembly";
 import PaperAction, { linkedinUrl, resumeUrl } from "./PaperAction";
-import { type MouseEvent } from "react";
+import { useLayoutEffect, useRef, type MouseEvent } from "react";
 import { useDisplayPreferences } from "./DisplayPreferences";
 import "../pages/Homepage2027.css";
 
 const asset = (name: string) => `${import.meta.env.BASE_URL}portfolio-2027/${name}`;
-const focus = ["Product strategy", "User research", "UI/UX design", "Technical development"];
 const projects = [
   {
     name: "Carta", slug: "carta", role: "Design Lead · UI/UX Designer · 2024–2026",
     title: "A clearer path to graduation",
     summary: "Led design for Carta’s latest launch. This case study highlights my degree tracker designs, which clarify requirements and next steps toward graduation.",
-    skills: ["User research", "UI/UX design"], image: "artwork-carta.webp",
+    skills: ["Design leadership", "Engineering handoff"], image: "artwork-carta.webp",
     metric: "95%", outcome: "of Stanford students use the course-planning platform.",
   },
   {
     name: "Focal", slug: "focal", role: "Product Designer · Intern · Summer 2024",
     title: "Making outdoor heating easier to use",
     summary: "Identified high-impact UX improvements at an outdoor-heating startup ahead of scaling and go-to-market. Conducted 50+ guest interviews and 10+ experiments, translating findings into prioritized recommendations for the CEO and CTO.",
-    skills: ["Product strategy", "User research", "Technical development"], image: "artwork-focal.webp",
+    skills: ["Field research", "Physical–digital experiences"], image: "artwork-focal.webp",
     metric: "+160%", outcome: "guest interactions after redesigning heater controls.",
   },
 ];
 
 export default function Homepage2027() {
   const { reduced } = useDisplayPreferences();
+  const introColumn = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    const column = introColumn.current;
+    const section = column?.parentElement;
+    const lead = column?.querySelector(".paper-lead");
+    if (!column || !section || !lead || typeof ResizeObserver === "undefined") return;
+    let frame = 0;
+    let active = true;
+    let previousWidth = -1;
+    const measure = () => {
+      if (!active) return;
+      column.style.width = "";
+      if (window.innerWidth < 900) return;
+      const range = document.createRange();
+      range.selectNodeContents(lead);
+      const lines = Array.from(range.getClientRects());
+      const left = lead.getBoundingClientRect().left;
+      const right = Math.max(left, ...lines.map(line => line.right));
+      if (right > left) column.style.width = `${Math.ceil(right - left) + 1}px`;
+    };
+    const schedule = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(measure); };
+    const observer = new ResizeObserver(([entry]) => {
+      if (entry.contentRect.width !== previousWidth) {
+        previousWidth = entry.contentRect.width;
+        schedule();
+      }
+    });
+    observer.observe(section);
+    measure();
+    void document.fonts?.ready.then(schedule);
+    return () => { active = false; observer.disconnect(); cancelAnimationFrame(frame); };
+  }, []);
   const jumpTo = (event: MouseEvent<HTMLAnchorElement>, id: string) => {
     event.preventDefault();
     const target = document.getElementById(id);
@@ -45,9 +76,9 @@ export default function Homepage2027() {
     <SiteNavigation />
     <HeroAssembly paper masthead={<PaperMosaic />}>
     <section className="paper-introduction" aria-label="Introduction">
-      <div className="paper-reading-column">
-        <p className="paper-lead">Product designer <span className="cursor-highlight">focused on AI interactions.</span> I turn open-ended technical possibilities into experiences people can try, helping teams shape emerging technology into tools that <span className="cursor-highlight">expand what people can do.</span></p>
-        <PaperTags tags={focus} label="Design focus" />
+      <div className="paper-reading-column" ref={introColumn}>
+        <p className="paper-lead">Product designer <span className="cursor-highlight">focused on AI interactions</span>; Experience in shaping emerging technology into tools that <span className="cursor-highlight">expand what people can do.</span></p>
+        <div className="paper-affiliations"><p>Currently @ Stanford · Previously @ OpenAI · Amazon</p></div>
         <div className="paper-contact-row">
           <h3>Let’s connect</h3>
           <div className="paper-actions"><PaperAction href={resumeUrl}>View résumé</PaperAction><PaperAction href={linkedinUrl} secondary>Connect on LinkedIn</PaperAction></div>
@@ -67,7 +98,7 @@ export default function Homepage2027() {
               <h3>Prototyping human–AI experiences</h3>
               <p className="paper-role">Member of Technical Staff · Intern · Summer 2026</p>
               <p className="paper-project-summary">Built an internal tool for designers and engineers to test new technology concepts for human–AI interaction. Applied concepts to consumer device hardware and the Codex app.</p>
-              <PaperTags tags={["UI/UX design", "Technical development"]} label="OpenAI skills" />
+              <PaperTags tags={["Human–AI interaction", "Technical prototyping", "Consumer devices"]} label="OpenAI skills" />
             </div>
           </article>
           <article className="paper-protected-row">
@@ -77,14 +108,14 @@ export default function Homepage2027() {
               <h3>AI workflows for branded content</h3>
               <p className="paper-role">User Experience Designer · Intern · Summer 2025</p>
               <p className="paper-project-summary">Crafted AI-powered content creation workflows for sellers, drawing on interviews and journey mapping. Refined the experience through usability studies.</p>
-              <PaperTags tags={["User research", "UI/UX design"]} label="Amazon skills" />
+              <PaperTags tags={["Generative AI", "Seller workflows", "Usability testing"]} label="Amazon skills" />
             </div>
           </article>
         </div>
       </section>
 
       <section className="paper-cases" aria-labelledby="paper-cases-title">
-        <div className="paper-section-heading"><h2 id="paper-cases-title">Full case studies</h2><p>New work coming soon</p></div>
+        <div className="paper-section-heading"><h2 id="paper-cases-title">Public case studies</h2><p>New work coming soon</p></div>
         <div className="paper-case-rows">{projects.map(project => <article className={`paper-case-row paper-case-row--${project.slug}`} key={project.slug}>
           <Link to={`/case-study/${project.slug}`} className="paper-case-visual" aria-label={`View ${project.name} case study`}>
             <PaperAction presentation secondary className="paper-case-cursor">View case study</PaperAction>

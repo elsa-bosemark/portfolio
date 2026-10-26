@@ -58,7 +58,7 @@ const CaseStudyCarta = () => (
               <p className="text-xs font-medium tracking-widest uppercase text-primary mb-2">
                 Skills
               </p>
-              <PaperTags tags={["User research", "UI/UX design"]} label="Carta skills" />
+              <PaperTags tags={["Design leadership", "Engineering handoff"]} label="Carta skills" />
             </div>
             <div>
               <p className="text-xs font-medium tracking-widest uppercase text-primary mb-2">

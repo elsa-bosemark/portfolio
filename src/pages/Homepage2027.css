@@ -21,7 +21,7 @@
 .paper-skip { position: fixed; top: 12px; left: 12px; z-index: 20; padding: 12px 18px; background: #fff; color: #202023; transform: translateY(-160%); border-radius: 6px; }
 .paper-skip:focus { transform: translateY(0); }
 
-.paper-masthead { position: relative; isolation: isolate; height: 382px; padding-top: 77px; background: #fbfbfb; overflow: hidden; }
+.paper-masthead { position: relative; isolation: isolate; height: 210px; padding-top: 77px; background: #fbfbfb; overflow: hidden; }
 .paper-hero-assembly { position: relative; width: 100%; }
 .paper-hero-assembly .assembly-letter { position: relative; }
 .paper-hero-assembly .assembly-i { display: inline-block; letter-spacing: 0; margin-right: -.05em; }
@@ -47,13 +47,19 @@
 }
 .paper-header-follower { position: absolute; top: 0; left: 0; width: 44px; height: 44px; border-radius: 50%; background: #8e89b32e; mix-blend-mode: multiply; pointer-events: none; z-index: 4; opacity: 0; }
 .paper-header-follower[data-visible="true"] { opacity: 1; }
-.portfolio-2027 .paper-masthead h1 { font-size: 106px; line-height: 1.1; font-weight: 500; letter-spacing: -.05em; text-align: center; margin: 100px 24px 0; }
+.portfolio-2027 .paper-masthead h1 { text-align: center; margin: 40px 24px 0; }
 .paper-introduction { position: relative; padding: 40px 24px 48px; }
 .paper-introduction, .paper-cases::before { background: #fff; box-shadow: var(--paper-strip-shadow); }
 .paper-reading-column { width: 100%; max-width: 800px; margin-inline: auto; display: flex; flex-direction: column; gap: 24px; }
 .portfolio-2027 .paper-lead { color: #202023; font-size: 18px; line-height: 1.6; letter-spacing: -.015em; }
+html[data-theme] .portfolio-2027 .paper-introduction .paper-lead { font-size: clamp(24px, 2.6vw, 34px); line-height: 1.45; letter-spacing: -.025em; }
+.paper-hero-assembly .paper-introduction .cursor-highlight { background-position: left 48%; background-size: calc(var(--cursor-mark) * 100%) 76%; }
+.paper-affiliations { display: flex; justify-content: space-between; align-items: baseline; gap: 12px 24px; flex-wrap: wrap; }
+.paper-affiliations > p { text-align: left; }
+html[data-theme] .portfolio-2027 .paper-affiliations p { color: var(--type-muted); }
 .paper-tags { display: flex; flex-wrap: wrap; gap: 8px 18px; list-style: none; margin: 0; padding: 0; color: #616670; font-size: 16px; font-weight: 500; line-height: 20px; }
 .paper-contact-row { display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+.paper-contact-row .paper-actions { padding-inline: 0; }
 .paper-contact-row h2 { font-size: 22px; font-weight: 500; line-height: 28px; letter-spacing: -.025em; }
 .paper-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 8px 8px 12px; }
 
@@ -147,10 +153,10 @@
 }
 @media(max-width: 760px) {
   .paper-container { padding-inline: 24px; }
-  .paper-masthead { height: 310px; }
+  .paper-masthead { height: 184px; }
   .paper-mosaic { transform: translateX(-50%) scale(.82); transform-origin: center top; }
   .paper-masthead { padding-top: 73px; }
-  .portfolio-2027 .paper-masthead h1 { font-size: clamp(56px, 10vw, 76px); letter-spacing: -.04em; margin-top: 88px; }
+  .portfolio-2027 .paper-masthead h1 { margin-top: 32px; }
   .paper-introduction { padding-block: 32px 36px; }
   .paper-contact-row { align-items: flex-start; flex-direction: column; gap: 16px; }
   .paper-contact-row .paper-actions { padding: 0; }

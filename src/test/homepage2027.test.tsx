@@ -16,7 +16,7 @@ describe("Figma homepage", () => {
     expect(screen.getByRole("heading", { level: 1, name: "Hi, I’m Elsa" })).toBeInTheDocument();
     expect(screen.queryByRole("heading", { name: "Selected work" })).not.toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 2, name: "NDA-protected work" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { level: 2, name: "Full case studies" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: "Public case studies" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "AI workflows for branded content" })).toBeInTheDocument();
     expect(screen.queryByText(/A\+ Content Manager/)).not.toBeInTheDocument();
     expect(screen.queryByRole("link", { name: "View SafeBites case study" })).not.toBeInTheDocument();

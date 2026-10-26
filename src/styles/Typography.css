@@ -29,5 +29,5 @@ html[data-theme] :is(.portfolio-2027, .case-study) .type-body { font-size: var(-
 html[data-theme] :is(.portfolio-2027, .case-study) :is(figcaption, .type-caption) { font-size: var(--type-meta); font-weight: 400; line-height: 1.5; letter-spacing: 0; color: var(--type-muted); }
 
 /* The homepage greeting is the single display-size exception. */
-html[data-theme] .portfolio-2027 :is(.paper-masthead h1, .type-landing) { font-size: 106px; font-weight: 500; line-height: 1.1; letter-spacing: -.05em; }
-@media(max-width: 760px) { html[data-theme] .portfolio-2027 :is(.paper-masthead h1, .type-landing) { font-size: clamp(56px, 10vw, 76px); letter-spacing: -.04em; } }
+html[data-theme] .portfolio-2027 :is(.paper-masthead h1, .type-landing) { font-size: 40px; font-weight: 500; line-height: 1.2; letter-spacing: -.03em; }
+@media(max-width: 760px) { html[data-theme] .portfolio-2027 :is(.paper-masthead h1, .type-landing) { font-size: 32px; letter-spacing: -.03em; } }

@@ -93,7 +93,7 @@ const imgMosaicTile24 = `${import.meta.env.BASE_URL}portfolio-2027/mosaic-tile24
 const imgMosaicTile27 = `${import.meta.env.BASE_URL}portfolio-2027/mosaic-tile27.svg`;
 const imgMosaicTile210 = `${import.meta.env.BASE_URL}portfolio-2027/mosaic-tile210.svg`;
 
-export default function PaperMosaic() {
+export default function PaperMosaic({ decorative = false }: { decorative?: boolean }) {
   const mosaic = (
 <div className="paper-mosaic" data-node-id="94:78" data-name="Editable paper mosaic / native Figma relief">
             <div className="absolute h-[108.667px] left-[16px] top-[16px] w-[117.091px]" data-node-id="94:79" data-name="Mosaic tile / 0-0">
@@ -274,6 +274,7 @@ export default function PaperMosaic() {
             </div>
           </div>
   );
+  if (decorative) return <div aria-hidden="true">{mosaic}</div>;
   return <>{cloneElement(mosaic, { children: Children.map(mosaic.props.children, (tile, index) => <ReliefTile key={index} tile={tile} index={index} />) })}<HeaderFollower /></>;
 }
 
