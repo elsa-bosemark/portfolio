@@ -1,7 +1,6 @@
 import { useEffect, useState, type MouseEvent } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDisplayPreferences } from "./DisplayPreferences";
-import { SoundToggle } from "./InterfaceSound";
 import "./SiteNavigation.css";
 
 export default function SiteNavigation() {
@@ -28,7 +27,6 @@ export default function SiteNavigation() {
       <a href="#/" onClick={event => jumpTo(event, "work")}>Work</a>
       <a href="#/" onClick={event => jumpTo(event, "about")}>About</a>
       <a href={home ? "#connect" : "#/"} onClick={event => jumpTo(event, "connect")}>Let’s connect</a>
-      {home && <SoundToggle />}
     </div>
   </nav>;
 }

@@ -1,19 +1,13 @@
 .paper-navigation { position: sticky; top: 0; z-index: 20; margin-bottom: -77px; background: transparent; transition: background-color .2s ease; pointer-events: none; }
 .paper-navigation[data-scrolled="true"] { pointer-events: auto; }
 .paper-navigation-pill { position: relative; display: flex; align-items: center; gap: 32px; padding: 14px 24px; margin-block: -14px; border-radius: 999px; transition: background-color .25s ease, box-shadow .25s ease; }
-.paper-navigation-pill .paper-sound-toggle { position: absolute; right: -48px; top: 50%; margin: 0; transform: translateY(-50%); }
-.paper-navigation-pill .paper-sound-toggle:hover { transform: translateY(-50%); }
 .paper-navigation[data-scrolled="true"] .paper-navigation-pill { background: #faf9f7d9; -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); box-shadow: 0 3px 14px #2020230d; }
 .paper-navigation a { pointer-events: auto; }
-.paper-sound-toggle { pointer-events: auto; width: 36px; height: 36px; padding: 0; flex-shrink: 0; margin-block: -8px; }
-.paper-sound-toggle:hover svg { transform: none; }
-.paper-sound-toggle { transition: opacity .2s ease, transform .25s ease, box-shadow .25s ease; }
-.paper-sound-toggle[data-visible="false"] { opacity: 0; pointer-events: none; }
 .paper-masthead h1 { pointer-events: none; }
 .paper-navigation { display: flex; align-items: center; justify-content: center; gap: 32px; padding: 28px 24px; font-size: 16px; line-height: 21px; }
 .paper-navigation a { text-decoration: none; text-underline-offset: 5px; }
 .paper-navigation a:hover { text-decoration: underline; }
-@media(max-width: 480px) { .portfolio-2027 .paper-navigation { gap: 16px; padding-inline: 12px; } .paper-navigation-pill { gap: 16px; padding-inline: 16px; } .paper-navigation-pill .paper-sound-toggle { right: -36px; } }
+@media(max-width: 480px) { .portfolio-2027 .paper-navigation { gap: 16px; padding-inline: 12px; } .paper-navigation-pill { gap: 16px; padding-inline: 16px; } }
 .paper-navigation { font-family: var(--type-family); color: var(--type-ink); }
 .paper-navigation--page { margin-bottom: 0; }
 .case-study .paper-navigation--page { margin-bottom: -77px; }

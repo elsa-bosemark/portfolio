@@ -58,13 +58,13 @@ const CaseStudyCarta = () => (
               <p className="text-xs font-medium tracking-widest uppercase text-primary mb-2">
                 Skills
               </p>
-              <PaperTags tags={["Interviewing", "UI Design", "Documenting", "Collaborating"]} label="Carta skills" />
+              <PaperTags tags={["User research", "UI/UX design"]} label="Carta skills" />
             </div>
             <div>
               <p className="text-xs font-medium tracking-widest uppercase text-primary mb-2">
                 Tools
               </p>
-              <p className="text-foreground">Figma, Google Docs</p>
+              <p className="text-foreground">Figma, Google Suite, Design System</p>
             </div>
           </motion.div>
         </div>

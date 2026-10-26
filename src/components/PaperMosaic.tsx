@@ -75,7 +75,6 @@ function ReliefTile({ tile, index }: { tile: ReactElement<HTMLAttributes<HTMLEle
     return () => { alternate.remove(); originalLayer.classList.remove("paper-relief-original"); };
   }, []);
   const toggle = () => {
-    root.current?.dispatchEvent(new Event("paper-relief-toggle", { bubbles: true }));
     setPressed(!pressed);
   };
   return <button {...tile.props} ref={root} type="button" data-shadow-strength={strength} aria-label={`Reverse paper cutout ${index + 1} shadow`} aria-pressed={pressed}

@@ -11,15 +11,32 @@ describe("Figma homepage", () => {
   beforeEach(() => { Element.prototype.scrollIntoView = scrollIntoView; scrollIntoView.mockClear(); });
   afterEach(cleanup);
 
-  it("renders all five projects without exposing the internal Amazon tool name", () => {
+  it("renders four featured projects without exposing the internal Amazon tool name", () => {
     render(<MemoryRouter><Homepage2027 /></MemoryRouter>);
     expect(screen.getByRole("heading", { level: 1, name: "Hi, I’m Elsa" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "NDA-protected work" })).toBeInTheDocument();
+    expect(screen.queryByRole("heading", { name: "Selected work" })).not.toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: "NDA-protected work" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: "Full case studies" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "AI workflows for branded content" })).toBeInTheDocument();
     expect(screen.queryByText(/A\+ Content Manager/)).not.toBeInTheDocument();
-    for (const project of ["Carta", "Focal", "SafeBites"]) {
-      expect(screen.getByRole("link", { name: `View ${project} case study` })).toHaveAttribute("href", `/case-study/${project.toLowerCase()}`);
+    expect(screen.queryByRole("link", { name: "View SafeBites case study" })).not.toBeInTheDocument();
+    for (const [project, slug] of [["Carta", "carta"], ["Focal", "focal"]]) {
+      expect(screen.getByRole("link", { name: `View ${project} case study` })).toHaveAttribute("href", `/case-study/${slug}`);
     }
+  });
+
+  it("uses the updated introduction and Experience titles in the work subtitles", () => {
+    const { container } = render(<MemoryRouter><Homepage2027 /></MemoryRouter>);
+    expect(container.querySelector(".paper-lead")).toHaveTextContent(/^Product designer focused on AI interactions/);
+    for (const subtitle of [
+      "Member of Technical Staff · Intern · Summer 2026",
+      "User Experience Designer · Intern · Summer 2025",
+      "Design Lead · UI/UX Designer · 2024–2026",
+      "Product Designer · Intern · Summer 2024",
+    ]) expect(screen.getByText(subtitle)).toBeInTheDocument();
+    expect(screen.queryByRole("heading", { name: "Side projects" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: "View National Park Service case study" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: "View Big Local News case study" })).not.toBeInTheDocument();
   });
 
   it("scrolls local navigation without following a conflicting hash route", () => {
@@ -59,15 +76,9 @@ describe("Figma homepage", () => {
     expect(screen.getByRole("button", { name: "Remove the introduction highlights" })).toHaveAttribute("aria-pressed", "true");
   });
 
-  it("offers a stable sound toggle in the header navigation", () => {
-    const { container } = render(<MemoryRouter><Homepage2027 /></MemoryRouter>);
-    const button = container.querySelector<HTMLButtonElement>(".paper-navigation .paper-sound-toggle")!;
-    expect(button).toHaveAttribute("aria-pressed", "true");
-    fireEvent.click(button);
-    expect(button).toHaveAttribute("aria-label", "Enable sound effects");
-    expect(localStorage.getItem("portfolio-sound")).toBe("off");
-    fireEvent.click(button);
-    expect(button).toHaveAttribute("aria-label", "Mute sound effects");
+  it("does not include an audio toggle", () => {
+    render(<MemoryRouter><Homepage2027 /></MemoryRouter>);
+    expect(screen.queryByRole("button", { name: /sound effects/i })).not.toBeInTheDocument();
   });
 
   it("reverses cutout relief and restores it on a second click", () => {

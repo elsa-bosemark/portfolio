@@ -7,9 +7,9 @@ import CaseStudyGradient from "../components/CaseStudyGradient";
 describe("shared case-study elements", () => {
   it("shows the other projects and a home action", () => {
     render(<MemoryRouter><CaseStudyNextProjects current="carta" /></MemoryRouter>);
-    expect(screen.getAllByRole("link")).toHaveLength(3);
+    expect(screen.getAllByRole("link")).toHaveLength(2);
     expect(screen.getByRole("link", { name: /Infrared Heaters/ })).toHaveAttribute("href", "/case-study/focal");
-    expect(screen.getByRole("link", { name: /COVID-19/ })).toHaveAttribute("href", "/case-study/safebites");
+    expect(screen.queryByRole("link", { name: /COVID-19/ })).not.toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Back home" })).toHaveAttribute("href", "/");
   });
 

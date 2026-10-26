@@ -1,7 +1,5 @@
 import { HashRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
-import { InterfaceSound } from "./components/InterfaceSound";
-import DesignSystem from "./pages/DesignSystem";
 import CaseStudySafeBites from "./pages/CaseStudySafeBites";
 import CaseStudyFocal from "./pages/CaseStudyFocal";
 import CaseStudyCarta from "./pages/CaseStudyCarta";
@@ -17,10 +15,8 @@ const Layout = () => {
   return (
     <>
       <ScrollToTop />
-      <InterfaceSound />
       <Routes>
         <Route path="/" element={<Index />} />
-        <Route path="/design-system" element={<DesignSystem />} />
         <Route path="/case-study/safebites" element={<CaseStudySafeBites />} />
         <Route path="/case-study/focal" element={<CaseStudyFocal />} />
         <Route path="/case-study/carta" element={<CaseStudyCarta />} />

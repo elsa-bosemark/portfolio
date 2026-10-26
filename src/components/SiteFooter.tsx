@@ -7,13 +7,11 @@ export default function SiteFooter() {
     <div className="paper-footer-inner">
       <div className="paper-footer-identity">
         <Link to="/" className="paper-footer-brand">Elsa Bosemark</Link>
-        <Link to="/design-system" className="paper-footer-system">Design system</Link>
       </div>
       <nav className="paper-footer-projects" aria-label="Footer case studies">
         <h2>Case studies</h2>
         <Link to="/case-study/carta">Carta</Link>
         <Link to="/case-study/focal">Focal</Link>
-        <Link to="/case-study/safebites">SafeBites</Link>
       </nav>
       <nav className="paper-footer-connect" aria-label="Footer résumé and LinkedIn">
         <h2>Let’s connect</h2>

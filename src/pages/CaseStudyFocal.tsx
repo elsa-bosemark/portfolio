@@ -58,13 +58,13 @@ const CaseStudyFocal = () => (
               <p className="text-xs font-medium tracking-widest uppercase text-primary mb-2">
                 Skills
               </p>
-              <PaperTags tags={["Experiments", "A/B Testing", "User Research", "Journey Mapping"]} label="Focal skills" />
+              <PaperTags tags={["Product strategy", "User research", "Technical development"]} label="Focal skills" />
             </div>
             <div>
               <p className="text-xs font-medium tracking-widest uppercase text-primary mb-2">
                 Tools
               </p>
-              <p className="text-foreground">Otter.ai, Figma, FigJam, Kanban</p>
+              <p className="text-foreground">Figma, React Native, Python, SQL</p>
             </div>
           </motion.div>
         </div>
