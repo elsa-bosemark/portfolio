@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { ArrowUpRight } from "lucide-react";
 import PaperTags from "./PaperTags";
 import CompanyLogo from "./CompanyLogo";
 import SiteNavigation from "./SiteNavigation";
@@ -78,10 +79,12 @@ export default function Homepage2027() {
     <section className="paper-introduction" aria-label="Introduction">
       <div className="paper-reading-column" ref={introColumn}>
         <p className="paper-lead">Product designer <span className="cursor-highlight">focused on AI interactions</span>; Experience in shaping emerging technology into tools that <span className="cursor-highlight">expand what people can do.</span></p>
-        <div className="paper-affiliations"><p>Currently @ Stanford · Previously @ OpenAI · Amazon</p></div>
         <div className="paper-contact-row">
-          <h3>Let’s connect</h3>
-          <div className="paper-actions"><PaperAction href={resumeUrl}>View résumé</PaperAction><PaperAction href={linkedinUrl} secondary>Connect on LinkedIn</PaperAction></div>
+          <div className="paper-affiliations"><p>Currently @ Stanford · Previously @ OpenAI · Amazon</p></div>
+          <div className="paper-actions">
+            <a className="paper-action paper-contact-icon" href={resumeUrl} target="_blank" rel="noopener noreferrer" aria-label="View résumé (opens in a new tab)">Résumé<ArrowUpRight size={19} aria-hidden="true" /></a>
+            <a className="paper-action paper-action--secondary paper-contact-icon" href={linkedinUrl} target="_blank" rel="noopener noreferrer" aria-label="Connect on LinkedIn (opens in a new tab)">LinkedIn<ArrowUpRight size={19} aria-hidden="true" /></a>
+          </div>
         </div>
       </div>
     </section>

@@ -2,6 +2,9 @@
 .study-progress { position: fixed; inset: 0 0 auto; height: 3px; background: #2020230a; z-index: 100; pointer-events: none; }
 .study-progress-fill { height: 100%; width: 100%; background: #696083; transform: scaleX(0); transform-origin: left; }
 .study-back-top { position: fixed; right: 24px; bottom: max(24px, env(safe-area-inset-bottom)); z-index: 30; width: 48px; height: 48px; padding: 0; }
+.study-back-top:hover svg, .study-back-top:focus-visible svg { transform: translateY(-3px); }
+@media(prefers-reduced-motion: reduce) { .study-back-top:hover svg, .study-back-top:focus-visible svg { transform: none; } }
+html[data-motion="reduce"] .study-back-top svg { transform: none; }
 @media(max-width: 600px) { .study-back-top { right: 16px; } .study-back-top span { display: none; } }
 .next-project-image { aspect-ratio: 16 / 10; padding: 18px; border-radius: 12px; overflow: hidden; margin-bottom: 20px; }
 .next-project-image--carta { background: linear-gradient(135deg, #e9a6bc, #e5a18f); }
@@ -20,6 +23,12 @@
 }
 .case-study .study-home-link { padding: 10px 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; color: #62626a; }
 .case-study .study-home-link:hover { background: transparent; box-shadow: none; color: #303e4e; transform: none; filter: none; text-decoration: underline; text-underline-offset: 5px; }
+.case-study .study-home-link { text-decoration: underline; text-underline-offset: 5px; }
+.case-study .study-home-action .paper-action { text-decoration: none; }
+.case-study .study-home-link, .case-study .study-home-action .paper-action { flex-direction: row-reverse; }
+.case-study .study-home-link:hover svg, .case-study .study-home-link:focus-visible svg, .case-study .study-home-action .paper-action:hover svg, .case-study .study-home-action .paper-action:focus-visible svg { transform: translateX(-3px); }
+@media(prefers-reduced-motion: reduce) { .case-study .study-home-link:hover svg, .case-study .study-home-action .paper-action:hover svg, .case-study .study-home-link:focus-visible svg, .case-study .study-home-action .paper-action:focus-visible svg { transform: none; } }
+html[data-motion="reduce"] .case-study .study-home-link svg, html[data-motion="reduce"] .case-study .study-home-action .paper-action svg { transform: none; }
 .study-body-content { min-width: 0; }
 .study-question-list { list-style: decimal; padding-left: 1.5em; margin-block: 0 32px; }
 .study-question-item { padding-left: 8px; margin-bottom: 16px; color: #62626a; font-size: 18px; line-height: 1.65; }

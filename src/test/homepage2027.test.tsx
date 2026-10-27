@@ -63,7 +63,7 @@ describe("Figma homepage", () => {
     const scroll = vi.fn();
     footer.scrollIntoView = scroll;
     expect(container.querySelectorAll("#connect")).toHaveLength(1);
-    fireEvent.click(screen.getByRole("link", { name: "Let’s connect" }));
+    fireEvent.click(screen.getByRole("link", { name: "Contact" }));
     expect(scroll).toHaveBeenCalledWith({ behavior: "smooth", block: "start" });
   });
 

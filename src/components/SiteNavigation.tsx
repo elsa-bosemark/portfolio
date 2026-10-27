@@ -26,7 +26,7 @@ export default function SiteNavigation() {
     <div className="paper-navigation-pill">
       <a href="#/" onClick={event => jumpTo(event, "work")}>Work</a>
       <a href="#/" onClick={event => jumpTo(event, "about")}>About</a>
-      <a href={home ? "#connect" : "#/"} onClick={event => jumpTo(event, "connect")}>Let’s connect</a>
+      <a href={home ? "#connect" : "#/"} onClick={event => jumpTo(event, "connect")}>Contact</a>
     </div>
   </nav>;
 }

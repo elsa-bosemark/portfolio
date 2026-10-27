@@ -13,7 +13,7 @@ export default function CaseStudyNextProjects({ current }: { current: Project })
         <NextProjectImage project={study.slug.split("/").pop() as Project} />
         <div><p className="type-caption mb-2">Next case study</p><h3>{study.title}</h3></div>
       </PaperCard>)}
-      <div className="study-home-action"><PaperAction to="/" secondary icon={<ArrowLeft size={17} aria-hidden="true" />}>Back home</PaperAction></div>
+      <div className="study-home-action"><PaperAction to="/" icon={<ArrowLeft size={17} aria-hidden="true" />}>Back home</PaperAction></div>
     </div>
   </section>;
 }

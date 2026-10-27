@@ -12,9 +12,9 @@ export default function SiteFooter() {
         <div className="paper-footer-case-links"><Link to="/case-study/carta">Carta</Link><Link to="/case-study/focal">Focal</Link></div>
       </nav>
       <nav className="paper-footer-connect" aria-label="Footer résumé and LinkedIn">
-        <h2>Let’s connect</h2>
+        <h2>Contact</h2>
         <div className="paper-actions">
-          <PaperAction href={resumeUrl}>View résumé</PaperAction>
+          <PaperAction href={resumeUrl}>Résumé</PaperAction>
           <PaperAction href={linkedinUrl} secondary>LinkedIn</PaperAction>
         </div>
       </nav>
