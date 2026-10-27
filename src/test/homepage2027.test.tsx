@@ -27,12 +27,12 @@ describe("Figma homepage", () => {
 
   it("uses the updated introduction and Experience titles in the work subtitles", () => {
     const { container } = render(<MemoryRouter><Homepage2027 /></MemoryRouter>);
-    expect(container.querySelector(".paper-lead")).toHaveTextContent(/^Product designer focused on AI interactions/);
+    expect(container.querySelector(".paper-lead")).toHaveTextContent(/^Design and manage products focused on AI interactions/);
     for (const subtitle of [
-      "Member of Technical Staff · Intern · Summer 2026",
-      "User Experience Designer · Intern · Summer 2025",
-      "Design Lead · UI/UX Designer · 2024–2026",
-      "Product Designer · Intern · Summer 2024",
+      "Member of Technical Staff, Intern, Summer 2026",
+      "User Experience Designer, Intern, Summer 2025",
+      "Design Lead, UI/UX Designer, 2024–2026",
+      "Product Designer, Intern, Summer 2024",
     ]) expect(screen.getByText(subtitle)).toBeInTheDocument();
     expect(screen.queryByRole("heading", { name: "Side projects" })).not.toBeInTheDocument();
     expect(screen.queryByRole("link", { name: "View National Park Service case study" })).not.toBeInTheDocument();

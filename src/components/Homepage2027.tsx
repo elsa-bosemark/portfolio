@@ -7,21 +7,21 @@ import PaperMosaic from "./PaperMosaic";
 import ProgressiveImage from "./ProgressiveImage";
 import HeroAssembly from "./HeroAssembly";
 import PaperAction, { linkedinUrl, resumeUrl } from "./PaperAction";
-import { useLayoutEffect, useRef, type MouseEvent } from "react";
+import { type MouseEvent } from "react";
 import { useDisplayPreferences } from "./DisplayPreferences";
 import "../pages/Homepage2027.css";
 
 const asset = (name: string) => `${import.meta.env.BASE_URL}portfolio-2027/${name}`;
 const projects = [
   {
-    name: "Carta", slug: "carta", role: "Design Lead · UI/UX Designer · 2024–2026",
+    name: "Carta", slug: "carta", role: "Design Lead, UI/UX Designer, 2024–2026",
     title: "A clearer path to graduation",
     summary: "Led design for Carta’s latest launch. This case study highlights my degree tracker designs, which clarify requirements and next steps toward graduation.",
     skills: ["Design leadership", "Engineering handoff"], image: "artwork-carta.webp",
     metric: "95%", outcome: "of Stanford students use the course-planning platform.",
   },
   {
-    name: "Focal", slug: "focal", role: "Product Designer · Intern · Summer 2024",
+    name: "Focal", slug: "focal", role: "Product Designer, Intern, Summer 2024",
     title: "Making outdoor heating easier to use",
     summary: "Identified high-impact UX improvements at an outdoor-heating startup ahead of scaling and go-to-market. Conducted 50+ guest interviews and 10+ experiments, translating findings into prioritized recommendations for the CEO and CTO.",
     skills: ["Field research", "Physical–digital experiences"], image: "artwork-focal.webp",
@@ -31,38 +31,6 @@ const projects = [
 
 export default function Homepage2027() {
   const { reduced } = useDisplayPreferences();
-  const introColumn = useRef<HTMLDivElement>(null);
-  useLayoutEffect(() => {
-    const column = introColumn.current;
-    const section = column?.parentElement;
-    const lead = column?.querySelector(".paper-lead");
-    if (!column || !section || !lead || typeof ResizeObserver === "undefined") return;
-    let frame = 0;
-    let active = true;
-    let previousWidth = -1;
-    const measure = () => {
-      if (!active) return;
-      column.style.width = "";
-      if (window.innerWidth < 900) return;
-      const range = document.createRange();
-      range.selectNodeContents(lead);
-      const lines = Array.from(range.getClientRects());
-      const left = lead.getBoundingClientRect().left;
-      const right = Math.max(left, ...lines.map(line => line.right));
-      if (right > left) column.style.width = `${Math.ceil(right - left) + 1}px`;
-    };
-    const schedule = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(measure); };
-    const observer = new ResizeObserver(([entry]) => {
-      if (entry.contentRect.width !== previousWidth) {
-        previousWidth = entry.contentRect.width;
-        schedule();
-      }
-    });
-    observer.observe(section);
-    measure();
-    void document.fonts?.ready.then(schedule);
-    return () => { active = false; observer.disconnect(); cancelAnimationFrame(frame); };
-  }, []);
   const jumpTo = (event: MouseEvent<HTMLAnchorElement>, id: string) => {
     event.preventDefault();
     const target = document.getElementById(id);
@@ -77,10 +45,10 @@ export default function Homepage2027() {
     <SiteNavigation />
     <HeroAssembly paper masthead={<PaperMosaic />}>
     <section className="paper-introduction" aria-label="Introduction">
-      <div className="paper-reading-column" ref={introColumn}>
-        <p className="paper-lead">Product designer <span className="cursor-highlight">focused on AI interactions</span>; Shaping emerging technology into tools that <span className="cursor-highlight">expand human potential.</span></p>
+      <div className="paper-reading-column paper-container">
+        <p className="paper-lead"><span className="paper-intro-opening">Design and manage products <span className="cursor-highlight">focused on AI interactions</span>;</span> Shaping emerging tech into tools that <span className="cursor-highlight">expand human capabilities.</span></p>
         <div className="paper-contact-row">
-          <div className="paper-affiliations"><p>Currently @ Stanford · Previously @ OpenAI · Amazon</p></div>
+          <div className="paper-affiliations"><p>Currently @ Stanford MS (Expected June 2027), Previously @ OpenAI and Amazon</p></div>
           <div className="paper-actions">
             <a className="paper-action paper-contact-icon" href={resumeUrl} target="_blank" rel="noopener noreferrer" aria-label="View résumé (opens in a new tab)" title="Résumé"><FileText size={20} aria-hidden="true" /></a>
             <a className="paper-action paper-action--secondary paper-contact-icon" href={linkedinUrl} target="_blank" rel="noopener noreferrer" aria-label="Connect on LinkedIn (opens in a new tab)" title="LinkedIn"><Linkedin size={20} aria-hidden="true" /></a>
@@ -99,7 +67,7 @@ export default function Homepage2027() {
             <div className="paper-protected-copy">
               <CompanyLogo name="OpenAI" />
               <h3>Prototyping human–AI experiences</h3>
-              <p className="paper-role">Member of Technical Staff · Intern · Summer 2026</p>
+              <p className="paper-role">Member of Technical Staff, Intern, Summer 2026</p>
               <p className="paper-project-summary">Built an internal tool for designers and engineers to test new technology concepts for human–AI interaction. Applied concepts to consumer device hardware and the Codex app.</p>
               <PaperTags tags={["Human–AI interaction", "Technical prototyping", "Consumer devices"]} label="OpenAI skills" />
             </div>
@@ -109,7 +77,7 @@ export default function Homepage2027() {
             <div className="paper-protected-copy">
               <CompanyLogo name="Amazon" />
               <h3>AI workflows for branded content</h3>
-              <p className="paper-role">User Experience Designer · Intern · Summer 2025</p>
+              <p className="paper-role">User Experience Designer, Intern, Summer 2025</p>
               <p className="paper-project-summary">Crafted AI-powered content creation workflows for sellers, drawing on interviews and journey mapping. Refined the experience through usability studies.</p>
               <PaperTags tags={["Generative AI", "Seller workflows", "Usability testing"]} label="Amazon skills" />
             </div>
@@ -138,24 +106,32 @@ export default function Homepage2027() {
     </section>
 
     <section id="about" className="paper-about paper-container" aria-labelledby="paper-about-title">
-      <div className="paper-making"><h3 className="paper-about-label">A little about me</h3><h2 id="paper-about-title">Ideas become clearer when you make them</h2>
+      <div className="paper-making"><h2 id="paper-about-title">I believe ideas become clearer when you make them</h2>
       </div>
       <div className="paper-about-story">
+      <div className="paper-about-copy">
+        <h3>About me</h3>
+        <p className="paper-lead">My approach is shaped by my experience at OpenAI and Amazon and my studies in design and CS/HCI at Stanford.</p>
+        <p>With a background in product realization, I’m quick to roll up my sleeves and learn whatever tools an idea needs. I build across hardware and software to make experiences tangible, test assumptions, and move forward with conviction.</p>
+        <p>At Stanford, I work on collaborative and predictive AI in the HCI CS lab.</p>
+      </div>
       <figure className="paper-welding-photo">
         <div className="paper-photo"><ProgressiveImage src={asset("welding.webp")} alt="Elsa welding for the first time at six years old" loading="lazy" /></div>
         <figcaption>Welding for the first time at six years old</figcaption>
       </figure>
-      <div className="paper-about-copy">
-        <p className="paper-lead">My approach is shaped by my experience at OpenAI and Amazon and my studies in design and CS/HCI at Stanford.</p>
-        <p>With a background in product realization, I’m quick to roll up my sleeves and learn whatever tools an idea needs. I build across hardware and software to make experiences tangible, test assumptions, and move forward with conviction.</p>
-        <p>At Stanford, I work on collaborative and predictive AI in the HCI CS lab.</p>
-        <p className="paper-education">Stanford<br />M.S. Computer Science, HCI · 2027<br />B.S. Product Design</p>
+      <div className="paper-credentials">
         <section className="paper-experience" aria-labelledby="paper-experience-title"><h3 id="paper-experience-title">Experience</h3>
-          <Experience organization="OpenAI" role="Member of Technical Staff · Intern" date="Summer 2026" />
-          <Experience organization="Amazon" role="User Experience Designer · Intern" date="Summer 2025" />
-          <Experience organization="Carta" role="Design Lead · UI/UX Designer" date="2024–2026" />
-          <Experience organization="Focal" role="Product Designer · Intern" date="Summer 2024" />
+          <Experience organization="OpenAI" role="Member of Technical Staff, Intern" date="Summer 2026" />
+          <Experience organization="Amazon" role="User Experience Designer, Intern" date="Summer 2025" />
+          <Experience organization="Carta" role="Design Lead, UI/UX Designer" date="2024–2026" />
+          <Experience organization="Focal" role="Product Designer, Intern" date="Summer 2024" />
         </section>
+        <div className="paper-education">
+          <h3>Education</h3>
+          <div className="paper-education-heading"><p className="paper-education-title">Stanford University (School of Engineering)</p><p>Expected graduation: June 2027</p></div>
+          <p><span className="paper-education-title">M.S. in Computer Science (Human–Computer Interaction)</span><br />GPA: 3.9</p>
+          <p><span className="paper-education-title">B.S. in Product Design (AI and Digital Experiences)</span><br />GPA: 4.0</p>
+        </div>
       </div>
       </div>
     </section>

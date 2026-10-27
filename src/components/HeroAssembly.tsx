@@ -55,7 +55,10 @@ export default function HeroAssembly({ children, paper = false, masthead }: { ch
       const greeting = root.current!.querySelector("h1");
       cursorScale = greeting ? Math.min(1, Math.max(.4, parseFloat(getComputedStyle(greeting).fontSize) / 106)) : 1;
       home={x:target.left-box.left+target.width/2,y:target.top-box.top+target.height/2};
-      positions=marks.map(mark=>{const rect=mark.getBoundingClientRect();return {mark,left:rect.left-box.left,right:rect.right-box.left,bottom:rect.bottom-box.top-3};});
+      positions=marks.map(mark=>{
+        const rect=mark.getBoundingClientRect();
+        return {mark,left:rect.left-box.left,right:rect.right-box.left,bottom:rect.top-box.top+rect.height*(paper ? .8752 : 1)-3};
+      }).filter(position=>position.right>position.left);
       wake.current();
     };
     const tick=(now:number)=>{
@@ -64,7 +67,7 @@ export default function HeroAssembly({ children, paper = false, masthead }: { ch
       const idleY = reduced ? 0 : Math.cos(now*.001)*1.5*cursorScale;
       const idleRotation = reduced ? 0 : Math.sin(now*.00065)*6;
       let x=home.x + idleX, y=home.y + idleY, rotation=idleRotation;
-      if(action.current && !reduced && marks.length){
+      if(action.current && !reduced && positions.length){
         const t=(now-action.current.start)/1000;
         const ordered=action.current.erase?[...positions].reverse():positions;
         const strokes=ordered.map(({mark,left,right,bottom})=>{
@@ -86,8 +89,17 @@ export default function HeroAssembly({ children, paper = false, masthead }: { ch
           return interpolate(strokes[strokes.length-1].b,home,smooth((seconds-returnStart)/1.4),48);
         };
         const pos=location(t);
-        strokes.forEach(({mark},i)=>{
+        const markProgress=new Map<HTMLElement,{total:number;filled:number}>();
+        strokes.forEach(({mark,a,b},i)=>{
           const progress=smooth((t-1.25-i*(sweep+transit))/sweep);
+          const width=Math.abs(b.x-a.x);
+          const aggregate=markProgress.get(mark)??{total:0,filled:0};
+          aggregate.total+=width;
+          aggregate.filled+=width*progress;
+          markProgress.set(mark,aggregate);
+        });
+        markProgress.forEach(({total,filled},mark)=>{
+          const progress=total?filled/total:0;
           mark.style.setProperty("--cursor-mark",String(action.current!.erase?1-progress:progress));
         });
         // Keep the cursor upright, with its tip on the highlight while sweeping.
@@ -114,6 +126,9 @@ export default function HeroAssembly({ children, paper = false, masthead }: { ch
     wake.current=()=>{if(!disposed && visible && !document.hidden && !frame)frame=requestAnimationFrame(tick);};
     const observer=typeof ResizeObserver!=="undefined"?new ResizeObserver(measure):undefined;
     observer?.observe(root.current!);
+    // The intro can resize independently as its text-sized column settles.
+    // Track the actual marks so longer copy never leaves cached sweep endpoints.
+    marks.forEach(mark => observer?.observe(mark));
     const intersection=typeof IntersectionObserver!=="undefined"?new IntersectionObserver(([entry])=>{
       visible=entry.isIntersecting;
       if(visible)wake.current();else{cancelAnimationFrame(frame);frame=0;}
@@ -125,7 +140,7 @@ export default function HeroAssembly({ children, paper = false, masthead }: { ch
     void document.fonts?.ready.then(measure);
     measure();
     return ()=>{disposed=true;cancelAnimationFrame(frame);observer?.disconnect();intersection?.disconnect();document.removeEventListener("visibilitychange",visibility);window.removeEventListener("resize",measure);wake.current=()=>{};};
-  },[reduced]);
+  },[reduced, paper]);
   const activate=()=>{
     if (pressedAt.current === null) pressedAt.current = performance.now();
     if(action.current)return;
